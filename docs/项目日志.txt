@@ -1,0 +1,1331 @@
+AI 论文评测系统 · 项目日志
+最后更新：2026-04-05
+项目路径：D:\Skill Rubri\agenteval_test01\
+------------------------------------------------------------
+
+============================================================
+  一、项目现状（已完成）
+============================================================
+  • LangGraph 7节点评测流水线（structure_parser → question_extractor → method_node → dataset_node → results_extractor → critic → scorer）
+  • Skill Rubric 逐项评分（skill1~6，gpt-4o 作为 judge，gpt-4o-mini 执行）
+  • 低分重试闭环：Skill < 0.6 → 生成反馈 → 重做节点 → 重新评分（最多2次）
+  • 综合评语自动生成（3~5句，写入 Excel）
+  • 双语 Excel 导出（eval_results_en.xlsx 两张表 / eval_results_cn.xlsx 一张表）
+  • 批量评测 evaluate_folder()，自动跳过已评测论文
+  • 论文质量分排序（Skill6 overall_score），不是 Rubric 分
+  • LangGraph state 修复（每个节点返回 {**state, 'new_key': value}）
+  • arXiv API 爬取脚本（fetch_papers.py），热门+经典双渠道，指数退避限速处理
+  • topics_config.json 配置驱动，20个预设领域，enabled true/false 控制
+  • PDF 命名规范：{year}_{first_author}_{title_short}.pdf
+  • arXiv 搜索加分类过滤（cs.IR / cs.LG / cs.AI / cs.CV / cs.CL），修复无关论文问题
+  • skill6 Rubric 修复：去掉硬性差值要求，改为'评分有逻辑支撑、与分析内容一致'
+
+============================================================
+  二、首次完整运行结果（2026-04-01）
+============================================================
+领域：contrastive learning recommendation
+下载论文：19篇新PDF（1篇因网络中断失败）
+评测论文：22篇（含历史3篇）
+运行状态：全部完成，无崩溃
+
+── 论文质量分分布（overall_score） ──
+  论文                                                   质量分
+  --------------------------------------------------------------
+  2022_Xie_Contrastive_Learning_for_Sequential_Reco    0.72
+  2025_Hu_Contrastive_Learning_for_Cold_Start_Reco     0.65
+  2025_Qu_Intent-aware_Diffusion_with_Contrastive_     0.75
+  2026_Savani_Stepwise_Credit_Assignment_for_GRPO      0.75
+  2026_Jin_SonoWorld_From_One_Image_to_3D_Audio        0.72
+  2026_Feng_DreamLite_Lightweight_On-Device            0.68
+  2026_Schroeder_SOLE-R1_Video-Language_Reasoning      0.75
+  2026_Tu_Dynamic_Dual-Granularity_Skill_Bank          0.75
+  其他14篇                                                0.58 ~ 0.72
+
+── Skill Rubric 总分分布（Agent行为质量） ──
+平均 Rubric 总分：约 0.85 / 1.00
+最高：0.92（DreamLite、SonoWorld）
+最低：0.75（Contrastive Learning for Sequential Rec）
+重试有效案例：skill4 从 0.25 重试后达到 1.00；skill5 网络中断0.00重试后恢复 0.75
+
+============================================================
+  三、系统性问题及修复
+============================================================
+
+── 问题1：arXiv 搜索结果不相关（已修复） ──
+现象：搜索 'contrastive learning recommendation' 匹配到大量无关论文
+  - 热力学论文（Thermomechanics Learning）
+  - 物理学论文（Microscopic Mechanism）
+  - 心脏建模论文（four-chamber shape model）
+原因：arXiv all: 字段匹配过于宽泛，只要正文出现关键词就命中
+修复：在搜索语句加 cs 分类过滤
+  (cat:cs.IR OR cat:cs.LG OR cat:cs.AI OR cat:cs.CV OR cat:cs.CL)
+状态：已修复（fetch_papers.py）
+
+── 问题2：skill6 综合打分永远卡在 0.50（已修复） ──
+现象：几乎所有论文 skill6 固定为 0.50，重试2次也无法改变
+原因：Rubric 要求维度分差 > 0.15，学术论文天然集中在 0.65~0.85，差值只有 0.10~0.15
+修复：去掉硬性差值要求，改为"评分是否有逻辑支撑、与分析内容一致"
+状态：已修复（paper_rubric_eval.py SKILL_RUBRICS["skill6"]）
+
+============================================================
+  四、面试题回答（以项目为证据）
+============================================================
+
+  Q：上下文工程是怎么设计的？
+    在项目里，每个 Agent 节点只接收它需要的信息。method_node 只读 methodology 章节的
+    字符范围，不把全文塞进去。具体实现是每个节点返回 {**state, 'new_key': value}，
+    精确控制下游节点的上下文范围，节省 token，减少噪声干扰。
+
+  Q：记忆机制是怎么做的？
+    两层记忆设计。短期记忆：LangGraph state 在节点间传递，执行完自动清理；
+    长期记忆：eval_results.json 持久化存储每次评测结果（论文名/评分/原因/时间戳）。
+    下次批量运行时读取历史跳过已评测论文，不重复消耗 API 费用。
+
+  Q：Agent 的任务规划是怎么做的？（ReAct、Plan-and-Execute）
+    两种都有体现。7节点流水线是 Plan-and-Execute：先规划好执行顺序再依次执行，
+    每步结果传递给下一步。低分重试闭环是 ReAct：judge 打分（观察）→
+    生成改进指令（思考）→ 执行模型重做节点（行动）→ 再打分（观察），循环最多两次。
+
+  Q：Modular Agent 多步规划具体怎么做？
+    执行与评测完全分离：llm_executor（gpt-4o-mini）负责读论文提取信息，
+    llm_judge（gpt-4o）负责评估输出质量。好处一：避免自评偏差；
+    好处二：成本控制，执行用便宜模型，评测用准确模型。
+    每个节点独立，某个技能失败只重做那个节点，不影响其他节点结果。
+
+  Q：如何设计一套评估方案判断 AI 系统好不好？
+    Skill Rubric 方案：6个维度独立评分（0~1），五档标准（1.0/0.75/0.5/0.25/0.0），
+    不是模糊打分。用更强的模型（gpt-4o）作 judge，防止自评偏差。
+    结果写入 Excel 可横向对比多篇论文。
+    实测：22篇论文，skill4 通过重试从0.25提升到1.00，验证闭环有效。
+
+  Q：如何提升相关度/优化回答效果？
+    低分触发反馈重试。judge 不只给分，还给出具体改进指令，
+    如'没有列出 baseline 名字，重提取时必须明确写出对比方法名称'。
+    执行模型针对性重做，不是盲目重跑全部。
+    今天实测：skill5 因连接错误得0.00，重试后恢复0.75，容错机制有效。
+
+  Q：高频请求延迟高怎么优化？
+    arXiv API 触发429限速后，实现指数退避重试：5s → 10s → 20s → 40s。
+    原理与滑动窗口限流一致，检测到限速就主动降低请求频率，不是一直重试雪崩。
+    查询之间固定等待3秒，下载之间等待1秒，从源头控制速率。
+
+  Q：是否使用过 LangChain 等 Agent 框架？
+    使用 LangGraph（LangChain 生态）构建 StateGraph，7节点有向图，
+    支持 MemorySaver checkpointer 断点续跑。
+    相比 LangChain 的 AgentExecutor，LangGraph 更适合多步骤有状态的 Agent 流程，
+    节点间数据流更清晰，便于调试和局部重试。
+
+============================================================
+  五、后续计划（分步骤）
+============================================================
+  步骤         状态     内容                                     备注
+  ------------------------------------------------------------------------
+  Step 1     完成     跑通完整流程 fetch + evaluate                已完成 2026-04-01
+  Step 2     完成     修复 arXiv 搜索：加 cs 分类过滤                  已完成 2026-04-01
+  Step 3     完成     修复 skill6 Rubric：去掉硬性差值要求              已完成 2026-04-01
+  Step 4     待做     论文摘要 embedding 索引 + 语义检索               RAG检索、父子索引
+  Step 5     待做     BM25 + 向量检索混合融合                        混合检索比例
+  Step 6     待做     rerank 重排序模块                           rerank 后返回几个块
+  Step 7     待做     布隆过滤器替换 set 做论文去重                      布隆过滤器实践
+  Step 8     待做     显式实现令牌桶限流器                             令牌桶/漏桶/滑动窗口
+  Step 9     待做     FastAPI 后端，暴露评测数据接口                    后端设计
+  Step 10    待做     SQLite 替换 JSON，加数据库索引                  数据库/B+树
+  Step 11    待做     前端页面 + 用户行为采集                          前端交互
+  Step 12    待做     推荐引擎（内容相似度 + 行为数据）                     推荐系统
+
+============================================================
+  六、严格老师评语
+============================================================
+【肯定】首次完整运行成功，22篇论文全部跑通，重试机制有效，Excel双语导出正常。
+这是从"能跑"到"真的跑起来了"的关键一步，值得肯定。
+两个系统性问题在发现当天同步修复，执行力强。
+
+【批评】arXiv 搜索出来的论文里有热力学、心脏建模、物理学，
+说明还没有建立"数据质量"意识。跑了22篇，有效的可能只有3~4篇，
+其余全是噪声，白白浪费了 API 费用。
+skill6 卡在0.50本来应该在设计阶段就发现，测试覆盖不足。
+
+【要求】Step 4（RAG检索）开始之前，先用修复后的搜索再跑一次，
+确认无关论文比例大幅下降，再往下推进。质量比数量重要。
+
+============================================================
+  七、Step 4 RAG 索引设计讨论（2026-04-01）
+============================================================
+
+── 索引对象 ──
+不重新切分 PDF，直接使用 eval_results.json 中已提取的结构化字段：
+  research_question + methodology + datasets + results
+拼成每篇论文的"语义摘要"，对其生成 embedding 向量并存储。
+
+── 向量库 ──
+选用 FAISS（Facebook AI Similarity Search）：
+  • 本地文件，不需要启动服务
+  • 存成 paper_index.faiss + paper_meta.json 两个文件
+  • 后续 FastAPI 直接读取，无需改架构
+
+── Embedding 方案：双轨并行（待决策） ──
+
+方案A：OpenAI API（text-embedding-3-small）
+  优点：效果好、调用简单、与现有 API key 复用
+  缺点：联网依赖、每次调用有费用（很便宜，$0.02/1M tokens）
+  适合：正式生产环境，论文数量大时
+
+方案B：本地模型（sentence-transformers）
+  候选模型：
+    - all-MiniLM-L6-v2（英文，轻量，384维，~90MB）
+    - paraphrase-multilingual-MiniLM-L12-v2（中英双语，384维，~120MB）
+    - bge-large-zh-v1.5（中文强，1024维，~1.3GB，BAAI出品）
+  优点：完全离线、无费用、可自己微调
+  缺点：需要安装依赖（sentence-transformers + torch），首次下载模型较大
+  适合：离线环境、面试展示"我了解本地模型"的技术深度
+
+── 待讨论 ──
+  1. 本地模型是否能在当前环境跑起来（CUDA / CPU only）
+  2. 双方案是否共用同一个 FAISS 索引，还是分别存两个索引做对比
+  3. 检索接口是否需要暴露"切换 embedding 来源"的参数
+
+============================================================
+  八、学习笔记：向量检索原理 × 面试应对 × 工业实景
+============================================================
+
+【核心问题】为什么 FAISS 索引要配一个 meta 文件？
+─────────────────────────────────────────────
+  FAISS 只存向量数字，不存任何文字信息。
+
+  paper_index_local.faiss
+    内容：[0.12, -0.34, 0.56, ...] × N 篇论文
+    能回答："第 3 个向量和查询最像"
+    不能回答："第 3 个是哪篇论文"
+
+  paper_meta.json
+    内容：第0篇 = xxx论文，质量分 = 0.75，评语 = "..."
+    作用：把向量编号翻译回有意义的论文信息
+
+  两个文件是"索引"和"字典"的关系，缺一个都没法用。
+
+  记忆口诀：FAISS 认数字，meta 认名字，合体才能说人话。
+
+
+【面试怎么问，怎么答】
+─────────────────────────────────────────────
+  面试不考手写 FAISS，考的是你对原理的理解。
+
+  常见问法：
+    Q: 向量检索用的什么库？
+    Q: 索引和元数据为什么分开存？
+    Q: 向量维度怎么选？
+    Q: 千万级向量怎么保证低延迟？
+
+  你现在的项目能回答前两个。后两个是进阶问题，知道方向就行。
+
+  万能回答模板（背下来）：
+  ┌─────────────────────────────────────────────────────┐
+  │ "我用 FAISS IndexFlatIP 做了精确余弦检索，          │
+  │  知道它在向量量级大了之后要换 HNSW，                │
+  │  这是我下一步要优化的方向。"                        │
+  └─────────────────────────────────────────────────────┘
+  这句话的价值：说明你知道自己在做什么，也知道局限在哪。
+  面试官最怕候选人"只会用，不知道为什么"。
+
+
+【工业实景对照表】
+─────────────────────────────────────────────
+
+  规模          向量库                    元数据        检索方式
+  ──────────────────────────────────────────────────────────
+  学习项目      FAISS 本地文件            JSON 文件     IndexFlatIP（精确）
+  小公司        FAISS / Milvus 单机       MySQL         IndexFlatIP / IVF
+  中大厂        Milvus 集群 / Pinecone    Elasticsearch HNSW（近似，快100倍）
+  超大厂        自研向量引擎              分布式存储    ANN + 过滤条件混合
+
+  核心演进规律：
+    数据量小 → 精确搜索（IndexFlatIP），准确率100%，速度够用
+    数据量大 → 近似搜索（HNSW/IVF），牺牲1%~5%准确率，换取100倍速度
+
+
+【关键概念速查】
+─────────────────────────────────────────────
+  IndexFlatIP   暴力内积搜索，精确，数据量大时慢
+  HNSW          Hierarchical Navigable Small World，近似搜索，工业主流
+  IVF           Inverted File Index，先聚类再搜索，中等规模常用
+  余弦相似度    向量归一化后的内积，衡量语义相似程度（值越接近1越像）
+  归一化        向量除以自身模长，使所有向量长度为1，内积等价余弦
+
+  本项目用法：embedding 生成时做归一化 → FAISS 用 IndexFlatIP（内积）
+              = 实际上在做余弦相似度检索
+
+
+【学习路径建议】
+─────────────────────────────────────────────
+  现在掌握：IndexFlatIP 精确检索 + 索引/meta 分离设计
+  下一步看：HNSW 原理（图结构近似搜索）
+  再下一步：BM25 + 向量混合检索（Step 5）
+  面试前补：Milvus 基本架构（能画图说清楚就够）
+
+  不要跳着学，把现在跑通的东西说清楚比背10个新概念有用。
+
+============================================================
+  九、44篇评测完成分析（2026-04-01）
+============================================================
+
+【整体表现】
+  44篇全部跑完，无崩溃，重试机制正常运转。
+  skill6 不再全卡 0.50，大部分在 0.75，修复有效。
+
+【新发现问题：skill2 对综述/系统设计类论文判断有缺陷】
+  问题论文：
+    - 2026_Wijaya（ScoRBA综述）：skill2 重试2次仍 0.25
+    - 2026_Xiang（AI Agent安全架构）：skill2 重试2次仍 0.25
+  原因：
+    skill2 Rubric 要求"必须有具体算法名和损失函数"
+    综述类/系统设计类论文本来就没有单一算法，套这个标准会误判
+  建议修复：
+    区分论文类型（实验类 vs 综述/系统设计类），对应不同 Rubric 标准
+
+【论文质量分分布】
+  0.75+  高质量：D2Skill、DreamLite、NeuralUCB、Zhang系列
+  0.65~0.72  中等：大部分论文
+  0.62   偏低：Xiang AI安全架构（综述性质，skill2误判拖低）
+
+【无关论文问题（分类过滤未完全解决）】
+  仍存在：热力学、心脏建模、流体力学、语音合成类论文
+  原因：这些论文作者自己把论文归入了 cs.LG 分类
+  后续方案：RAG 做完后，用语义检索做二次过滤，效果更准确
+
+【后续行动项】
+  1. 建索引 build_index.py --mode api（修复API key后）
+  2. 验证检索 search_papers.py
+  3. skill2 Rubric 修复（区分论文类型）
+  4. RAG 语义二次过滤无关论文
+
+============================================================
+日志生成时间：2026-04-01（手动追加）
+============================================================
+
+============================================================
+  十、FastAPI + 前端设计决策（2026-04-02）
+============================================================
+
+── 已完成 ──
+  • FastAPI 后端（scripts/api_server.py），3个接口：
+      GET /search?q=xxx&mode=hybrid&top_k=5   → 混合检索
+      GET /paper/{paper_name}                  → 单篇详情
+      GET /stats                               → 系统统计
+  • 启动：PyCharm 右键 Run 'api_server'
+  • 文档：http://localhost:8000/docs（Swagger 自动生成）
+  • 前端：frontend/index.html，单文件，双击浏览器打开
+      Tailwind CSS CDN，搜索框+结果卡片+展开详情+skill评分条
+
+── 中文化方案讨论 ──
+
+  问题：eval_results.json 里的提取内容（research_question/methodology/
+        datasets/results/critique）全是英文，前端显示不友好。
+
+  讨论过的方案：
+    1. 改 prompt 让 executor 直接输出中文
+       → 不影响 judge（gpt-4o 多语言），但需重跑全部论文
+    2. 加翻译接口，实时翻译
+       → 每次请求多一次 GPT 调用，慢且持续花钱
+    3. 最终方案：在流水线末尾加 translator 节点，英文→中文一次性翻译后存入 json
+       → 现有7个节点完全不动，judge 读英文打分不受影响，json 存中文供前端显示
+
+  BM25 中文检索问题：
+    BM25 按空格分词，对中文失效，需要引入 jieba 分词库（后续处理）
+    向量检索用英文建索引，但用户输入中文查询时需要先翻译成英文再检索
+
+── 多用户规模规划（核心决策）──
+
+  目标：支持 1000 个中文用户同时使用
+
+  规模对应方案：
+    100人：实时翻译查询（中文→英文），每次调用GPT，慢但够用
+    1000人：加查询缓存（Redis），相同查询只翻译一次，延迟从2s降到50ms
+    几十万人：建双语索引（中文索引+英文索引），按用户语言路由
+
+  1000人落地方案（已定）：
+    Step 1：流水线加 translator 节点，json 存中英双版本
+    Step 2：索引继续用英文建（text-embedding-3-small 英文语义空间更准）
+    Step 3：用户输入中文查询 → 先翻译成英文 → 检索 → 返回中文内容
+    Step 4：加 Redis 缓存常见查询，避免重复翻译
+    核心原则：检索质量（英文索引）和用户体验（中文显示）分开处理
+
+  下一步行动：
+    1. 在 LangGraph 流水线末尾加 translator 节点（第8个节点）
+    2. 对44篇已有数据补跑翻译（只翻译，不重新评测，省钱）
+    3. 重建 FAISS 索引（索引内容不变，还是英文）
+    4. api_server.py 的 /search 接口加查询翻译逻辑
+    5. 后续加 Redis 缓存
+
+── translator 节点影响分析（2026-04-02 讨论）──
+
+  translator 节点做什么：
+    把 research_question / methodology / datasets / results / critique
+    这5个英文字段翻译成中文，覆盖回同名字段，写入 json 和 Excel
+
+  潜在后果：
+
+  【后果1：BM25 检索失效】
+    BM25 用中文内容建语料，但英文分词（按空格切）对中文无效
+    影响：中文关键词查询时 BM25 召回率下降
+    解决：引入 jieba 中文分词（后续处理，不影响向量检索）
+
+  【后果2：FAISS 索引需要重建】
+    现在索引是用英文内容建的，翻译后内容变了，索引和 json 不一致
+    影响：如果不重建索引，检索结果和显示内容会对不上
+    解决：翻译完之后重跑 build_index.py，但索引仍用英文原文建
+          （json 存中文显示，索引用英文检索，两套独立）
+    注意：需要在 eval_results.json 里同时保留英文原文字段备用
+
+  【后果3：已有44篇数据需要补跑】
+    现有44篇 json 里没有中文内容，需要对这44篇单独跑翻译
+    费用估算：44篇 × 5字段 × 平均500字 ≈ 约 $1~2
+    时间估算：约15~30分钟
+    优点：不需要重新评测，只翻译，不消耗 judge 调用
+
+  【后果4：测试用例可能需要更新】
+    test_search_bm25_keyword.py 里的查询是英文的
+    翻译后语料变中文，BM25 测试用例需要对应改成中文查询
+    向量检索测试不受影响（索引还是英文）
+
+  【无影响部分】
+    Skill Rubric 打分：judge 读的是英文原文，不读翻译后内容，完全不受影响
+    skill_scores / skill_reasons：这些字段是分数和英文原因，不翻译
+    论文质量分（paper_quality_score）：不受影响
+    FAISS 向量索引：继续用英文建，不受影响
+
+── 中文查询怎么变成英文检索（2026-04-02 讨论）──
+
+  完整链路：
+
+    用户前端输入：对比学习 冷启动
+          ↓
+    前端发送中文查询给 FastAPI（api_server.py）
+          ↓
+    api_server.py 收到后，调一次 GPT 翻译：
+      "把以下查询翻译成英文：对比学习 冷启动"
+      → "contrastive learning cold start"
+          ↓
+    用英文查询去查 FAISS 索引（英文 embedding 空间）
+          ↓
+    找到相关论文，读取中文字段（research_question_cn 等）
+          ↓
+    把中文内容返回给前端显示
+
+  用户感知：输入中文 → 看到中文结果
+  实际发生：中文查询 → 英文检索 → 中文展示
+
+  为什么不直接用中文查英文索引：
+    FAISS 索引是用英文内容建的，英文 embedding 语义空间更准确。
+    直接用中文查询去查英文索引，两种语言的向量方向不对齐，
+    语义对不上，召回效果会明显变差。
+    翻译这一步就是为了让查询和索引在同一个语义空间里。
+
+  维护两套内容的含义：
+    json 里同一篇论文存两个版本：
+      "research_question":    "The paper addresses..."   ← 英文，建索引用
+      "research_question_cn": "本文研究了..."            ← 中文，前端显示用
+    检索走英文，显示走中文，各司其职，互不干扰。
+
+  Redis 缓存的作用（1000人规模）：
+    每次查询都调 GPT 翻译会慢（约1~2秒）且花钱。
+    加缓存后：
+      第一次查"对比学习冷启动" → 翻译 → 存入 Redis
+      之后再查同样的词 → 直接从 Redis 取，50ms 返回
+    相同查询只翻译一次，大幅降低延迟和费用。
+
+── 中文化实施过程 Q&A（2026-04-02）──
+
+  Q：translator 节点是干什么的？和 Excel 有关吗？是 Agent 的一部分吗？
+  A：translator 是 LangGraph 流水线的第8个节点，评测完自动把英文内容翻译成中文
+     存入 eval_results.json（_cn 字段）。Excel 导出时读这些字段，所以 Excel 也变中文。
+     是 Agent 流水线的一部分，和其他7个节点地位相同。
+
+  Q：翻译成中文之后会和 Rubric 打分冲突吗？
+  A：不会。scorer（打分）在 translator（翻译）前面，judge 读的永远是英文原文。
+     顺序保证了两件事互不干扰。
+
+  Q：维护两套是什么意思？
+  A：json 里同一篇论文存两个版本：
+     "research_question"    英文，建 FAISS 索引用（检索质量更好）
+     "research_question_cn" 中文，前端显示用
+     两套各司其职，检索走英文，显示走中文。
+
+  Q：用户前端输入中文，怎么变成英文去检索的？
+  A：api_server.py 收到中文查询后，先调 GPT 翻译成英文，再去查 FAISS 索引，
+     找到结果后读中文字段返回给前端。用户感知不到中间发生了翻译。
+
+  Q：translate_existing.py 是改索引吗？
+  A：不是。是翻译 eval_results.json，把44篇已有数据补上 _cn 中文字段。
+     三个文件区别：
+       translate_excel.py     → 翻译 Excel（给自己看）
+       translate_existing.py  → 翻译 json（给前端用）
+       build_index.py         → 改索引（检索用，现在不动）
+
+  Q：为什么前端要读 json，不能读 Excel？
+  A：用户搜索流程是：查 FAISS 索引 → 读 json → 返回前端显示。
+     Excel 是给人看的表格，json 是给程序读的数据，两个来源不同。
+     要让前端显示中文，必须把 json 也翻译。
+
+  Q：FastAPI 是从 Excel 里读数据吗？
+  A：不是。FastAPI 从 eval_results.json 读数据，Excel 只是给自己用 Office 打开看的。
+     两个完全独立，FastAPI 根本不认识 Excel 文件。
+     所以翻译 Excel 对前端没有任何影响，要让前端显示中文必须翻译 json。
+
+  Q：json 里有这么多数据吗？
+  A：有，而且比 Excel 更全。json 是数据的源头，Excel 是 json 的"视图"。
+     每条记录包含：paper / paper_quality_score / skill_rubric_total /
+     research_question / methodology / datasets / results / critique /
+     skill_scores（6个维度分数）/ skill_reasons / comment
+     44篇论文全部存在 data/eval_results.json，FastAPI 读这个返回给前端。
+
+  Q：索引是怎么用的？
+  A：用户搜索时，查询词转成向量，和 FAISS 索引里44篇的向量逐一比较，
+     找出最相似的几篇，再去 json 里读这几篇的详细内容返回给前端。
+     FAISS 只负责"找到哪几篇"，json 负责"内容是什么"，缺一不可。
+
+  Q：是不是有很多索引？BM25 和 embedding 都是索引吗？
+  A：对，确实有两个索引：
+
+     FAISS 索引（向量索引）
+       文件：data/paper_index_api.faiss
+       存的：每篇论文内容转成的1536维向量
+       用途：语义检索，能理解近义词和语义相近的表达
+       特点：提前建好存成文件，不会自动更新
+
+     BM25（关键词索引）
+       文件：没有单独文件，每次搜索时实时从 json 构建
+       存的：每篇论文的词频统计
+       用途：专有名词精确匹配（如 NeuralUCB、CL4SRec）
+       特点：每次搜索实时计算，json 改成中文后自动就是中文索引
+
+     两个索引配合使用（混合检索）：
+       0.7 × FAISS分数 + 0.3 × BM25分数 = 最终排名
+
+     结论：json 翻译成中文后，BM25 自动变中文，不需要额外操作。
+           只有 FAISS 是提前建好的文件，现在暂时不动（继续用英文）。
+
+  当前进度：
+    translate_excel.py 正在跑（翻译44篇 Excel，给自己看用）
+    下一步：跑 translate_existing.py（翻译 json，给前端用）
+    再下一步：改 api_server.py 返回中文字段，前端自动显示中文
+
+============================================================
+日志更新时间：2026-04-02
+============================================================
+============================================================
+  待做事项记录（2026-04-02 续）
+============================================================
+
+  【待做】PDF 图片提取功能
+    想法：用 PyMuPDF（fitz）从 PDF 提取图片，每篇取前3张（或架构图）
+    用途：详情页展示，丰富视觉内容（目前详情页纯文字略单调）
+    状态：PDF 文件仍在磁盘，可随时做
+    后续决策：
+      - 取哪张图？（第一张 / 最大张 / LLM 判断最有代表性的）
+      - 图片存哪？（本地 static 目录 / base64 存进 json）
+      - FastAPI 加 /static 静态文件服务
+    优先级：中，先做其他功能再回来
+
+============================================================
+  已完成（2026-04-02 本次会话）
+============================================================
+
+  • 小红书风格前端重构（frontend/index.html）
+      - 瀑布流卡片网格，按领域自动配色（渐变色块+emoji）
+      - 顶部领域筛选标签栏
+      - 右侧滑出详情弹窗
+      - 详情内各模块折叠/展开（手风琴）
+  • 元数据同步（sync_excel_meta.py）
+      - 领域/年份/会议期刊/是否开源 同步进 eval_results.json 和 paper_meta.json
+  • 中文标题+评语（translate_comments.py）
+      - title_cn / comment_cn 写入 eval_results.json
+  • 移除错误论文（remove_paper.py）
+      - 从 json/meta/FAISS 三处同步删除，统一降至43篇
+  • FastAPI 新增 /papers 接口（首页瀑布流数据源）
+  • API 错误字段过滤（clean_field）
+
+
+============================================================
+  完整待做路线图（2026-04-03）
+============================================================
+
+  【高优先级】
+  1. 中文查询翻译：/search 接口检测中文输入 → 翻译成英文 → FAISS 检索
+  2. 扩充语料到200篇：运行 fetch_papers.py + paper_rubric_eval.py
+  3. SQLite 替换 JSON：并发安全，为评论功能和1000人规模准备
+
+  【中优先级】
+  4. 评论功能（依赖 SQLite）
+  5. PDF 图片提取（PyMuPDF，PDF 文件仍在磁盘）
+  6. Redis 缓存（查询翻译缓存，2s→50ms）
+  7. Rerank 模块（依赖200篇语料）
+
+  【低优先级】
+  8. 关键词标签
+  9. Bloom filter 去重
+  10. 令牌桶限流
+  11. 推荐引擎
+
+============================================================
+
+============================================================
+  十一、用户系统 + 个性化推荐设计（2026-04-03）
+============================================================
+
+── 设计决策 ──
+  不等用户量，直接按有真实用户的方案做。
+  先上线跑，边跑边看数据。
+
+── 用户分层方案 ──
+  匿名用户：
+    • 浏览、搜索、点赞 → 不需要登录
+    • 用 cookie 里的随机 UUID 记录行为（localStorage）
+    • 基于内容推荐（FAISS 最近邻，当前论文 → 相似论文）
+
+  登录用户：
+    • 评论必须登录（防垃圾）
+    • 行为数据存服务器（看了哪篇、搜了什么、停留时长）
+    • 个性化推荐（内容 + 协同过滤混合）
+    • 登录后匿名行为数据合并进用户账号
+
+── 数据库新增三张表 ──
+  users          — 用户账号（id, email, password_hash, created_at）
+  user_behaviors — 行为记录（user_id, paper, action, timestamp）
+  user_likes     — 登录用户点赞（和匿名点赞分开，数据更干净）
+
+── 技术选型 ──
+  认证：JWT Token（无状态，不需要 Session）
+  密码：bcrypt 哈希
+  推荐：
+    匿名 → 基于内容（FAISS 最近邻）
+    登录 → 内容 + 协同过滤混合
+
+── 实施顺序 ──
+  Step 1：后端登录注册接口 + JWT
+  Step 2：前端登录弹窗（评论时触发）
+  Step 3：行为记录接口
+  Step 4：基于内容的推荐接口（先做，不依赖用户数据）
+  Step 5：协同过滤推荐（有了用户数据后）
+
+
+============================================================
+  十二、首页信息流 + 推荐逻辑设计（2026-04-03）
+============================================================
+
+── 首页信息流方案（已定）──
+  • 默认按热度排序
+  • 每次加载10篇，滚到底部自动加载下10篇（无限滚动）
+  • 每次打开论文弹窗记录一次浏览（+1 view）
+  • 顶部切换tab：热门 / 最新 / 质量分
+
+── 热度分公式 ──
+  热度分 = 点赞数 × 3 + 评论数 × 2 + 浏览数 × 1 + 论文质量分 × 10
+  权重说明：
+    点赞：主动行为，权重最高
+    评论：比点赞费力，但数量少
+    浏览：被动行为，权重低
+    质量分：保底，防止冷门好论文沉底
+
+── 推荐逻辑演进路线 ──
+  现阶段（无登录）：纯热度排序，所有人看到一样的结果
+  下一阶段（有登录）：
+    匿名用户 → 热度排序
+    登录用户 → 热度 × 0.5 + 个人喜好 × 0.5
+  个人喜好来源：浏览记录、点赞记录、搜索关键词、停留时长
+
+── 待做 ──
+  db.py 加 views 字段
+  热度分计算函数
+  /papers 接口支持 sort=hot/new/quality 和分页 page/size
+  前端无限滚动
+  登录系统完成后接入个性化权重
+
+============================================================
+  十三、社区功能讨论（2026-04-03）
+============================================================
+
+── 用户提议 ──
+  在论文检索之外加一个社区模块：
+    • 用户自己发帖（分享看过的论文、写讲解、写点评）
+    • 用户互相讨论
+    • 类似知乎 + 小红书的社区氛围
+
+── 价值分析 ──
+  正面：
+    • 用户生产内容（UGC），平台粘性大幅提升
+    • 社区内容本身就是很好的推荐信号（谁分享了什么）
+    • 差异化竞争：不只是搜索工具，是学术社区
+  风险：
+    • 需要用户登录系统支撑（匿名社区垃圾内容多）
+    • 冷启动难：没人发帖，社区就是空的
+    • 开发量增大：帖子、关注、Feed流、审核...
+
+── 结论 ──
+  方向正确，但依赖登录系统，登录做完后第一优先级加社区。
+  冷启动策略：先由自己发几篇示范性内容带动氛围。
+
+── 社区核心功能规划 ──
+  帖子：标题 + 正文（markdown） + 关联论文
+  互动：点赞、评论、转发
+  发现：热门帖子、关注的人的动态
+  数据库新增：posts、post_likes、follows 三张表
+
+
+============================================================
+  十四、已知问题 & 注意事项（2026-04-04）
+============================================================
+
+── 问题：FAISS 索引和 SQLite 不同步 ──
+  现象：搜索报 500 错误，前端显示"搜索失败"
+  根因：每次新增论文到 SQLite 后，FAISS 索引没有同步重建
+        FAISS 43 条向量 vs SQLite 164 条记录 → 数组越界
+  修复：运行 python scripts/build_index.py --mode api 重建索引
+  状态：待修复（需要跑 build_index.py）
+
+  ⚠️  重要提醒：
+  每次批量新增论文（fetch_papers + evaluate_folder）之后，
+  必须重跑 build_index.py，否则搜索和推荐都会出错。
+
+  建议后续把 build_index.py 加入到 fetch_papers.py 的末尾自动触发，
+  做到"爬取→评测→建索引"一条龙，不需要手动记得跑。
+
+
+============================================================
+  十五、搜索质量问题诊断与改进方案（2026-04-05）
+============================================================
+
+── 实测问题（4个核心缺陷）──
+
+【问题1：数据质量污染（最严重）】
+  现象：搜索 "graph neural network" 返回流体力学、图论数学论文
+  根因：爬取时虽加了 cs 分类过滤，但作者把无关论文挂在 cs.LG 下
+  工业做法：建索引前用分类器做领域过滤，保证语料库纯净
+  原则：Garbage in, Garbage out
+
+【问题2：归一化制造虚假信心】
+  现象：cold start 搜索返回 "S-packing chromatic" 数学论文，score=0.483
+  根因：归一化是相对的，最高分永远是1.0，低质量匹配也显得"不错"
+  工业做法：设绝对阈值（cosine < 0.3 直接过滤），宁可返回空结果
+
+【问题3：缺少 Rerank 精排层】
+  现状流程：召回（BM25+FAISS）→ 直接返回
+  工业流程：召回（BM25+FAISS，top-50）→ Cross-Encoder精排 → 返回top-5
+  Bi-Encoder vs Cross-Encoder：
+    Bi-Encoder：查询和文档分别编码，快，精度中等（用于大规模召回）
+    Cross-Encoder：查询+文档联合打分，慢，精度高（用于小范围精排）
+  工业案例：Google、Bing、各大电商标准两阶段检索架构
+
+【问题4：Embedding 内容质量不均匀】
+  现状：用 AI 提取的结构化字段（research_question 等）建向量
+  问题：部分论文提取质量差，字段内容短，向量信息量不足
+  工业做法：用论文摘要（Abstract）+ 标题建索引，原始信息更稳定
+
+── 改进优先级 ──
+
+  P0（立刻，一天内）：
+    1. 加相似度绝对阈值过滤（score < 0.3 不返回）
+    2. 清洗数据库，删除无关领域论文（物理/数学/流体力学）
+
+  P1（本周）：
+    3. 加 Cross-Encoder Rerank（sentence-transformers 有现成模型）
+    4. 用 PDF 摘要替代 AI 提取字段做 Embedding
+
+  P2（上线后）：
+    5. 用户点击行为做相关性反馈，自动优化排序
+    6. 查询扩展（短查询补充同义词）
+
+── 核心结论 ──
+  搜索质量问题根源不是算法，是数据。
+  先清洗语料库，删掉无关论文，搜索质量会立刻大幅提升。
+  算法再好，喂垃圾数据，结果也是垃圾。
+
+
+============================================================
+  十六、扩展架构规划与 Step 1 实施（2026-04-05）
+============================================================
+
+── 背景 ──
+  讨论了面向 1000 万用户的扩展架构方案，覆盖：
+  Go+Gin API 网关、WebSocket、Kafka 行为总线、
+  Redis 多模式缓存、gRPC 服务间通信、Prometheus 监控、
+  Milvus 分布式向量库、K8s 编排，共 11 个 Step。
+  完整方案写入 docs/新项目.md（含参考论文和开源项目链接）。
+
+── Step 1 实施：FAISS 索引常驻内存 ──
+  问题：search_vector() 每次请求都执行 faiss.read_index()，
+        每次从磁盘读取索引文件，搜索延迟约 200ms。
+  修改：hybrid_search.py 模块顶部新增模块级变量：
+        _faiss_index = faiss.read_index(INDEX_API)
+        search_vector() 和 recommend_similar() 改用 _faiss_index，
+        彻底去掉函数内的 faiss.read_index() 调用。
+  效果：磁盘 I/O 从每次请求一次 → 仅启动时一次，
+        预计搜索延迟从 ~200ms 降至 ~5ms（约 40x 提升）。
+
+── 测试结果 ──
+  新增 tests/test_faiss_inmemory.py，7 个测试：
+    test_index_loaded          PASSED  索引对象不为 None
+    test_index_is_singleton    PASSED  两次访问同一对象（内存常驻）
+    test_index_has_vectors     PASSED  索引包含向量（ntotal > 0）
+    test_search_vector_returns_dict   PASSED  返回 dict 格式
+    test_search_vector_scores_in_range PASSED 分数在 [0,1] 范围内
+    test_search_vector_deterministic  PASSED  同一查询结果稳定
+    test_max_score_is_one      PASSED  归一化后最高分为 1.0
+  全部通过，0 失败，4 warnings（SWIG 类型提示，不影响功能）。
+
+── 下一步 ──
+  Step 2：Redis 搜索结果缓存（相同 query+mode → 跳过 FAISS+BM25）
+
+============================================================
+  十七、Step 2：Redis 搜索结果缓存（2026-04-05）
+============================================================
+
+── 改动 ──
+  api_server.py 新增：
+  1. 启动时尝试连接 Redis localhost:6379，连接失败打印提示但不崩溃
+     （REDIS_OK=False，所有缓存操作变成 no-op）
+  2. _cache_get(key) / _cache_set(key, value, ttl) 两个辅助函数，
+     统一处理序列化（json）和异常吞噬
+  3. /search 路由头部加缓存命中检查：
+     cache_key = "search:" + md5(q:mode:top_k:alpha)
+     命中 → 直接返回（附 cache:"hit" 标记），跳过 FAISS+BM25+OpenAI
+     未命中 → 正常检索，结果写入 Redis，TTL=300s（5分钟）
+  4. 响应体新增 cache 字段："hit" 或 "miss"，方便调试
+
+── 设计决策 ──
+  • TTL=5min：论文数据变化慢，热门查询重复率高，5min 足够
+  • Graceful fallback：Redis 不可用时服务照常运行，不强依赖
+  • md5 做 key：避免中文/特殊字符问题，固定32位长度
+
+── 测试结果 ──
+  新增 tests/test_redis_cache.py，9 个测试：
+    test_cache_key_format                    PASSED
+    test_cache_key_same_query_same_key       PASSED
+    test_cache_key_different_query_different_key PASSED
+    test_cache_get_returns_none_when_redis_unavailable PASSED
+    test_cache_set_noop_when_redis_unavailable PASSED
+    test_cache_roundtrip_with_mock           PASSED
+    test_cache_miss_returns_none_with_mock   PASSED
+    test_set_and_get                         SKIPPED（Redis 未启动）
+    test_ttl_applied                         SKIPPED（Redis 未启动）
+  7 passed, 2 skipped（集成测试需本地启动 Redis，自动跳过）
+
+── 下一步 ──
+  Step 3：SQLite → PostgreSQL
+
+============================================================
+  十八、Step 3-5 扩展架构实施（2026-04-05）
+============================================================
+
+── Step 3：SQLite → PostgreSQL 迁移脚本 ──
+  新增 scripts/migrate_to_postgres.py：
+  · 定义 5 张表的 PostgreSQL DDL（SERIAL 主键替换 AUTOINCREMENT）
+  · migrate_table() 从 SQLite 逐表读出，批量 INSERT ... ON CONFLICT DO NOTHING
+  · 需配置 .env PG_DSN=postgresql://user:pass@host/db 后运行
+  测试：tests/test_migrate_postgres.py，10 个测试
+    DDL 格式验证 3 项 PASSED
+    SQLite 读取逻辑 4 项 PASSED
+    PG 集成 3 项 SKIPPED（无 PG 环境）
+  7 passed, 3 skipped
+
+── Step 4：Redis 热度榜 ZSet ──
+  新增 scripts/hot_score.py：
+  · calc_score(likes, comments, views, quality) → 热度分公式
+  · rebuild_hot_scores() 全量从 SQLite 重建 ZSet（服务启动时调用）
+  · on_like/on_view/on_comment 增量 zincrby（权重 3/1/2）
+  · get_hot_ranking(page, size) 返回 ZSet 分页，Redis 不可用返回 None
+  api_server.py 改动：
+  · /view 接入 on_view()
+  · /like 接入 on_like()
+  · /comment 接入 on_comment()
+  测试：tests/test_hot_score.py，14 个测试
+    权重计算 4 项 PASSED
+    增量更新 mock 7 项 PASSED
+    Redis 集成 3 项 SKIPPED（Redis 未启动）
+  11 passed, 3 skipped
+
+── Step 5：Kafka 行为事件总线 ──
+  新增 scripts/kafka_producer.py：
+  · _get_producer() lazy 初始化，失败返回 None（静默降级）
+  · produce_behavior(paper, action, user_id) → user-behaviors topic
+  · produce_hot_delta(paper, delta) → hot-score-delta topic
+  新增 scripts/kafka_consumer.py：
+  · 独立进程，消费 user-behaviors / hot-score-delta 两个 topic
+  · handle_behavior → record_behavior 写 DB
+  · handle_hot_delta → Redis zincrby 更新热度
+  api_server.py 改动：
+  · /view 优先 produce_behavior，失败回退同步写 DB
+  · /like produce_behavior 异步记录
+  测试：tests/test_kafka.py，9 个测试
+    Producer 消息格式 6 项 PASSED
+    Consumer handler 2 项 PASSED
+    Kafka 集成 1 项 SKIPPED（Kafka 未启动）
+  8 passed, 1 skipped
+
+── 所有测试汇总（本次会话）──
+  test_faiss_inmemory.py   7/7  PASSED
+  test_redis_cache.py      7P/2S
+  test_migrate_postgres.py 7P/3S
+  test_hot_score.py        11P/3S
+  test_kafka.py            8P/1S
+  合计：40 passed, 9 skipped, 0 failed
+
+── 下一步 ──
+  Step 6: Go Gin API 网关
+  Step 7: gRPC 接口定义
+  Step 8: WebSocket 实时推送
+  Step 9: Prometheus 监控埋点
+
+============================================================
+  十九、Step 6-8 Go 服务层实施（2026-04-05）
+============================================================
+
+── Step 6：Go Gin API 网关 ──
+  新增 gateway/main.go：
+  · 令牌桶限流（20 req/s per IP），IP 维度，并发安全
+  · JWT 中间件：验证 Bearer token，注入 user_id，失败不拦截（下游二次验证）
+  · metricsMiddleware：记录每个路由的请求数和总耗时
+  · reverseProxy：NoRoute 兜底，转发给 FastAPI :8000
+  · /health、/metrics（手写 Prometheus 格式）、/ws
+  测试：gateway/main_test.go，10 项，全部 PASS
+
+── Step 7：gRPC 接口定义 ──
+  新增 gateway/proto/search.proto：
+  · SearchService：Search / Recommend 两个 RPC
+  · PaperResult、SearchRequest/Response、RecommendRequest/Response
+  用 grpc_tools.protoc 生成 scripts/search_pb2.py / search_pb2_grpc.py
+  新增 scripts/grpc_server.py：
+  · SearchServiceServicer 实现 Search / Recommend
+  · ThreadPoolExecutor(max_workers=10) 并发处理
+  · 异常捕获 → grpc.StatusCode.INTERNAL
+  测试：tests/test_grpc.py，10 项，全部 PASS（含集成测试）
+
+── Step 8：WebSocket 实时推送 ──
+  新增 gateway/hub.go：
+  · Hub：map[*Client]bool + broadcast channel（buf=256）
+  · Client：独立 send channel（buf=64）+ writePump/readPump goroutine
+  · 30s 心跳 ping，60s read deadline
+  · Broadcast(WSMessage) 广播给所有连接
+  · POST /internal/broadcast 供内部服务触发推送
+  · 消息类型：comment / recommend / ping
+  main.go 更新：
+  · globalHub 全局变量，go globalHub.run() 启动
+  · /ws 绑定 wsServeHandler，/internal/broadcast 绑定 broadcastHandler
+  测试：gateway/hub_test.go，10 项，全部 PASS
+    含真实 WS 连接测试：连接→广播→接收→断开 全流程验证
+
+── 所有测试汇总（本次会话累计）──
+  Python 侧：
+    test_faiss_inmemory.py   7P/0S
+    test_redis_cache.py      7P/2S
+    test_migrate_postgres.py 7P/3S
+    test_hot_score.py        11P/3S
+    test_kafka.py            8P/1S
+    test_grpc.py             10P/0S
+  Go 侧：
+    gateway/main_test.go     10P
+    gateway/hub_test.go      10P
+  合计：70 passed，9 skipped，0 failed
+
+── 下一步 ──
+  Step 9：Prometheus + Grafana 监控埋点
+
+============================================================
+  二十、Step 9：Prometheus + Grafana 监控（2026-04-05）
+============================================================
+
+── Python 侧埋点（scripts/metrics.py）──
+  新增 10 个指标对象：
+  · search_requests_total      Counter  按 mode/cache 标签
+  · search_duration_seconds    Histogram p50/p95/p99，7档 bucket
+  · cache_hits_total           Counter  Redis 命中
+  · cache_misses_total         Counter  Redis 未命中
+  · paper_likes_total          Counter  点赞累计
+  · paper_views_total          Counter  浏览累计
+  · paper_comments_total       Counter  评论累计
+  · grpc_requests_total        Counter  按 method/status
+  · grpc_duration_seconds      Histogram gRPC 耗时
+  · faiss_search_duration_seconds Histogram FAISS 耗时，6档 bucket
+  · kafka_produce_total        Counter  按 topic/status
+
+  api_server.py 改动：
+  · /search 路由：计时、cache hit/miss 计数、FAISS 耗时埋点
+  · /view、/like 路由：views/likes 计数
+  · 新增 GET /metrics/python → generate_latest()（标准文本格式）
+
+── Go 侧埋点（gateway/prom.go）──
+  使用 prometheus/client_golang（官方库，替换手写格式）：
+  · gateway_requests_total     CounterVec  按 path/method/status
+  · gateway_request_duration_seconds HistogramVec 按 path，8档
+  · gateway_active_ws_connections  Gauge  WebSocket 连接数
+  · gateway_rate_limit_blocked_total Counter 被限流请求数
+  · gateway_proxy_errors_total Counter 代理失败数
+  · sync.Once 保证测试环境不重复注册
+  · GET /metrics → promhttp.Handler()（标准格式，Prometheus 直接抓取）
+
+── 基础设施配置 ──
+  · docs/prometheus.yml：scrape gateway(:8080) + fastapi(:8000)，间隔15s
+  · docker-compose.yml：一键启动 Prometheus(:9090) + Grafana(:3000)
+    Grafana 默认密码 admin/admin，数据源指向 Prometheus
+
+── 测试结果 ──
+  tests/test_metrics.py：17 个测试全部 PASSED
+    指标类型验证 5 项
+    标签定义验证 4 项
+    自增逻辑验证 3 项
+    端点格式验证 5 项
+  gateway/prom_test.go：5 个测试全部 PASSED（含 Go 侧）
+
+── 所有步骤完成汇总 ──
+  Step 1  FAISS 常驻内存          Python  7P
+  Step 2  Redis 搜索缓存          Python  7P/2S
+  Step 3  PostgreSQL 迁移脚本     Python  7P/3S
+  Step 4  Redis 热度榜 ZSet       Python  11P/3S
+  Step 5  Kafka 行为事件总线      Python  8P/1S
+  Step 6  Go Gin API 网关         Go      10P
+  Step 7  gRPC 接口               Python  10P
+  Step 8  WebSocket Hub           Go      10P（含集成测试）
+  Step 9  Prometheus 埋点         Python  17P / Go 5P
+  合计：92 passed，9 skipped，0 failed
+
+============================================================
+  二十一、Step 10/11 规划讨论（2026-04-05）
+============================================================
+
+── Docker 环境检查 ──
+  Docker 客户端：28.5.2（已安装）
+  Docker Compose：v2.40.3（已安装）
+  Docker daemon：未运行（需先打开 Docker Desktop）
+
+── Step 10：Milvus 分布式向量数据库 ──
+  背景：Milvus 是 FAISS 的分布式替代方案，支持亿级向量。
+  现实评估：
+    · Milvus 需要 etcd + minio + milvus 三个容器，最少 4GB 内存
+    · 当前 164 篇论文完全不需要分布式向量库
+    · 1000 万向量以上才有必要切换
+  决策：写 Milvus docker-compose + Python 迁移脚本，不实际部署。
+        作为部署文档和扩展预案留存。
+
+── Step 11：K8s 编排 ──
+  背景：K8s 是生产级容器编排，支持水平扩缩容。
+  现实评估：
+    · 本地 K8s（minikube/kind）+ Docker 合计需要 8GB+ 内存
+    · 当前阶段用 Docker Compose 完全够用
+    · Docker Compose 可实现：多服务一键启动、环境隔离、日志统一
+  决策：用 Docker Compose 替代 K8s，容器化全部服务：
+        FastAPI、Go Gateway、gRPC Server、Prometheus、Grafana、Redis
+        一键 docker compose up 启动完整栈。
+
+── 下一步行动 ──
+  1. 用户打开 Docker Desktop 启动 daemon
+  2. 先跑 docker compose up 验证 Prometheus + Grafana（已有 docker-compose.yml）
+  3. Step 11：补全 Dockerfile + docker-compose，容器化全服务
+  4. Step 10：写 Milvus 迁移脚本作为文档备用
+
+============================================================
+  二十二、Step 10/11 实施（2026-04-05）
+============================================================
+
+── Step 11：Docker Compose 全服务容器化 ──
+  新增文件：
+  · Dockerfile.api     FastAPI 服务镜像（python:3.10-slim）
+  · Dockerfile.gateway Go 网关镜像（多阶段构建，最终 alpine ~10MB）
+  · Dockerfile.grpc    gRPC 服务镜像（python:3.10-slim）
+  · requirements.txt   Python 依赖锁定版本
+  · .dockerignore      排除无关目录（papers/ archive/ .env 等）
+  · docker-compose.yml 全服务编排（覆盖原监控版）：
+      redis      7-alpine，maxmemory 256MB，LRU 淘汰
+      api        FastAPI，healthcheck /stats，挂载 data/
+      grpc       gRPC 服务，挂载 data/
+      gateway    Go 网关，依赖 api healthy 后启动
+      prometheus 抓取 gateway:8080 + api:8000/metrics/python
+      grafana    admin 密码从 .env GRAFANA_PASSWORD 读取
+  · docs/prometheus.yml 更新为 docker 服务名（gateway/api）
+
+  启动命令：
+    docker compose up -d          # 启动全栈
+    docker compose logs -f api    # 查看 FastAPI 日志
+    docker compose down           # 停止并清理
+
+── Step 10：Milvus 迁移脚本（文档备用）──
+  新增文件：
+  · scripts/milvus_client.py
+      MilvusSearch 类，接口与 search_vector() 对齐：
+      build_index() — 全量从 SQLite 建 Milvus 集合（IVF_FLAT，nlist=128）
+      search(vec, top_k) — 返回 {rowid: 归一化分数}
+  · docs/milvus-docker-compose.yml
+      独立启动 Milvus 栈：etcd + minio + milvus standalone
+      端口：19530（gRPC）+ 9091（管理界面）
+      内存需求：至少 4GB
+  当前不部署，作为 1000 万向量以上的扩展预案。
+
+── 下一步 ──
+  用户打开 Docker Desktop 后运行：
+    docker compose up -d
+  验证顺序：redis → api → gateway → prometheus → grafana
+
+============================================================
+  二十三、Docker Compose 启动指南（2026-04-05）
+============================================================
+
+── 前提 ──
+  打开 Docker Desktop，等待 daemon 启动（托盘图标变绿）
+
+── 启动命令 ──
+  cd D:\Skill Rubri\agenteval_test01
+  docker compose up -d
+
+── 启动顺序（healthcheck 自动控制）──
+  redis → api → grpc → gateway → prometheus → grafana
+
+── 验证端点 ──
+  http://localhost:8080/health   Go 网关健康检查
+  http://localhost:8000/docs     FastAPI 接口文档
+  http://localhost:50051         gRPC Search Service
+  http://localhost:9090          Prometheus 指标查询
+  http://localhost:3000          Grafana 可视化（admin/admin）
+
+── 常用命令 ──
+  docker compose logs -f api      查看 FastAPI 实时日志
+  docker compose logs -f gateway  查看网关日志
+  docker compose ps               查看各服务状态
+  docker compose down             停止并清理容器
+  docker compose up -d --build    代码变更后重新构建镜像
+
+── 注意事项 ──
+  · .env 文件需包含 OPENAI_API_KEY、JWT_SECRET
+  · data/ 目录挂载到容器内，SQLite 和 FAISS index 共享
+  · Milvus 单独启动：docker compose -f docs/milvus-docker-compose.yml up -d
+    （需要 4GB+ 内存，当前 164 篇论文不需要）
+
+============================================================
+  Step 12：Pipeline 五大问题诊断与修复（2026-04-06）
+============================================================
+
+── 背景 ──
+  在当前 164 篇论文规模上，对搜索 Pipeline 做了系统性诊断。
+  发现五个贯穿 数据 → 索引 → 检索 → 排序 → 评估 全链路的问题。
+  核心结论：最大的问题不是算法是数据。
+
+── 五个问题及根因 ──
+
+  P1 数据清洗：语料库污染
+    现象：搜 "GNN node classification" 返回流体力学论文（分数 0.61，看似合理）
+    根因：上传时无领域校验；build_index.py 全量建索引不过滤
+          向量空间里 "graph of mesh nodes"（流体）与 GNN 的 "graph nodes" 距离很近
+    修复：is_cs_paper() + _CS_KEYWORDS 白名单（32个 CS/AI 关键词）
+          load_records() 建索引时过滤非目标领域论文
+
+  P2 Embedding 质量：GPT 压缩摘要
+    现象：两篇用不同方法解同一问题的论文，向量距离接近零（被认为是近似重复）
+    根因：build_text() 用 GPT 提取的结构化字段（300词→60词，信息量损失80%）
+          "GraphSAGE with mean aggregator" → "graph sampling method"（泛化）
+    修复：build_text() 优先使用 abstract（原始摘要）；无摘要时降级 GPT 字段
+          db.py 新增 abstract 列（ALTER TABLE 自动迁移）
+
+  P3 缺精排：Bi-Encoder 无法精确排序
+    现象：top-10 里第3名和第8名分数差0.03，但相关性天壤之别
+    根因：Bi-Encoder（text-embedding-3-small）训练目标是快速召回，不是精排
+    修复：rerank_with_cross_encoder()，使用 cross-encoder/ms-marco-MiniLM-L-6-v2
+          架构：Bi-Encoder 召回 top-50 → CrossEncoder 精排 → 返回 top-k
+          延迟加载：首次 ~300ms，支持 CPU，~80MB
+          降级：CrossEncoder 不可用时原样返回 Bi-Encoder 结果
+
+  P4 缺评估兜底：相对归一化掩盖低质量
+    现象：搜索完全无关领域，原始最高分 0.08，归一化后变成 1.0，误报高相关
+    根因：search_vector() 用相对归一化（/ max_s），max_s=0.08 也会变成 1.0
+    修复：FAISS_MIN_QUALITY = 0.10 绝对门控
+          原始最高余弦 < 0.10 → 返回 {} → API 返回空列表
+          search_bm25() 同理：max_s <= 0 直接返回 {}
+
+  P5 BM25 专有名词丢失：GPT 改写破坏关键词索引
+    现象：搜 "GraphSAGE" → BM25 整个语料库无命中 → 退化为纯 FAISS 搜索
+    根因：BM25 语料来自 GPT 提取的 methodology 字段
+          "We apply GraphSAGE on OGB-Arxiv" → "uses graph sampling method on citation dataset"
+    修复：build_corpus() 加入 abstract 字段（排在 research_question 之前）
+          保留 GraphSAGE、BERT-large、SQuAD 等专有名词供精确匹配
+
+── 修改的文件 ──
+  scripts/db.py           — new_columns 加 abstract 字段迁移
+  scripts/build_index.py  — is_cs_paper() / _CS_KEYWORDS / build_text() 优先摘要
+  scripts/hybrid_search.py — build_corpus() 加摘要 / FAISS_MIN_QUALITY 阈值
+                             / search_vector() 绝对门控 / search_bm25() 空返回
+                             / rerank_with_cross_encoder() Cross-Encoder 精排
+
+── 测试结果 ──
+  tests/test_pipeline_fixes.py: 32/32 通过（0 失败，3 DeprecationWarning 忽略）
+    TestP1DomainFilter        7/7   领域过滤（is_cs_paper）
+    TestP2BuildText           6/6   build_text 优先摘要
+    TestP3CrossEncoderRerank  6/6   精排逻辑（mock CrossEncoder）
+    TestP4AbsoluteThreshold   5/5   FAISS_MIN_QUALITY 门控
+    TestP5BM25ProperNouns     6/6   BM25 语料包含原始摘要
+    TestAbstractColumnMigration 2/2 DB 迁移验证
+
+── 优先级与收益 ──
+  P0（立即生效，无额外成本）：
+    P4 绝对阈值  — 3行代码，直接拦截垃圾结果
+    P5 BM25摘要  — build_corpus 加一行，关键词召回立即恢复
+    P2 Embedding — build_text 修改，重建索引后向量质量根本改善
+  P1（上传拦截，中等成本）：
+    is_cs_paper 过滤，存量数据清洗
+  P2（重建索引，依赖摘要数据）：
+    需先在爬取时存 abstract 字段，再重建 FAISS 索引
+  P3（Cross-Encoder，高收益高成本）：
+    首次加载 ~300ms，推理 50 条 ~300ms（CPU）
+    高并发场景建议异步 + Redis 缓存精排结果
+
+── 后续行动 ──
+  · 爬取新论文时在 upsert_paper() 写入 abstract 字段
+  · 积累 50 条带标注的 query-relevant_rowids 对，建评估集
+  · 用 NDCG@10 量化五个修复的实际提升
+  · 高并发时将 CrossEncoder 精排移到 Kafka 异步队列（参见 Step 5 设计）
+
+
+============================================================
+  Step 13：全链路指标评估落地（2026-04-06）
+============================================================
+
+── 背景 ──
+  实现了完整的 Pipeline 指标评估体系，全程离线运行（无需 OpenAI/Redis/Kafka）。
+  运行方式：
+    python scripts/eval_metrics.py          # 评估
+    python scripts/eval_metrics.py --purge-ood  # 清洗非CS论文
+
+── 新增文件 ──
+  scripts/eval_metrics.py    — 全链路指标评估主脚本（4层 15 个指标）
+  tests/test_eval_metrics.py — 评估函数单元测试（27条，100%通过）
+
+── Bug 修复（运行时错误）──
+  1. hybrid_search.search_vector()：_faiss_index 为 None 时崩溃
+     修复：加 None 守卫，返回 {} 而非 AttributeError
+  2. api_server.get_records()：每次搜索都重查数据库（性能 bug）
+     修复：加 _records is None 判断，首次加载后复用内存缓存
+  3. db.upsert_paper()：INSERT/UPDATE 语句未包含 abstract 字段
+     修复：补全 abstract 字段的 INSERT 和 ON CONFLICT UPDATE
+
+── 指标体系（4 层 15 个指标）──
+  数据层：总论文数 / 摘要覆盖率 / 领域过滤通过率 / research_question 空值率
+  BM25层：标题自检索@1 / 标题自检索@3 / 专有名词命中率@5 / P4阈值配置
+  FAISS层：向量自检索@1 / 向量自检索@3 / 索引延迟P50 / 向量空间平均余弦
+  系统层：DB查询延迟 / BM25语料构建延迟 / FAISS内存状态
+
+── 实际评估结果（151 篇，清洗后）──
+  [OK  ] 总论文数: 151（清洗前164，purge_ood删除13篇非CS/AI论文）
+  [ERR ] 摘要覆盖率: 0.0%  — P2/P5代码正确但数据层未填充abstract
+  [OK  ] 领域过滤通过率: 100.0%
+  [OK  ] BM25标题自检索@1: 100%（151/151）
+  [OK  ] BM25标题自检索@3: 100%（151/151）
+  [OK  ] BM25专有名词命中率@5: 92.3%（gnn未命中，其余OK）
+  [OK  ] P4阈值配置: FAISS_MIN_QUALITY=0.10, BM25_MIN_RAW_SCORE=1.0
+  [WARN] FAISS索引状态: 164向量 vs DB 151篇（差13，需重建索引）
+  [OK  ] FAISS向量自检索@1: 100%（50/50）
+  [OK  ] FAISS向量自检索@3: 100%（50/50）
+  [OK  ] FAISS检索延迟P50: 6.80ms（P99=10ms）
+  [OK  ] 向量空间平均余弦: 0.601（正常范围0.15-0.75）
+  [OK  ] DB查询延迟: 138ms
+  [OK  ] BM25语料构建延迟: 7ms
+
+── 关键发现与根因 ──
+
+  发现1：非CS论文使BM25 OOD查询得分虚高
+    现象：搜 "turbulent flow Navier-Stokes" 得分=24，远高于 GNN查询（8.9）
+    根因：物理/数学论文中的稀有词汇（turbulent/fluid）在CS语料中IDF极高
+          OOD查询的高IDF词只匹配非CS论文，造成得分反转
+    修复：purge_ood_papers() 清洗13篇非CS/AI论文（已执行）
+    教训：BM25无法做OOD检测——"penalty function"(ML)与"penalty kick"(足球)
+          的token overlap相同，语义完全不同。真正的OOD防线是FAISS向量余弦阈值
+
+  发现2：摘要覆盖率0%——P2/P5修复实际未生效
+    根因：存量164篇论文均无abstract字段（字段刚加），新爬取时才会写入
+    代码修复已就绪（db.upsert_paper包含abstract，build_text优先用摘要）
+    行动：fetch_papers.py爬取时提取arXiv摘要写入abstract字段
+
+  发现3：FAISS索引不同步
+    原因：清洗了13篇非CS论文但未重建索引（需OpenAI API key）
+    影响：搜索时可能返回已删除论文的rowid（get_paper_by_rowid返回None，安全降级）
+    行动：有API key时运行 python scripts/build_index.py --mode api
+
+── 测试汇总 ──
+  tests/test_eval_metrics.py:  27/27 通过
+  tests/test_pipeline_fixes.py: 32/32 通过
+  总计：59/59 通过
+
+── 后续行动（优先级排序）──
+  P0：爬取新论文时填充 abstract 字段（arXiv API 提供原始摘要）
+  P0：有OpenAI API key时重建FAISS索引（build_index.py --mode api）
+  P1：积累50条带标注的query-paper对，计算NDCG@10基线
+  P2：爬取时加领域过滤（is_cs_paper）防止新污染进入
+
+============================================================
+  Step 13：全链路指标评估落地（2026-04-06）
+============================================================
+
+── 背景 ──
+  实现了完整的 Pipeline 指标评估体系，全程离线运行（无需 OpenAI/Redis/Kafka）。
+  运行方式：
+    python scripts/eval_metrics.py          # 评估
+    python scripts/eval_metrics.py --purge-ood  # 清洗非CS论文
+
+── 新增文件 ──
+  scripts/eval_metrics.py    — 全链路指标评估主脚本（4层 15 个指标）
+  tests/test_eval_metrics.py — 评估函数单元测试（27条，100%通过）
+
+── Bug 修复（运行时错误）──
+  1. hybrid_search.search_vector()：_faiss_index 为 None 时崩溃
+     修复：加 None 守卫，返回 {} 而非 AttributeError
+  2. api_server.get_records()：每次搜索都重查数据库（性能 bug）
+     修复：加 _records is None 判断，首次加载后复用内存缓存
+  3. db.upsert_paper()：INSERT/UPDATE 语句未包含 abstract 字段
+     修复：补全 abstract 字段的 INSERT 和 ON CONFLICT UPDATE
+
+── 指标体系（4 层 15 个指标）──
+  数据层：总论文数 / 摘要覆盖率 / 领域过滤通过率 / research_question 空值率
+  BM25层：标题自检索@1 / 标题自检索@3 / 专有名词命中率@5 / P4阈值配置
+  FAISS层：向量自检索@1 / 向量自检索@3 / 索引延迟P50 / 向量空间平均余弦
+  系统层：DB查询延迟 / BM25语料构建延迟 / FAISS内存状态
+
+── 实际评估结果（151 篇，清洗后）──
+  [OK  ] 总论文数: 151（清洗前164，purge_ood删除13篇非CS/AI论文）
+  [ERR ] 摘要覆盖率: 0.0%  — P2/P5代码正确但数据层未填充abstract
+  [OK  ] 领域过滤通过率: 100.0%
+  [OK  ] BM25标题自检索@1: 100%（151/151）
+  [OK  ] BM25标题自检索@3: 100%（151/151）
+  [OK  ] BM25专有名词命中率@5: 92.3%（gnn未命中，其余OK）
+  [OK  ] P4阈值配置: FAISS_MIN_QUALITY=0.10, BM25_MIN_RAW_SCORE=1.0
+  [WARN] FAISS索引状态: 164向量 vs DB 151篇（差13，需重建索引）
+  [OK  ] FAISS向量自检索@1: 100%（50/50）
+  [OK  ] FAISS向量自检索@3: 100%（50/50）
+  [OK  ] FAISS检索延迟P50: 6.80ms（P99=10ms）
+  [OK  ] 向量空间平均余弦: 0.601（正常范围0.15-0.75）
+  [OK  ] DB查询延迟: 138ms
+  [OK  ] BM25语料构建延迟: 7ms
+
+── 关键发现与根因 ──
+
+  发现1：非CS论文使BM25 OOD查询得分虚高
+    现象：搜 "turbulent flow Navier-Stokes" 得分=24，远高于 GNN查询（8.9）
+    根因：物理/数学论文中的稀有词汇（turbulent/fluid）在CS语料中IDF极高
+          OOD查询的高IDF词只匹配非CS论文，造成得分反转
+    修复：purge_ood_papers() 清洗13篇非CS/AI论文（已执行）
+    教训：BM25无法做OOD检测——"penalty function"(ML)与"penalty kick"(足球)
+          的token overlap相同，语义完全不同。真正的OOD防线是FAISS向量余弦阈值
+
+  发现2：摘要覆盖率0%——P2/P5修复实际未生效
+    根因：存量164篇论文均无abstract字段（字段刚加），新爬取时才会写入
+    代码修复已就绪（db.upsert_paper包含abstract，build_text优先用摘要）
+    行动：fetch_papers.py爬取时提取arXiv摘要写入abstract字段
+
+  发现3：FAISS索引不同步
+    原因：清洗了13篇非CS论文但未重建索引（需OpenAI API key）
+    影响：搜索时可能返回已删除论文的rowid（get_paper_by_rowid返回None，安全降级）
+    行动：有API key时运行 python scripts/build_index.py --mode api
+
+── 测试汇总 ──
+  tests/test_eval_metrics.py:  27/27 通过
+  tests/test_pipeline_fixes.py: 32/32 通过
+  总计：59/59 通过
+
+── 后续行动（优先级排序）──
+  P0：爬取新论文时填充 abstract 字段（arXiv API 提供原始摘要）
+  P0：有OpenAI API key时重建FAISS索引（build_index.py --mode api）
+  P1：积累50条带标注的query-paper对，计算NDCG@10基线
+  P2：爬取时加领域过滤（is_cs_paper）防止新污染进入

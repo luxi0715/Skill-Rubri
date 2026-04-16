@@ -1,0 +1,42 @@
+syntax = "proto3";
+package search;
+option go_package = "papergateway/proto";
+
+// ── 检索服务 ─────────────────────────────────────────────
+service SearchService {
+  rpc Search    (SearchRequest)    returns (SearchResponse);
+  rpc Recommend (RecommendRequest) returns (RecommendResponse);
+}
+
+message SearchRequest {
+  string query  = 1;
+  string mode   = 2;   // bm25 / vector / hybrid
+  int32  top_k  = 3;
+  float  alpha  = 4;
+}
+
+message PaperResult {
+  int32  rank          = 1;
+  string paper         = 2;
+  float  score         = 3;
+  float  quality_score = 4;
+  float  rubric        = 5;
+  string comment       = 6;
+}
+
+message SearchResponse {
+  string          query   = 1;
+  string          mode    = 2;
+  repeated PaperResult results = 3;
+  string          cache   = 4;   // "hit" | "miss"
+}
+
+message RecommendRequest {
+  string paper = 1;
+  int32  top_k = 2;
+}
+
+message RecommendResponse {
+  string          paper           = 1;
+  repeated PaperResult recommendations = 2;
+}

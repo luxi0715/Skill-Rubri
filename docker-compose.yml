@@ -1,0 +1,129 @@
+version: "3.8"
+
+# 完整服务栈：一键启动
+#
+# 启动：  docker compose up -d
+# 停止：  docker compose down
+# 日志：  docker compose logs -f [service]
+# 重建：  docker compose up -d --build
+#
+# 服务端口：
+#   Gateway  :8080   统一入口（所有请求走这里）
+#   FastAPI  :8000   Python 检索服务（内部）
+#   gRPC     :50051  向量检索（内部）
+#   Redis    :6379   缓存 + 热度榜
+#   Prometheus :9090
+#   Grafana  :3000   admin/admin
+
+services:
+
+  # ── Redis ────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: paper_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # ── FastAPI 检索服务 ──────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: paper_api
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - REDIS_HOST=redis
+      - KAFKA_BOOTSTRAP=kafka:9092
+    volumes:
+      - ./data:/app/data        # 挂载数据目录（含 SQLite + FAISS index）
+      - ./frontend:/app/frontend
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/stats"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── gRPC Search Service ──────────────────────────────────
+  grpc:
+    build:
+      context: .
+      dockerfile: Dockerfile.grpc
+    container_name: paper_grpc
+    ports:
+      - "50051:50051"
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  # ── Go API 网关 ──────────────────────────────────────────
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    container_name: paper_gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - FASTAPI_ADDR=http://api:8000
+      - GATEWAY_PORT=8080
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # ── Prometheus ───────────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: paper_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=7d"
+    restart: unless-stopped
+
+  # ── Grafana ──────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:latest
+    container_name: paper_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: paper_network

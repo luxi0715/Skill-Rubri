@@ -1,0 +1,28 @@
+# Dockerfile.api
+# FastAPI 论文检索服务
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# 系统依赖（pdfplumber 需要）
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# 先装依赖（利用 Docker 缓存层）
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制代码
+COPY scripts/ ./scripts/
+COPY frontend/ ./frontend/
+COPY data/     ./data/
+
+WORKDIR /app/scripts
+
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8000"]

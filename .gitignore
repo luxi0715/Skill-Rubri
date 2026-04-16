@@ -1,0 +1,30 @@
+# 敏感信息
+.env
+*.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+env/
+
+# 数据文件（根据需要选择）
+data/*.db
+data/*.faiss
+data/*.log
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 其他
+old/
+archive/

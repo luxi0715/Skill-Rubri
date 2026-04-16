@@ -1,0 +1,28 @@
+{
+  "papers_per_topic": 30,
+  "trending_count": 20,
+  "classic_count": 10,
+  "download_dir": "papers",
+  "topics": [
+    {"name": "contrastive learning recommendation", "enabled": true},
+    {"name": "graph neural network",                "enabled": true},
+    {"name": "multimodal large language model",     "enabled": true},
+    {"name": "diffusion model",                     "enabled": true},
+    {"name": "reinforcement learning human feedback","enabled": true},
+    {"name": "knowledge graph",                     "enabled": true},
+    {"name": "federated learning",                  "enabled": true},
+    {"name": "vision transformer",                  "enabled": true},
+    {"name": "large language model reasoning",      "enabled": true},
+    {"name": "retrieval augmented generation",      "enabled": true },
+    {"name": "object detection",                    "enabled": true},
+    {"name": "self-supervised learning",            "enabled": false},
+    {"name": "continual learning",                  "enabled": false},
+    {"name": "few-shot learning",                   "enabled": false},
+    {"name": "video understanding",                 "enabled": false},
+    {"name": "time series forecasting",             "enabled": false},
+    {"name": "3D point cloud",                      "enabled": true },
+    {"name": "neural architecture search",          "enabled": false},
+    {"name": "model compression pruning",           "enabled": false},
+    {"name": "AI agent planning",                   "enabled": false}
+  ]
+}

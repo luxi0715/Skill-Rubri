@@ -1,0 +1,36 @@
+fastapi==0.135.3
+uvicorn==0.42.0
+pydantic==2.12.5
+python-dotenv==1.2.2
+
+# 检索
+faiss-cpu==1.13.2
+rank-bm25==0.2.2
+openai==2.30.0
+sentence-transformers==5.3.0
+
+# 数据库
+psycopg2-binary==2.9.11
+redis==7.4.0
+
+# 认证
+python-jose==3.5.0
+bcrypt==5.0.0
+
+# gRPC
+grpcio==1.80.0
+grpcio-tools==1.80.0
+
+# 消息队列
+kafka-python==2.3.0
+
+# 监控
+prometheus_client==0.24.1
+
+# PDF 处理
+pdfplumber==0.11.9
+
+# LangGraph 评测流水线
+langchain==1.2.13
+langchain-openai==1.1.12
+langgraph==1.1.3

@@ -1,0 +1,24 @@
+# Dockerfile.grpc
+# Python gRPC Search Service
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY scripts/ ./scripts/
+COPY data/     ./data/
+
+WORKDIR /app/scripts
+
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 50051
+
+CMD ["python", "grpc_server.py"]

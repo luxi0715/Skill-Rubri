@@ -1,0 +1,1314 @@
+[
+  {
+    "index": 0,
+    "paper": "2021_Yu_Are_Graph_Augmentations_Necessary_Simple.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper demonstrates a commendable effort in presenting a novel methodology that simplifies the model by eliminating graph augmentations and utilizing uniform noise, effectively leveraging self-supervised signals. A significant strength lies in the comprehensive identification of datasets and evaluation metrics, which provides a robust framework for performance assessment. However, the paper falls short in detailing the specific loss function used, which is crucial for evaluating the appropriateness of the methodology for the recommendation task. Additionally, the analysis of dataset characteristics is somewhat lacking, potentially limiting the generalizability of the results. To enhance the paper's impact, it is recommended to explicitly define and justify the choice of the loss function, conduct a more thorough dataset analysis, and consider a broader range of evaluation metrics. This paper is recommended for researchers interested in novel approaches to recommendation systems, particularly those exploring self-supervised learning techniques.",
+    "timestamp": "2026-04-01 16:38:53"
+  },
+  {
+    "index": 1,
+    "paper": "2022_Xie_Contrastive_Learning_for_Sequential_Reco.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper presents a novel approach to sequential recommendation systems through the introduction of CL4SRec, leveraging contrastive learning and self-supervised techniques. A key strength is the clear articulation of the motivation behind addressing the dynamic nature of user interests, supported by a well-structured methodology and accessible writing. However, the paper lacks explicit details on the loss functions used, which raises concerns about the optimization process. Additionally, the limited exploration of data augmentation techniques and evaluation metrics may overlook critical aspects of recommendation quality, and there is a potential risk of overfitting due to dataset sparsity. To enhance the paper, it is recommended to specify the loss functions, provide a detailed description of data augmentation techniques, and expand the evaluation metrics. Overall, the paper is suitable as a reference for researchers interested in innovative approaches to recommendation systems, but further refinement is needed for practical implementation.",
+    "timestamp": "2026-04-01 16:40:31"
+  },
+  {
+    "index": 2,
+    "paper": "2025_Hu_Contrastive_Learning_for_Cold_Start_Reco.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify the research problem and provide a comprehensive analysis of the results, including specific metric values and improvement margins. The paper excels in originality by integrating innovative techniques such as adaptive feature selection and multimodal feature fusion, which contribute to addressing the cold start problem in recommendation systems. However, the methodology section lacks specificity in algorithm naming and detailed descriptions of loss functions, which could impede replicability and a deeper understanding of the optimization process. Additionally, the dataset's sparsity and limited evaluation metrics present challenges that need to be addressed for more robust model performance. It is recommended that the paper be used as a reference for researchers interested in novel approaches to recommendation systems, with a focus on improving methodological clarity and expanding evaluation metrics.",
+    "timestamp": "2026-04-01 16:42:08"
+  },
+  {
+    "index": 3,
+    "paper": "2025_Qu_Intent-aware_Diffusion_with_Contrastive_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the methodology, datasets, and results. The paper excels in presenting a novel approach to sequential recommendation through intent-aware methods, leveraging contrastive learning effectively. However, the reliance on K-means clustering may limit the model's ability to capture diverse user intents, and the fixed loss function could hinder generalization across datasets. Additionally, the evaluation metrics are somewhat narrow, potentially missing key aspects of user engagement. It is recommended to explore more flexible clustering techniques and adaptive loss functions, as well as to incorporate a broader range of evaluation metrics. This paper is suitable as a reference for researchers interested in enhancing recommendation systems with intent-aware methodologies.",
+    "timestamp": "2026-04-01 16:43:42"
+  },
+  {
+    "index": 4,
+    "paper": "2025_Wang_Discourse-Aware_Scientific_Paper_Recomme.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach to scholarly recommendation systems through the OMRC-MR framework, effectively addressing significant limitations in existing methods. It excels in clearly identifying the research problem, methodology, and results, with a comprehensive analysis of limitations and potential improvements. However, the paper's weaknesses include a lack of explicit dataset split ratios, which raises concerns about the robustness of the results, and potential overfitting due to early stopping. Additionally, the assumption of semantic alignment in contrastive learning may not be universally applicable, and the evaluation metrics may not fully capture user satisfaction. To enhance the paper, it is recommended to report dataset split ratios, implement k-fold cross-validation, and conduct user studies for qualitative evaluations. Suitable as a reference for researchers interested in improving recommendation systems through innovative methodologies.",
+    "timestamp": "2026-04-01 16:45:38"
+  },
+  {
+    "index": 5,
+    "paper": "2026_Aguzzi_Phyelds_A_Pythonic_Framework_for_Aggrega.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel framework, Phyelds, which effectively integrates machine learning with aggregate programming, showcasing originality and addressing a notable gap in current methodologies. The methodology is robust in naming specific algorithms and components, yet it falls short in detailing the training strategy and loss functions, which are crucial for reproducibility. While the results section is comprehensive, providing specific metrics and improvement margins, the evaluation metrics are somewhat limited, and the comparative analysis with baseline methods could be more extensive. Overall, the paper is clear and impactful, but it would benefit from a more detailed methodological description and a broader evaluation framework. Recommended for researchers interested in innovative frameworks that merge machine learning with programming paradigms, but further refinement is needed for it to serve as a comprehensive reference.",
+    "timestamp": "2026-04-01 16:47:50"
+  },
+  {
+    "index": 6,
+    "paper": "2026_Barkatou_Geometric_Properties_of_Level_Sets_for_D.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.79,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify and articulate the research problem, background, and motivation, as well as a thorough extraction of results, including specific metrics and improvement margins. However, the paper's methodology is notably vague, lacking specific algorithmic details, which could impede reproducibility and practical application. While the datasets are named, they are not fully described, particularly in terms of split ratios and evaluation metrics, which limits the clarity and applicability of the results. The critical analysis is robust, offering specific limitations and targeted improvements, which enhances the paper's overall quality. To enhance the paper's impact and utility, it is recommended that the authors provide a detailed algorithmic framework, conduct empirical validations, and clearly define evaluation metrics. This paper is recommended as a reference for researchers interested in the theoretical aspects of geometric properties in elliptic boundary value problems, but it requires further methodological detail for practical application.",
+    "timestamp": "2026-04-01 16:50:23"
+  },
+  {
+    "index": 7,
+    "paper": "2026_Brenning_Aligning_Validation_with_Deployment_Targ.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies the research problem and provides a thorough analysis of the results, demonstrating a strong understanding of the core challenges and limitations. It excels in detailing the datasets used, offering comprehensive characteristics and evaluation metrics. However, the methodology section lacks explicit details on specific loss functions, and the paper does not provide sufficient information on dataset characteristics and baseline comparisons, which affects the reproducibility and interpretability of the findings. To enhance the paper's quality, it is recommended to include detailed dataset descriptions, clearly define evaluation metrics, and specify baseline methods for comparison. Overall, the paper is recommended for researchers interested in novel cross-validation methods, particularly in environmental monitoring contexts, but requires additional details for broader applicability and reproducibility.",
+    "timestamp": "2026-04-01 16:52:52"
+  },
+  {
+    "index": 8,
+    "paper": "2026_Dasare_Can_Hierarchical_Cross-Modal_Fusion_Pred.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel hierarchical multimodal framework for dubbing evaluation, effectively addressing significant limitations in existing methods. It excels in clearly identifying the research problem, methodology, dataset, and results, with a comprehensive critical analysis of its limitations. The strengths lie in its well-structured methodology, innovative use of active learning, and substantial improvements over baseline methods. However, the paper's reliance on a potentially limited dataset and Proxy MOS for training raises concerns about generalizability and prediction accuracy. Additionally, the complexity of the hierarchical fusion process may impact interpretability, and the evaluation metrics might not fully capture subjective viewer experiences. To enhance the model's robustness and applicability, it is recommended to diversify the dataset, improve validation mechanisms, and incorporate qualitative evaluation metrics. Suitable as a reference for researchers interested in multimodal frameworks and dubbing evaluation methodologies.",
+    "timestamp": "2026-04-01 16:54:14"
+  },
+  {
+    "index": 9,
+    "paper": "2026_Dey_Meteorology-Driven_GPT4AP_A_Multi-Task_F.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of air pollution forecasting using a pre-trained transformer model, effectively identifying the research problem and demonstrating improvements over baseline methods. It excels in clearly articulating the motivation and significance of the study, as well as in detailing the datasets and results. However, the methodology section lacks specificity regarding the loss function, which could lead to ambiguity in the training process. Additionally, the model's generalization capabilities may be limited due to the small dataset size and narrow evaluation metrics. To enhance the paper's impact, it is recommended to define the loss function explicitly, incorporate techniques for better generalization, and broaden the evaluation metrics. Recommended for researchers interested in advancing air quality prediction models with a focus on methodological clarity and robustness.",
+    "timestamp": "2026-04-01 16:56:19"
+  },
+  {
+    "index": 10,
+    "paper": "2026_Diwan_ParaSpeechCLAP_A_Dual-Encoder_Speech-Tex.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in speech-caption alignment, demonstrating a strong understanding of the core challenge and motivation. The methodology is well-articulated, with a clear description of the ParaSpeechCLAP model and its dual-encoder architecture, although there are minor inconsistencies between the methodology and results dimensions. While the paper provides comprehensive results and critical analysis, the dataset description lacks detail on train/val/test splits, which could impact the reproducibility of the findings. The paper's originality and clarity are commendable, but concerns about dataset generalizability and evaluation metrics suggest potential limitations in practical applications. Recommended for researchers interested in speech-caption alignment, with a focus on improving dataset diversity and evaluation robustness.",
+    "timestamp": "2026-04-01 16:57:58"
+  },
+  {
+    "index": 11,
+    "paper": "2026_Do_Graphilosophy_Graph-Based_Digital_Humani.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of this paper reveals a strong foundation in originality and critical analysis, particularly through the innovative integration of AI techniques with classical philosophical analysis in the proposed Graphilosophy framework. The paper effectively identifies and analyzes results, providing comprehensive metric values and improvement margins. However, it falls short in methodological clarity, lacking specific details about loss functions and dataset characteristics, which could impede reproducibility. Additionally, the evaluation metrics may not adequately capture the nuanced interpretive aspects of philosophical texts. To enhance the paper's impact and clarity, it is recommended to include detailed dataset descriptions and define loss functions explicitly, while also incorporating qualitative evaluation metrics. Recommended for researchers interested in digital humanities and AI applications in philosophical analysis.",
+    "timestamp": "2026-04-01 16:59:29"
+  },
+  {
+    "index": 12,
+    "paper": "2026_Faulend_Uncovering_the_Microscopic_Mechanism_of_.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and articulating the research problem, as well as a comprehensive understanding of the datasets used, including their characteristics and evaluation metrics. The paper excels in extracting results, providing detailed metric values, baseline comparisons, and improvement margins. However, the methodology section lacks specificity, particularly in detailing the algorithms, loss functions, and training strategies employed, which could hinder reproducibility and clarity. Additionally, the reliance on hypothetical datasets without empirical validation raises concerns about the practical applicability of the findings. To enhance the paper's impact and credibility, it is recommended to clearly define the algorithms and loss functions, outline a detailed training strategy, and validate the datasets with empirical data. Recommended for researchers interested in the theoretical exploration of quasiperiodic many-body localized systems, with a need for further empirical validation.",
+    "timestamp": "2026-04-01 17:02:07"
+  },
+  {
+    "index": 13,
+    "paper": "2026_Feng_DreamLite_A_Lightweight_On-Device_Unifie.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of the paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the core challenge and motivation. The methodology is well-defined, detailing the algorithm and its components, although there is a minor gap in justifying the methodology and results scores due to the lack of specific evidence. While the paper effectively names datasets and evaluation metrics, it falls short in providing train/validation/test split ratios, which hinders a comprehensive evaluation of the model's generalization capabilities. The results section is robust, offering detailed metric values and improvement margins, yet the absence of quantified improvement margins and dataset-specific results limits the full appreciation of the model's performance. Overall, the paper is recommended for those interested in advancements in text-to-image generation and image editing, particularly for applications requiring mobile deployment, but it would benefit from more detailed dataset and baseline comparisons to enhance its utility as a reference.",
+    "timestamp": "2026-04-01 17:05:07"
+  },
+  {
+    "index": 14,
+    "paper": "2026_Feng_Gen-Searcher_Reinforcing_Agentic_Search_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in knowledge-intensive image generation, presenting a novel approach through the Gen-Searcher model. It excels in clearly articulating the motivation and core challenges, as well as providing a comprehensive analysis of results and limitations. However, the methodology section lacks detailed information on dataset characteristics, such as sparsity and split ratios, which could impact the generalizability of the findings. Additionally, the reliance on K-Score as the primary evaluation metric may not fully capture the quality of the generated images, and there are concerns about potential overfitting during the reinforcement learning phase. To enhance the paper, it is recommended to include more detailed dataset descriptions and introduce additional evaluation metrics. This paper is suitable as a reference for researchers interested in advancing image generation models, particularly those focusing on integrating dynamic search capabilities and reward systems.",
+    "timestamp": "2026-04-01 17:07:08"
+  },
+  {
+    "index": 15,
+    "paper": "2026_Gajic_Geometry-aware_similarity_metrics_for_ne.pdf",
+    "paper_quality_score": 0.58,
+    "skill_rubric_total": 0.75,
+    "comment": "The paper presents a novel approach through Metric Similarity Analysis (MSA), which significantly advances the understanding of neural network behavior by focusing on intrinsic geometry. The research problem is clearly identified, and the motivation is well-articulated, showcasing the potential impact on model design and performance. However, the paper lacks explicit baseline comparisons, which hinders the evaluation of MSA's effectiveness relative to existing methods. Additionally, the absence of detailed dataset characteristics and a defined loss function limits the robustness and generalizability of the findings. To enhance the paper's credibility and comprehensiveness, it is recommended to include baseline comparisons, detailed dataset descriptions, and a broader range of evaluation metrics. Recommended for researchers interested in neural network analysis and model design improvements.",
+    "timestamp": "2026-04-01 17:09:50"
+  },
+  {
+    "index": 16,
+    "paper": "2026_Heath_Extending_MONA_in_Camera_Dropbox_Reprodu.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a strong identification of the research problem and methodology, clearly outlining the specific challenges and innovative solutions proposed by the MONA framework. The originality of the dual loss structure is a notable strength, offering a creative approach to balancing objectives in reinforcement learning. However, the paper falls short in providing detailed descriptions of datasets and evaluation metrics, which could obscure the assessment of the methodology's effectiveness. Additionally, the limited testing environment raises concerns about the generalizability of the results. To improve the paper's impact, it is recommended to include comprehensive definitions of loss functions and evaluation metrics, expand dataset descriptions, and test the methodology across diverse environments. Overall, the paper is recommended as a reference for researchers interested in novel approaches to reinforcement learning safety, but further validation is needed for broader applicability.",
+    "timestamp": "2026-04-01 17:11:36"
+  },
+  {
+    "index": 17,
+    "paper": "2026_Holthusen_A_Convex_Route_to_Thermomechanics_Learni.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the core challenge and motivation. The methodology is well-detailed, naming specific algorithms and components, although it falls short in providing explicit evaluation metrics and dataset split ratios, which are crucial for assessing performance robustness. The results are comprehensively presented, showcasing significant improvements over traditional methods, yet the lack of baseline comparisons limits the contextual understanding of these findings. The critical analysis is thorough, identifying paper-specific limitations and suggesting targeted improvements. Overall, the paper demonstrates originality and potential impact, but would benefit from enhanced clarity and methodological rigor. Recommended for researchers interested in innovative approaches to thermomechanical modeling, with a suggestion to address the noted weaknesses for broader applicability.",
+    "timestamp": "2026-04-01 17:13:59"
+  },
+  {
+    "index": 18,
+    "paper": "2026_Jin_SonoWorld_From_One_Image_to_a_3D_Audio-V.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough analysis of its limitations and potential improvements, demonstrating strong critical analysis skills. It introduces a novel approach to generating spatial audio-visual scenes from a single image, which is a significant contribution to the field. However, the methodology section lacks some details, particularly regarding the loss functions and dataset split ratios, which could affect the reproducibility and robustness of the results. Additionally, the limited diversity of the datasets used raises concerns about the generalizability of the findings. To enhance the paper's impact, it is recommended to expand the dataset, clearly define the data splits, and include qualitative user studies to complement the quantitative metrics. Recommended for researchers interested in immersive audio-visual technologies and those seeking to address current limitations in spatial scene generation.",
+    "timestamp": "2026-04-01 17:15:42"
+  },
+  {
+    "index": 19,
+    "paper": "2026_Kaufmann_Aligned_Orthogonal_or_In-conflict_When_c.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and articulating the research problem, as well as a comprehensive analysis of results and limitations. The methodology is robust, incorporating a variety of algorithms, though it lacks detailed descriptions of specific loss functions. While the datasets are named, the paper would benefit from more detailed descriptions, including split ratios and evaluation metrics. The originality and clarity of the paper could be enhanced by introducing more innovative approaches and providing clearer justifications for methodological choices. Overall, this paper is recommended for those interested in the impact of reward structures on monitorability, but it would benefit from improvements in originality and clarity for broader academic reference.",
+    "timestamp": "2026-04-01 17:17:53"
+  },
+  {
+    "index": 20,
+    "paper": "2026_Klein_Tucker_Attention_A_generalization_of_app.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.79,
+    "comment": "The paper demonstrates a strong ability to clearly identify the research problem, providing a well-defined background and motivation for the study. The introduction of the TuckerAttention model is a notable strength, showcasing originality and potential impact in improving parameter efficiency in attention mechanisms. However, the methodology section lacks specific details on the loss function and dataset split ratios, which are crucial for reproducibility. Additionally, the results section is insufficiently detailed, missing baseline comparisons and improvement margins, which hinders a comprehensive assessment of the model's performance. Overall, while the paper presents innovative ideas, it would benefit from more detailed methodological and results reporting. Recommended for researchers interested in novel attention mechanisms, but further details are needed for it to serve as a robust reference for implementation.",
+    "timestamp": "2026-04-01 17:20:45"
+  },
+  {
+    "index": 21,
+    "paper": "2026_Lattimore_Refined_Detection_for_Gumbel_Watermarkin.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.75,
+    "comment": "The paper presents a novel refinement of the Gumbel watermarking scheme, showcasing originality in addressing the challenges associated with watermarking outputs from large language models. The motivation for enhancing watermarking effectiveness is clearly articulated, emphasizing its significance in ensuring accountability and preventing misuse of generated content. However, the methodology section lacks a clearly defined loss function, which is crucial for optimizing the watermarking process. Additionally, the absence of detailed dataset characteristics and split ratios limits the reproducibility and generalizability of the findings. The evaluation metrics are primarily statistical, which may not fully capture the practical effectiveness of the proposed scheme. Recommended for researchers interested in watermarking techniques, with a need for further methodological refinement and comprehensive evaluation to enhance practical applicability.",
+    "timestamp": "2026-04-01 17:22:30"
+  },
+  {
+    "index": 22,
+    "paper": "2026_Li_ContextClaim_A_Context-Driven_Paradigm_f.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of claim detection, clearly identifying the research problem and offering a novel approach that leverages external knowledge sources. It excels in detailing datasets and results, presenting specific metric values and improvement margins over baseline models. However, the methodology section could be strengthened by explicitly defining loss functions, which are crucial for understanding the optimization process. Additionally, the paper's reliance on Wikipedia as a primary knowledge source may limit its applicability to niche topics, and the evaluation metrics might not fully capture the model's practical utility. To enhance the paper's impact, it is recommended to diversify knowledge sources, refine loss functions, and broaden the dataset scope to improve generalizability. Suitable as a reference for researchers interested in advancing claim detection methodologies.",
+    "timestamp": "2026-04-01 17:24:21"
+  },
+  {
+    "index": 23,
+    "paper": "2026_Ma_Learning_a_dynamic_four-chamber_shape_mo.pdf",
+    "paper_quality_score": 0,
+    "skill_rubric_total": 0.58,
+    "comment": "The academic assessment of this paper reveals a mixed performance across various skill dimensions. The paper excels in clearly identifying the research problem and methodology, with specific algorithms and components well-articulated. However, it falls short in providing dataset information, which is crucial for replicability and validation of the research. The results section is incomplete, lacking detailed metric values and comparisons to baselines, which diminishes the paper's credibility. Additionally, there is no critical analysis of limitations or potential improvements, which is essential for a comprehensive understanding of the work's impact. Overall, due to the connection errors affecting the evaluation, the paper is not recommended for citation or reference until a stable internet connection allows for a complete and accurate assessment.",
+    "timestamp": "2026-04-01 18:09:20"
+  },
+  {
+    "index": 24,
+    "paper": "2026_Merin_Temporal_Credit_Is_Free.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific research problem, providing a clear background and motivation. It excels in detailing the datasets used, including their characteristics and use cases, and presents results with precise metric values and improvement margins. However, the methodology section has minor gaps, particularly in the description of the loss function and training strategy, which could affect the clarity and reproducibility of the study. Additionally, while the paper offers a novel approach with significant computational benefits, it would benefit from a broader comparison with state-of-the-art methods and more detailed dataset descriptions to enhance its generalizability. Recommended for researchers interested in innovative approaches to recurrent learning and those seeking to reduce computational costs in machine learning applications.",
+    "timestamp": "2026-04-01 18:11:36"
+  },
+  {
+    "index": 25,
+    "paper": "2026_Mukherjee_GPU-Accelerated_Optimization_of_Transfor.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of optimizing BERT through a hybrid precision strategy, effectively addressing memory-bandwidth challenges. It excels in clearly identifying the research problem, methodology, and datasets, with a well-defined approach that results in notable improvements in speed and memory efficiency. However, the results section lacks explicit details on certain improvement margins and baseline comparisons, which slightly undermines the overall impact assessment. Additionally, the study's generalizability is limited by the absence of robustness testing across diverse datasets and fixed hyperparameters during fine-tuning. To strengthen the paper, it is recommended to expand testing across varied datasets, optimize hyperparameters, and consider alternative optimization frameworks beyond TensorRT. Recommended for researchers interested in BERT optimization and memory efficiency strategies.",
+    "timestamp": "2026-04-01 18:13:15"
+  },
+  {
+    "index": 26,
+    "paper": "2026_Pacela_Stop_Probing_Start_Coding_Why_Linear_Pro.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a significant research problem related to neural network activations and interpretability, particularly focusing on superposition, which is a notable strength. The methodology introduces an innovative approach using Sparse Autoencoders, although it lacks a clearly defined loss function, which could lead to ambiguity in model training and behavior. While the datasets are named, the descriptions are incomplete, and the evaluation metrics are not fully specified, potentially affecting reproducibility. The results section is mostly comprehensive, but the improvement margin for the first dataset is not explicitly stated, which could impact the clarity of the findings. The paper excels in critical analysis, providing specific limitations and targeted improvements. Overall, the paper is recommended for researchers interested in neural network interpretability and superposition, but it would benefit from enhancements in methodology clarity and dataset specification for broader applicability and reproducibility.",
+    "timestamp": "2026-04-01 18:16:11"
+  },
+  {
+    "index": 27,
+    "paper": "2026_Quintero_Do_covariates_explain_why_these_groups_d.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a significant problem in existing methodologies, specifically addressing limitations in the Oaxaca-Blinder Decomposition, and proposes a novel approach to analyzing in-hospital mortality. It excels in clearly defining the research problem, methodology, and results, providing a comprehensive analysis of the paper's limitations and potential improvements. However, the study's reliance on simulated data rather than real-world datasets may limit the applicability of its findings, and the lack of detailed evaluation metrics hinders the assessment of result robustness. To enhance the study's impact, it is recommended to incorporate real-world datasets for validation, clearly define evaluation metrics, and consider interaction effects between covariates. Suitable as a reference for researchers interested in methodological advancements in mortality analysis.",
+    "timestamp": "2026-04-01 18:18:24"
+  },
+  {
+    "index": 28,
+    "paper": "2026_Ren_Rethinking_Language_Model_Scaling_under_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in optimizer design, introducing the Hypersphere Parameterization (HyperP) as a novel approach to simplify hyperparameter tuning. The methodology is clearly articulated, with a comprehensive analysis of its components and potential improvements. However, the paper falls short in providing detailed dataset descriptions, including split ratios and evaluation metrics, which could impact the perceived reliability and generalizability of the results. Despite these gaps, the empirical results demonstrate promising improvements over existing methods. It is recommended that this paper be used as a reference for researchers interested in optimizer design, with the caveat that further exploration of dataset characteristics and evaluation metrics is necessary for a more robust assessment.",
+    "timestamp": "2026-04-01 18:19:57"
+  },
+  {
+    "index": 29,
+    "paper": "2026_Saad_Hybrid_Framework_for_Robotic_Manipulatio.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, datasets, and results, achieving perfect scores in these areas. It effectively integrates reinforcement learning with large language models, offering a novel approach to robotic manipulation tasks. However, the paper's overall quality is somewhat diminished by a lack of detailed explanation regarding the algorithms and loss functions, which affects reproducibility and understanding. Additionally, the reliance on simulation-based training without explicit dataset specifications raises questions about the generalizability of the findings, and the vague baseline comparisons hinder the assessment of the method's significance. To enhance the paper's impact, it is recommended to provide more comprehensive details on the methodology and datasets, and to clarify baseline comparisons. Suitable as a reference for researchers interested in the intersection of reinforcement learning and language models, particularly in the context of robotic applications.",
+    "timestamp": "2026-04-01 18:25:18"
+  },
+  {
+    "index": 30,
+    "paper": "2026_Savani_Stepwise_Credit_Assignment_for_GRPO_on_F.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a comprehensive exploration of a novel approach to credit assignment in reinforcement learning, with a clear identification of the research problem and a well-defined methodology. The Stepwise-Flow-GRPO algorithm is a notable contribution, offering a fine-grained credit assignment mechanism that advances the field. The paper excels in clarity, making complex ideas accessible to a broad audience. However, the results section is weakened by the absence of specific numerical metrics and improvement margins, which undermines the claims of the algorithm's effectiveness. Additionally, concerns about the methodology's robustness to noisy data and potential overfitting suggest limitations in generalizability. To enhance the paper, it is recommended to include detailed experimental results and address the identified methodological limitations. Overall, the paper is recommended for researchers interested in reinforcement learning, particularly those focusing on credit assignment mechanisms.",
+    "timestamp": "2026-04-01 18:27:13"
+  },
+  {
+    "index": 31,
+    "paper": "2026_Schroeder_SOLE-R1_Video-Language_Reasoning_as_the_.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach to multi-frame reasoning in robotic applications through the introduction of the SOLE-R1 model, which is a significant strength due to its structured reasoning and global understanding of video data. The methodology is clearly defined, with specific algorithms and loss functions, and the results show notable improvements over existing baselines, highlighting the potential effectiveness of the proposed method. However, the paper's reliance on a limited set of datasets may hinder the model's generalization to real-world scenarios, and the evaluation metrics do not adequately assess temporal reasoning capabilities, posing a risk of overfitting. Additionally, the dependence on ground-truth success conditions could limit the model's applicability in subjective contexts. To enhance the model's robustness and practical applicability, it is recommended to incorporate a more diverse range of datasets, develop evaluation metrics focused on temporal reasoning, and implement regularization techniques. Suitable as a reference for researchers interested in advancing multi-frame reasoning in robotics, with a focus on improving generalization and real-world applicability.",
+    "timestamp": "2026-04-01 18:28:53"
+  },
+  {
+    "index": 32,
+    "paper": "2026_Sun_Tracking_Equivalent_Mechanistic_Interpre.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.79,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify the research problem and provide a comprehensive analysis of results and limitations. The paper excels in presenting specific metric values and improvement margins, which are crucial for understanding the impact of the research. However, the methodology section is notably weak, lacking specific algorithmic details and a comprehensive training strategy, which undermines the robustness of the findings. Additionally, while datasets are named, the absence of detailed evaluation metrics and baseline comparisons limits the depth of the analysis. To enhance the paper's rigor and impact, it is recommended to include a detailed methodology with explicit baseline comparisons and a thorough analysis of dataset characteristics. Recommended for researchers interested in mechanistic interpretability as a foundational reference, but further methodological details are needed for practical application.",
+    "timestamp": "2026-04-01 18:32:29"
+  },
+  {
+    "index": 33,
+    "paper": "2026_Swift_Quantifying_Cross-Modal_Interactions_in_.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a comprehensive exploration of glioma prognosis by introducing a novel approach that integrates multimodal data using InterSHAP, effectively enhancing the understanding of cross-modal interactions. The study is well-motivated, with a clear articulation of the need to improve prognostic accuracy, and the methodology is robustly defined, detailing specific algorithms and evaluation metrics. However, the research is limited by a small sample size in the TCGA-GBM dataset, which raises concerns about overfitting and the generalizability of the findings. Additionally, the reliance on synthetic data for validation may not accurately capture the complexities of real-world scenarios, and the evaluation metrics used may not fully reflect clinical relevance. To address these issues, future work should focus on expanding the sample size through multi-center studies, incorporating diverse real-world datasets for validation, and employing additional evaluation metrics that better capture clinical utility. External validation on independent cohorts is also recommended to enhance the model's generalizability. Recommended for researchers interested in multimodal data integration and glioma prognosis, with a focus on methodological innovation and cross-modal interaction analysis.",
+    "timestamp": "2026-04-01 18:33:54"
+  },
+  {
+    "index": 34,
+    "paper": "2026_Tan_HapCompass_A_Rotational_Haptic_Device_fo.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a well-defined research problem, clearly identifying the core challenge and motivation behind the proposed HAPCOMPASS system. It demonstrates originality by integrating visual and directional haptic feedback to address limitations in existing methods. However, the methodology section lacks specific details about dataset characteristics, such as size and split ratios, which could impact the generalizability of the findings. While the results section effectively communicates improvements over baseline methods, the evaluation metrics are limited and do not fully capture user experience nuances. To enhance the paper's impact, it is recommended to expand on dataset details, introduce a broader range of evaluation metrics, and conduct user studies to optimize feedback balance. Recommended for researchers interested in advancing teleoperation systems with innovative haptic feedback solutions.",
+    "timestamp": "2026-04-01 18:35:21"
+  },
+  {
+    "index": 35,
+    "paper": "2026_Tsai_Reward-Based_Online_LLM_Routing_via_Neur.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong academic contribution by clearly identifying the research problem and effectively employing a novel methodology through the NeuralUCB algorithm to address cost-aware routing in large language models. The strengths of the paper lie in its originality and the significant improvements demonstrated over baseline methods, as well as a comprehensive critical analysis that identifies specific limitations and suggests targeted improvements. However, the paper's clarity is somewhat lacking, particularly in the description of dataset characteristics and the evaluation framework, which could hinder the reproducibility and robustness assessment of the findings. To enhance the paper's impact, it is recommended to provide explicit details on dataset sample sizes, evaluation metrics, and to address feedback sparsity more thoroughly. Overall, this paper is recommended for researchers interested in contextual bandit approaches and cost-aware routing in machine learning, but it would benefit from further refinement in clarity and methodological transparency.",
+    "timestamp": "2026-04-01 18:37:16"
+  },
+  {
+    "index": 36,
+    "paper": "2026_Tu_Dynamic_Dual-Granularity_Skill_Bank_for_.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a well-defined approach to skill management in reinforcement learning through the D2Skill framework, which is noted for its originality and clarity. The research problem is clearly identified, and the methodology is robust, with specific algorithms and components outlined. However, the paper falls short in providing detailed descriptions of datasets and existing reinforcement learning algorithms, which could enhance the comprehensiveness of the results. The critical analysis is strong, offering targeted improvements for identified limitations, such as dynamic skill generation and retrieval mechanisms. Overall, the paper is recommended for researchers interested in advancing skill management in reinforcement learning, though further refinement in evaluation metrics and training strategies is suggested to fully capture task complexities.",
+    "timestamp": "2026-04-01 18:38:57"
+  },
+  {
+    "index": 37,
+    "paper": "2026_Tuttösí_Covertly_improving_intelligibility_with_.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a significant research problem in understanding speech rate information processing for non-native listeners, demonstrating a strong grasp of the core challenge and motivation. The methodology, while innovative in its use of a modified MatchaTTS model, lacks detailed descriptions of dataset characteristics and specific evaluation metrics, which could impact the perceived robustness and generalizability of the findings. The results section is comprehensive, providing clear metric values and improvement margins, but the paper would benefit from a more explicit discussion of the dataset split ratios and evaluation metrics. The critical analysis is thorough, offering concrete scenarios for improvement, yet the paper could enhance its impact by incorporating user-centric evaluations and expanding the dataset to include more diverse phonetic contexts. Recommended for researchers interested in speech synthesis and non-native language processing, with a suggestion to address the noted methodological gaps for broader applicability.",
+    "timestamp": "2026-04-01 18:42:07"
+  },
+  {
+    "index": 38,
+    "paper": "2026_Uchendu_See_it_to_Place_it_Evolving_Macro_Placem.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach to chip floorplanning by integrating a Vision-Language Model (VLM) with evolutionary strategies, effectively enhancing placement quality and efficiency. It excels in clearly identifying the research problem, methodology, and results, with a strong critical analysis of limitations and potential improvements. However, the paper falls short in detailing dataset splits and evaluation metrics, which raises concerns about the generalizability and comprehensiveness of the results. The reliance on existing base placers and static loss function parameters also suggests potential biases and limited adaptability. To strengthen the paper, it is recommended to include detailed dataset splits, expand evaluation metrics to encompass power and area considerations, and explore dynamic loss function adjustments. Recommended for researchers interested in innovative approaches to chip floorplanning, with a focus on integrating machine learning techniques.",
+    "timestamp": "2026-04-01 18:44:01"
+  },
+  {
+    "index": 39,
+    "paper": "2026_Wijaya_From_Patterns_to_Policy_A_Scoping_Review.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. It excels in detailing the datasets used, including their characteristics and evaluation metrics, and offers a thorough analysis of results with specific metrics and improvement margins. However, the methodology section lacks clarity, as it fails to specify any particular algorithms, which weakens the overall methodological rigor. Despite this, the paper's critical analysis is robust, identifying limitations and suggesting targeted improvements. Given these strengths and weaknesses, the paper is recommended as a reference for those interested in integrating quantitative and qualitative approaches in healthcare policy and governance, though further methodological clarity would enhance its utility.",
+    "timestamp": "2026-04-01 18:46:04"
+  },
+  {
+    "index": 40,
+    "paper": "2026_Xiang_Architecting_Secure_AI_Agents_Perspectiv.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper demonstrates a strong ability to clearly identify research problems, methodologies, datasets, and results, with perfect scores in these areas. It excels in providing a comprehensive analysis of limitations and potential improvements, showcasing a deep understanding of the subject matter. However, the overall academic assessment is slightly hindered by a lack of specific algorithm definitions and traditional loss functions, which could affect reproducibility and performance evaluation. Additionally, the evaluation metrics used do not fully align with the security objectives, potentially leading to an overestimation of the methodology's effectiveness. To enhance the paper's impact, it is recommended to clearly define the algorithms and loss functions used, and to incorporate evaluation metrics that directly measure resilience to indirect prompt injection attacks. Suitable as a reference for researchers focusing on AI security methodologies, particularly those interested in innovative approaches to addressing prompt injection attacks.",
+    "timestamp": "2026-04-01 18:48:06"
+  },
+  {
+    "index": 41,
+    "paper": "2026_Zhang_Conditional_Polarization_Guidance_for_Ca.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, and results, with a perfect score in these areas. It excels in presenting a novel approach to camouflaged object detection by leveraging polarization information, which marks a significant improvement over traditional methods. However, the paper falls short in providing comprehensive dataset descriptions, which could impact the reproducibility and generalizability of the findings. Additionally, the absence of a validation set and the limited dataset diversity raise concerns about the model's robustness in diverse real-world applications. To enhance the paper's impact, it is recommended to introduce a validation set, expand the dataset, and consider a hybrid model approach. Suitable as a reference for researchers interested in advancing camouflaged object detection techniques.",
+    "timestamp": "2026-04-01 18:49:57"
+  },
+  {
+    "index": 42,
+    "paper": "2026_Zhang_Learning_the_Exact_Flux_Neural_Riemann_S.pdf",
+    "paper_quality_score": 0.76,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a comprehensive and well-structured exploration of a novel approach to Riemann solvers by integrating hard constraints into a neural network architecture, which significantly enhances both accuracy and physical fidelity. The authors excel in clearly identifying the research problem, methodology, datasets, and results, with a perfect score in these areas. However, the paper's overall score is slightly diminished by minor gaps in the comprehensive score, particularly concerning the generalizability and flexibility of the proposed methodology. The reliance on hard constraints, while innovative, may limit the model's adaptability across diverse fluid dynamics scenarios and increase the risk of overfitting due to high dataset dimensionality. \n\nRecommended for researchers and practitioners in computational fluid dynamics seeking to enhance solver accuracy and fidelity, with a suggestion to explore hybrid constraint approaches and broader evaluation metrics for future work.",
+    "timestamp": "2026-04-01 18:51:39"
+  },
+  {
+    "index": 43,
+    "paper": "2026_Ayyash_Brainstacks_Cross-Domain_Cognitive_Capab.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies and addresses a specific research problem, providing a clear background and motivation for the study. It excels in detailing the methodology, particularly with the introduction of innovative concepts like comprehensive MoE routing and learnable noise injection, which enhance performance in continual learning scenarios. However, the paper falls short in providing detailed descriptions of dataset characteristics and split ratios, which affects the robustness and generalizability of the results. Additionally, the lack of consistent evaluation metrics and baseline comparisons across datasets complicates the assessment of the model's performance. To improve the paper's impact and reproducibility, future work should focus on standardizing dataset descriptions and evaluation metrics, as well as incorporating baseline comparisons. Recommended for researchers interested in innovative methodologies for continual learning, but should be used with caution due to the noted weaknesses in dataset and results reporting.",
+    "timestamp": "2026-04-03 08:25:10"
+  },
+  {
+    "index": 44,
+    "paper": "2026_Bao_LAtent_Phase_Inference_from_Short_time_s.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. It excels in detailing the methodology, naming specific algorithms and components, and offering a critical analysis of limitations and potential improvements. However, the paper falls short in providing detailed descriptions of dataset splits and improvement margins in results, which could enhance the clarity and reproducibility of the findings. The originality and clarity of the approach are commendable, though concerns about generalization and sensitivity to hyperparameters suggest areas for further development. Recommended for researchers interested in spatiotemporal dynamics and those seeking innovative methodologies with potential real-world applications, albeit with caution regarding its current limitations.",
+    "timestamp": "2026-04-03 08:29:51"
+  },
+  {
+    "index": 45,
+    "paper": "2026_Basu_Rotationally_invariant_first_passage_per.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.67,
+    "comment": "The academic assessment of this paper reveals a strong identification of the research problem and a comprehensive analysis of results, with clear articulation of specific metric values and improvement margins. However, the methodology section is notably weak, lacking specificity in algorithmic details and failing to mention any datasets, which could impede reproducibility and practical application. Despite these shortcomings, the paper excels in critical analysis, offering targeted improvements and acknowledging limitations with concrete scenarios. To enhance the paper's impact and utility, it is recommended that the authors develop a detailed algorithmic framework, define a loss function, and provide a thorough analysis of dataset characteristics. Overall, this paper is recommended for researchers interested in the theoretical aspects of first passage percolation models, but it requires methodological enhancements for broader applicability.",
+    "timestamp": "2026-04-03 08:37:04"
+  },
+  {
+    "index": 46,
+    "paper": "2026_Chi_FecalFed_Privacy-Preserving_Poultry_Dise.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a well-defined research problem, focusing on the challenges of federated learning in agricultural AI under non-IID conditions. It excels in identifying specific methodologies and results, showcasing innovative approaches such as adaptive aggregation strategies and a dual-algorithm deduplication pipeline. However, the paper's methodology is somewhat limited by insufficient local training epochs, which may lead to underfitting, and a dataset with high duplication rates that could bias the model. Additionally, the lack of explicit loss function specification and reliance solely on accuracy as an evaluation metric detracts from the robustness of the findings. To enhance the study, it is recommended to increase local training epochs, address dataset duplication, incorporate data augmentation, and expand evaluation metrics to include precision, recall, and F1-score. Overall, this paper is recommended for researchers interested in federated learning and agricultural AI, particularly those exploring innovative methodologies under challenging conditions.",
+    "timestamp": "2026-04-03 08:39:28"
+  },
+  {
+    "index": 47,
+    "paper": "2026_Condor_Neural_Harmonic_Textures_for_High-Qualit.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach, Neural Harmonic Textures, which effectively integrates primitive-based representations with neural field methods, addressing significant limitations in existing methods for 3D reconstruction and novel view synthesis. The strengths of the paper lie in its clear identification of the research problem, well-structured methodology, and comprehensive results that demonstrate competitive performance against baseline methods across multiple datasets. However, the paper's reliance on a limited dataset of only 15 high-resolution images may hinder the generalization of the findings, and the lack of specified train/validation/test split ratios raises concerns about the reliability of the evaluation metrics. Additionally, the evaluation metrics used may not fully capture perceptual quality, and the shallow MLP for color decoding may limit the model's ability to handle complex lighting scenarios. To improve the robustness and generalization of the model, it is recommended to expand the dataset, clearly define the train/validation/test splits, and explore deeper neural architectures for color decoding. This paper is recommended for researchers interested in advancing 3D reconstruction and novel view synthesis techniques.",
+    "timestamp": "2026-04-03 08:42:27"
+  },
+  {
+    "index": 48,
+    "paper": "2026_Das_Multimessenger_Constraints_on_Production.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.96,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a significant research gap in high-energy neutrino emissions from AGNs, with a particular focus on NGC 1068. The paper excels in clearly defining the research problem, methodology, datasets, and results, demonstrating a comprehensive understanding of the subject matter. However, the methodology section lacks specificity in algorithm names and loss functions, which could impede reproducibility and thorough performance evaluation. Additionally, the paper does not adequately address data sparsity issues or employ evaluation metrics that fully capture the complexities of astrophysical phenomena. To enhance the paper's impact and clarity, it is recommended to specify the algorithms and models used, introduce a suitable loss function, and develop strategies to address data sparsity and tailor evaluation metrics to the astrophysical context. Recommended for researchers interested in innovative approaches to astrophysical data analysis and high-energy neutrino studies.",
+    "timestamp": "2026-04-03 08:45:21"
+  },
+  {
+    "index": 49,
+    "paper": "2026_Dey_NeuroDDAF_Neural_Dynamic_Diffusion-Advec.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel approach to air quality forecasting by integrating physical modeling with advanced data-driven techniques, demonstrating a strong understanding of pollutant dispersion complexities. The motivation for improving air quality predictions is well-articulated, with clear implications for public health and policy. However, the study's geographic and temporal dataset limitations may affect the model's generalizability, and the complexity of the model raises concerns about potential overfitting. Additionally, the lack of explicit loss function specification and reliance on real-time wind data introduce vulnerabilities. To enhance the robustness and applicability of the findings, it is recommended to expand the dataset diversity, implement regularization techniques, clearly define loss functions, and incorporate additional evaluation metrics for extreme pollution events. Suitable as a reference for researchers interested in integrating physical and data-driven approaches in environmental modeling.",
+    "timestamp": "2026-04-03 08:47:55"
+  },
+  {
+    "index": 50,
+    "paper": "2026_Fang_Enhancing_Gradient_Inversion_Attacks_in_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper highlights several strengths and weaknesses. The paper excels in clearly identifying the research problem and providing a comprehensive analysis of its limitations, offering targeted improvements. The novel approach (GIFD) to enhancing gradient inversion attacks in Federated Learning is well-motivated and demonstrates a clear advancement over existing techniques. However, there are notable weaknesses, such as incomplete details in the methodology, particularly regarding the loss function, and the partial identification of datasets. The results, while showing some improvement, are limited by low Recall and NDCG metrics, and the evaluation metrics do not fully capture the qualitative aspects of the reconstructed images. To enhance the paper, incorporating adversarial training techniques, improving latent space representation, and expanding evaluation metrics are recommended. Overall, this paper is suitable as a reference for researchers interested in privacy risks in distributed systems and the application of GANs in Federated Learning.",
+    "timestamp": "2026-04-03 08:49:51"
+  },
+  {
+    "index": 51,
+    "paper": "2026_Garg_The_Recipe_Matters_More_Than_the_Kitchen.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. The methodology is robust, integrating various components for weather prediction, though it lacks a specific algorithm identification, which may affect reproducibility. The paper excels in detailing datasets and evaluation metrics, and the results section is thorough, presenting significant improvements over baseline models. However, the originality and clarity dimensions could be enhanced by providing more detailed descriptions of dataset characteristics and expanding baseline comparisons. Overall, the paper is recommended for researchers interested in advanced weather prediction methodologies, but it would benefit from clearer algorithm identification and broader baseline comparisons to strengthen its impact and reproducibility.",
+    "timestamp": "2026-04-03 08:53:05"
+  },
+  {
+    "index": 52,
+    "paper": "2026_Giesselmann_A_Posteriori_Error_Analysis_of_Runge-Kut.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of the challenges in solving partial differential equations (PDEs) with weak solutions and entropy conditions, clearly identifying the core problem and motivation. It excels in detailing the methodology, specifically the use of RKDG schemes with SIAC post-processing, and presents thorough results with specific metric values and improvement margins. However, the paper falls short in fully describing the datasets, particularly in terms of split ratios and evaluation metrics, which could enhance the reproducibility and assessment of the methodology's effectiveness. Additionally, while the critical analysis is robust, the overall score reflects minor inconsistencies in justifying the methodology and impact scores. \n\nRecommended for researchers and practitioners in numerical analysis and computational mathematics, particularly those interested in advanced PDE solution techniques and their applications in scientific and engineering contexts.",
+    "timestamp": "2026-04-03 08:56:07"
+  },
+  {
+    "index": 53,
+    "paper": "2026_Heinke_Information_content_of_JWST_transmission.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals several strengths and weaknesses. The paper excels in clearly identifying the research problem and methodology, with a strong focus on the ExoTEDRF pipeline and ARCiS framework for atmospheric retrieval tailored to JWST data. The motivation and potential impact on exoplanet atmospheric characterization are well-articulated. However, the results section lacks specific numerical improvements over baseline methods, which affects the clarity and perceived impact of the findings. Additionally, the methodology's reliance on specific instrumentation and fixed priors may limit its generalizability. To improve the paper, it is recommended to include detailed numerical comparisons and address the adaptability of the methodology. Overall, the paper is suitable as a reference for researchers interested in exoplanet atmospheric studies, particularly those utilizing JWST data.",
+    "timestamp": "2026-04-03 08:59:55"
+  },
+  {
+    "index": 54,
+    "paper": "2026_Hu_Learning_and_Generating_Mixed_States_Pre.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and articulates a specific research problem, providing a clear background and motivation, which is a notable strength. It excels in detailing the datasets used, including their characteristics and evaluation metrics, and offers a thorough analysis of results with specific metrics and improvement margins. However, the methodology section is somewhat lacking, with minor gaps in the identification of algorithm components and a significant omission of a clearly defined loss function and explicit data split ratios. This could impact the model's performance and generalization capabilities. Additionally, the reliance on local recovery maps may restrict the algorithm's applicability in broader contexts. To enhance the paper's robustness, it is recommended to introduce a well-defined loss function, establish clear data split ratios, and consider global recovery techniques. Overall, the paper is recommended for researchers interested in quantum computing and information processing, particularly those exploring novel approaches to learning phase mixed states.",
+    "timestamp": "2026-04-03 09:03:28"
+  },
+  {
+    "index": 55,
+    "paper": "2026_Hu_TRACE_High-Fidelity_3D_Scene_Editing_via.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper demonstrates a strong ability to identify and articulate the research problem, methodology, and results, with a clear focus on the novel TRACE methodology for 3D scene editing. The strengths lie in its originality and impact, particularly through the integration of 2D generative models with 3D geometric consistency, and the innovative use of a composite loss function. However, the paper falls short in providing detailed descriptions of dataset split ratios and evaluation metrics, which could affect the reproducibility and generalizability of the findings. Additionally, the complexity of the loss functions and reliance on monocular depth priors present potential challenges in practical application. To enhance the paper's quality, it is recommended to include detailed dataset information and evaluation metrics, conduct sensitivity analyses on the loss functions, and consider multi-view depth estimation techniques. Recommended for researchers interested in advancing 3D scene editing methodologies.",
+    "timestamp": "2026-04-03 09:07:23"
+  },
+  {
+    "index": 56,
+    "paper": "2026_Huang_Screening_Workers_with_Affirmative_Actio.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive analysis of its results, demonstrating a strong understanding of the core challenge and motivation behind the study. The research introduces a novel two-dimensional screening model that addresses labor market discrimination, which is a significant contribution to the field. However, the methodology section lacks clarity, particularly regarding dataset characteristics and evaluation metrics, which raises concerns about the robustness and reliability of the findings. Additionally, the assumption of homogeneity within groups may oversimplify agent behavior, and the exploration of policy implications is insufficient. To improve the paper, the authors should provide detailed dataset statistics, define train/val/test split ratios, clarify evaluation metrics, and explore heterogeneity within groups. Overall, the paper is recommended for researchers interested in labor market discrimination and contract design, but it requires further refinement to serve as a reliable reference for practical applications.",
+    "timestamp": "2026-04-03 09:10:26"
+  },
+  {
+    "index": 57,
+    "paper": "2026_Junnarkar_Learning_Neural_Network_Controllers_with.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough analysis of its limitations and potential improvements, demonstrating strong critical analysis skills. It introduces a novel approach to robust dissipativity using advanced neural network architectures, which significantly enhances control systems' flexibility and performance under uncertainty. However, the paper's clarity is somewhat compromised by the lack of explicit dataset characteristics and the implicit definition of the loss function, which may limit the generalizability and comprehensive understanding of the findings. Additionally, the complexity of the training strategy and reliance on a specific neural network architecture could hinder broader applicability. It is recommended that future work address these issues by providing detailed dataset descriptions, exploring various architectures, and simplifying the training strategy to improve the approach's practicality and applicability. Suitable as a reference for researchers interested in advanced control systems and neural network applications.",
+    "timestamp": "2026-04-03 09:12:56"
+  },
+  {
+    "index": 58,
+    "paper": "2026_Khanpour_Making_Every_Bit_Count_for_A-Optimal_Sta.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a comprehensive exploration of a novel approach using the Frank-Wolfe method for bit allocation in quantization, effectively addressing a significant challenge in the field. It excels in clearly identifying the research problem, methodology, dataset, and results, with a perfect score in these areas. The critical analysis is thorough, pinpointing specific limitations and suggesting targeted improvements. However, the overall assessment is slightly hindered by a minor gap in addressing dataset limitations and assumptions, particularly concerning the generalizability of results due to reliance on the PGLib-OPF dataset. To enhance the robustness and applicability of the findings, it is recommended to validate the method on a broader range of datasets and explore alternative approaches for the Linear Minimization Oracle. This paper is recommended for researchers interested in quantization techniques and optimization methods, and it is suitable as a reference for further studies aiming to improve computational efficiency and rounding quality in similar contexts.",
+    "timestamp": "2026-04-03 09:15:17"
+  },
+  {
+    "index": 59,
+    "paper": "2026_Liu_Expectation_Error_Bounds_for_Transfer_Le.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper demonstrates a strong ability to clearly identify research problems, methodologies, datasets, and results, with perfect scores in these areas. It excels in presenting a novel non-asymptotic analysis of transfer learning and articulates a structured approach to optimizing auxiliary task weights, which is a notable strength. However, the paper's overall assessment is hindered by a lack of detailed evidence and reasoning in the results section, which affects the clarity and consistency of the conclusions. To improve, the paper should provide a more thorough analysis of the results, explicitly linking specific metrics to practical benefits and including additional metrics for a comprehensive evaluation. Recommended for researchers interested in transfer learning methodologies, but should be used with caution as a reference for empirical results due to the noted weaknesses.",
+    "timestamp": "2026-04-03 09:18:03"
+  },
+  {
+    "index": 60,
+    "paper": "2026_Mroueh_CliffSearch_Structured_Agentic_Co-Evolut.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough analysis of its limitations, offering targeted improvements. It introduces a novel approach with the CliffSearch algorithm, which is a notable strength, as it emphasizes scientific reliability and structured artifact optimization. However, the paper's methodology lacks clarity in terms of dataset sizes and split ratios, which could affect the robustness of the findings. Additionally, the reliance on a single evaluation metric and the subjective nature of reviewer outputs may introduce bias, and there is a need for more comprehensive hyperparameter tuning. Overall, the paper is recommended for those interested in algorithm discovery and optimization, but it would benefit from addressing the identified weaknesses to enhance its applicability and reliability.",
+    "timestamp": "2026-04-03 09:20:42"
+  },
+  {
+    "index": 61,
+    "paper": "2026_Nelson_Bridging_the_Simulation-to-Experiment_Ga.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong identification of the research problem and methodology, clearly outlining the specific algorithm and its components. It excels in extracting results, providing detailed metric values and improvement margins. However, the paper falls short in describing dataset characteristics and evaluation metrics, which affects the replicability and generalizability of the findings. The critical analysis is robust, offering targeted improvements for identified limitations. Overall, the paper is recommended for researchers interested in simulation-to-experiment methodologies, particularly in the context of protein structures and molecular dynamics, but would benefit from enhanced clarity and detail in its methodological descriptions.",
+    "timestamp": "2026-04-03 09:23:02"
+  },
+  {
+    "index": 62,
+    "paper": "2026_Ren_SMASH_Mastering_Scalable_Whole-Body_Skil.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong identification of the research problem and a comprehensive analysis of the results, highlighting the paper's strengths in presenting a novel approach to humanoid table tennis. The integration of generative models for motion diversification is particularly commendable, as it significantly enhances the robot's performance in dynamic environments. However, the paper falls short in detailing the methodology, specifically the lack of explicit loss function specifications, and provides only partial descriptions of the datasets, which affects the reproducibility and comparability of the results. Additionally, the absence of specific numerical improvements over baselines and real-time performance metrics raises concerns about the practical applicability of the system. It is recommended that the paper be used as a reference for research on robotic motion diversification and perception, with the suggestion to address the identified weaknesses for improved clarity and impact.",
+    "timestamp": "2026-04-03 09:25:39"
+  },
+  {
+    "index": 63,
+    "paper": "2026_Riabov_Digital_nanophotonic_biosensing_empowere.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and articulating the research problem, as well as a thorough extraction of results and critical analysis. The paper excels in presenting a novel methodology that integrates deep learning with nanophotonic structures, enhancing biosensing sensitivity. However, it falls short in providing detailed descriptions of the training strategy and loss functions, which are crucial for assessing the robustness of the proposed model. Additionally, the evaluation metrics used may not fully reflect the model's practical performance in biosensing applications. To enhance the paper's impact, it is recommended to include a comprehensive description of the training strategy, explore additional evaluation metrics relevant to biosensing, and validate the model with real-world datasets. Recommended for researchers interested in the intersection of deep learning and biosensing technologies.",
+    "timestamp": "2026-04-03 09:28:12"
+  },
+  {
+    "index": 64,
+    "paper": "2026_Rubio_Collaborative_Task_and_Path_Planning_for.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to multi-agent path planning using the MAPPO algorithm, showcasing originality in addressing the limitations of traditional methods. The methodology is well-structured, featuring a sophisticated reward system and a two-phase training strategy, and the writing is clear, making complex concepts accessible. However, the paper lacks real-world validation, raising concerns about the applicability of the results. The fixed reward structure and absence of explicit baseline comparisons limit the assessment of the proposed methods' effectiveness, and the exploration strategy may lead to suboptimal learning outcomes. Recommended for researchers interested in theoretical advancements in multi-agent systems, but further validation and enhancements are needed for practical applications.",
+    "timestamp": "2026-04-03 09:30:25"
+  },
+  {
+    "index": 65,
+    "paper": "2026_Smith_On_Generalised_Discrete_Torsion.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of this paper reveals a strong ability to extract and articulate the research problem, dataset characteristics, and results, with perfect scores in these areas. However, the methodology identification is notably weak, lacking specificity in naming algorithms, which detracts from the overall clarity and understanding of the approach. The paper excels in critical analysis, offering detailed limitations and potential improvements, yet the results section could benefit from explicit comparisons with existing methods to better highlight the significance of the findings. The paper's originality and impact are commendable, but the clarity and methodology need refinement. Recommended for researchers interested in novel approaches to orbifold CFTs, with a suggestion to enhance methodological clarity and comparative analysis for broader applicability.",
+    "timestamp": "2026-04-03 09:34:18"
+  },
+  {
+    "index": 66,
+    "paper": "2026_Sun_Universal_YOCO_for_Efficient_Depth_Scali.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper provides a clear identification of the research problem, effectively outlining the background, core challenge, and motivation, which is a significant strength. The methodology is innovative, introducing the Universal YOCO (YOCO-U) model with unique components like the Universal Self-Decoder and Cross-Decoder, although it lacks a clearly defined loss function, which could hinder reproducibility. While the results section is comprehensive, detailing specific metric values and improvement margins, the reliance on accuracy as the sole evaluation metric is a limitation, as it may not fully capture the model's performance. Additionally, the absence of explicit dataset split ratios could lead to inconsistencies in evaluation. Overall, the paper is recommended for researchers interested in novel Transformer models, but it would benefit from addressing the methodological gaps and expanding the evaluation metrics for a more robust assessment.",
+    "timestamp": "2026-04-03 09:36:40"
+  },
+  {
+    "index": 67,
+    "paper": "2026_Thakur_ORBIT_Scalable_and_Verifiable_Data_Gener.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. It excels in detailing the methodology, naming specific algorithms and components, and thoroughly presenting results with all necessary metrics and comparisons. However, the paper falls short in providing complete dataset descriptions, particularly the train/validation/test split ratios, which affects the reproducibility and generalization of the findings. Additionally, the reliance on Exact Match as the sole evaluation metric may not fully capture the quality of the generated answers. To enhance the paper's impact, it is recommended to include detailed dataset splits and diversify evaluation metrics. Overall, this paper is recommended for researchers interested in dataset generation and evaluation methodologies, with the potential for use as a reference in improving dataset diversity and evaluation comprehensiveness.",
+    "timestamp": "2026-04-03 09:39:12"
+  },
+  {
+    "index": 68,
+    "paper": "2026_Yang_HippoCamp_Benchmarking_Contextual_Agents.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of this paper reveals a strong ability to identify and articulate the research problem, as well as a comprehensive extraction of results and critical analysis. The paper effectively addresses a significant gap in personal file management benchmarks and clearly communicates the motivation and potential impact of the HippoCamp benchmark. However, the methodology section lacks specific details regarding algorithm selection, loss functions, and training strategies, which poses challenges for reproducibility. Additionally, the evaluation metrics are not clearly defined, leading to potential misinterpretations of the results. To enhance the paper's quality, it is recommended to provide detailed descriptions of the algorithms, loss functions, and training strategies, as well as to clarify the evaluation metrics and dataset split ratios. Overall, this paper is recommended for researchers interested in advancing benchmarks for personal file management, but it requires methodological refinements for broader applicability and reproducibility.",
+    "timestamp": "2026-04-03 09:42:43"
+  },
+  {
+    "index": 69,
+    "paper": "2026_Yoo_Functional_Force-Aware_Retargeting_from_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to soft robotic manipulation through the SoftAct framework, effectively addressing significant limitations of existing methods by focusing on a contact- and force-centric methodology. The research problem is clearly identified, and the motivation is well-articulated, showcasing the potential for enhanced manipulation capabilities and reduced manual programming efforts. However, the methodology section lacks a clearly defined loss function, which could impede the training process and performance assessment. Additionally, the datasets used are not thoroughly described, with potential issues of sparsity that might lead to overfitting, and the evaluation metrics are somewhat limited. To improve the paper, it is recommended to introduce a well-defined loss function, expand and diversify the datasets, and incorporate additional evaluation metrics. This paper is recommended for researchers interested in advancing soft robotic manipulation techniques, particularly those exploring contact- and force-centric approaches.",
+    "timestamp": "2026-04-03 09:44:45"
+  },
+  {
+    "index": 70,
+    "paper": "2026_Aboeleneen_CIVIC_Cooperative_Immersion_Via_Intellig.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to resource allocation in virtual environments, leveraging a cooperative credit-sharing mechanism within a deep reinforcement learning framework. It excels in clearly identifying the research problem and providing a thorough critical analysis, highlighting specific limitations and suggesting targeted improvements. However, the methodology section lacks explicit details on the traditional loss function, which raises concerns about the training process and performance evaluation. Additionally, the partial descriptions of datasets and the absence of split ratios limit the reproducibility and generalizability of the findings. To enhance the paper, it is recommended to define a clear loss function, provide comprehensive dataset details, and address data sparsity and user behavior diversity. Overall, the paper is recommended for researchers interested in resource allocation in virtual environments, particularly those exploring novel approaches in deep reinforcement learning.",
+    "timestamp": "2026-04-03 14:53:38"
+  },
+  {
+    "index": 71,
+    "paper": "2026_Abualazm_LLMs_as_Idiomatic_Decompilers_Recovering.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper presents a well-defined research problem, clearly articulating the significance of decompilation in reverse engineering and security analysis. It introduces a novel approach using specialized LLMs, which is a notable strength in terms of originality and potential impact. However, the methodology section lacks specific details on loss functions, which could affect the reproducibility and generalizability of the results. Additionally, while datasets are identified, there is a lack of diversity and detailed evaluation metrics, which limits the assessment of the decompiled code's quality. The results section could benefit from more comprehensive numerical comparisons with baseline methods to better demonstrate performance improvements. Overall, the paper is recommended for researchers interested in decompilation and reverse engineering, but it would benefit from further methodological details and expanded evaluation metrics to serve as a robust reference in the field.",
+    "timestamp": "2026-04-03 14:56:26"
+  },
+  {
+    "index": 72,
+    "paper": "2026_Alabdulrazzaq_Selective_State-Space_Models_for_Koopman.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach to Distribution System State Estimation (DSSE) through the MambaDSSE framework, effectively addressing limitations of existing methods and demonstrating significant improvements in state estimation accuracy over baseline models. The paper excels in clearly identifying the research problem, datasets, and results, providing a comprehensive analysis of limitations and potential improvements. However, the methodology section lacks explicit mention of specific loss functions, which could lead to ambiguity in training. Additionally, the reliance on historical data quality and the complexity of the nonlinear measurement function pose challenges to the model's interpretability and scalability. Overall, the paper is recommended for researchers and practitioners interested in advanced DSSE techniques, with suggestions for enhancing data quality, interpretability, and scalability.",
+    "timestamp": "2026-04-03 14:59:32"
+  },
+  {
+    "index": 73,
+    "paper": "2026_Baldi_Intersections_and_the_Bézout_Range_Abeli.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.75,
+    "comment": "The paper effectively identifies a significant research problem within intersection theory, particularly concerning abelian varieties, and provides a comprehensive analysis of its results and limitations. However, the methodology is notably vague, lacking a clear algorithmic framework and detailed component information, which undermines the clarity and reproducibility of the research. While the datasets are named, the absence of explicit split ratios and evaluation metrics further detracts from the study's methodological rigor. Despite these weaknesses, the paper excels in its critical analysis, offering specific limitations and targeted improvements. Recommended for researchers interested in the theoretical aspects of algebraic geometry, but not suitable as a standalone reference for practical implementation without further methodological refinement.",
+    "timestamp": "2026-04-03 15:03:35"
+  },
+  {
+    "index": 74,
+    "paper": "2026_Bartolomei_EventHub_Data_Factory_for_Generalizable_.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a well-defined research problem and provides a comprehensive analysis of its results, demonstrating significant improvements over baseline methods. The originality of the E-FoundationStereo framework is notable, particularly in its innovative use of proxy annotations and a data generation factory, which enhances scalability and applicability in diverse environments. However, the methodology section lacks explicit details on the loss functions, creating ambiguity in the optimization objectives, and the datasets are not thoroughly described, which affects reproducibility. Additionally, the reliance on proxy annotations raises concerns about potential inaccuracies, and there is a lack of robustness testing against noise and occlusions. Recommended for researchers interested in innovative stereo vision frameworks, with a suggestion to address the identified weaknesses for broader applicability and reliability.",
+    "timestamp": "2026-04-03 15:06:33"
+  },
+  {
+    "index": 75,
+    "paper": "2026_Baumgartner_PAC-Learning_state_machines_from_data_st.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong academic contribution with a clear identification of the research problem and a well-defined methodology, particularly through the innovative use of the Count-Min-Sketch data structure and the Alergia-test for state merging. The results section is comprehensive, providing specific metric values and improvement margins, which underscores the paper's strengths in demonstrating the effectiveness of the proposed CSS methodology. However, the paper falls short in providing detailed numerical comparisons against baseline methods and lacks sufficient information on dataset characteristics, such as sparsity and data splits. Additionally, the limited comparison with state-of-the-art methods and the absence of diverse evaluation metrics slightly undermine the overall assessment. Recommended for researchers interested in novel algorithmic approaches to learning PDFAs, but further work is needed to enhance comparative analyses and evaluation comprehensiveness.",
+    "timestamp": "2026-04-03 15:09:52"
+  },
+  {
+    "index": 76,
+    "paper": "2026_Bazzichi_Bridging_Distant_Ideas_the_Impact_of_AI_.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. It excels in dataset identification, offering detailed characteristics, split ratios, and evaluation metrics. However, the methodology section lacks specificity in terms of loss functions, and the results section is missing detailed metric values, baseline names, and improvement margins. The critical analysis is strong, offering targeted improvements for identified issues. Overall, the paper presents a novel approach to understanding AI dynamics in innovation but requires stronger empirical validation and clearer linkage between datasets and results. Recommended for researchers interested in AI's role in innovation, with a focus on enhancing empirical validation and methodological clarity.",
+    "timestamp": "2026-04-03 15:14:09"
+  },
+  {
+    "index": 77,
+    "paper": "2026_Bertuletti_TensorPool_A_3D-Stacked_84TFLOPS43W_Many.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of this paper reveals a strong identification of the research problem and a thorough critical analysis, highlighting specific limitations and suggesting targeted improvements. The paper excels in originality and impact, particularly with the introduction of the TensorPool model, which offers notable advancements in computational and energy efficiency for AI-Native PHY models in 6G networks. However, the methodology section is lacking in detail, particularly concerning loss functions, training strategies, and dataset characteristics, which affects the reproducibility and clarity of the research. Additionally, there is a need for a more comprehensive discussion on scalability and the potential for overfitting. To enhance the paper's utility, it is recommended to refine the methodology and results sections and to expand the discussion on scalability and generalizability. This paper is suitable as a reference for researchers focusing on efficiency improvements in AI models for next-generation networks.",
+    "timestamp": "2026-04-03 15:17:06"
+  },
+  {
+    "index": 78,
+    "paper": "2026_Blandino_Evaluation_of_gNB_Monostatic_Sensing_for.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a significant research problem in monostatic channel modeling for UAV applications, demonstrating strong motivation and a clear understanding of the core challenges. It introduces innovative techniques for clutter suppression and target detection, which contribute to its originality and potential impact. However, the methodology section lacks clarity, with incomplete descriptions of the algorithms and training strategies, which could affect reproducibility. Additionally, the dataset characteristics are not fully detailed, and the evaluation metrics are somewhat limited, which may impact the comprehensiveness of the results. To improve the paper, it is recommended to explicitly name the algorithms, provide a structured training strategy, and detail the dataset characteristics. Expanding the evaluation metrics to include robustness and computational efficiency would also enhance the paper's overall quality. Recommended for researchers interested in UAV applications and channel modeling, but further refinement is needed for broader applicability.",
+    "timestamp": "2026-04-03 15:19:50"
+  },
+  {
+    "index": 79,
+    "paper": "2026_Briones_Incorporating_circular_economy_policies_.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific research problem, presenting a novel approach by integrating carbon taxes and subsidies within a bilevel optimization framework. The methodology is clearly articulated, with specific algorithms and components detailed, although it relies heavily on the assumptions of the DOMINO framework and lacks real-time data integration. While the results are comprehensive, including specific metric values and improvement margins, the dataset descriptions could benefit from more detailed train/val/test split ratios. The critical analysis is robust, identifying concrete limitations and suggesting targeted improvements. Overall, the paper is recommended for researchers interested in policy optimization frameworks, though further validation through diverse case studies is suggested to enhance generalizability.",
+    "timestamp": "2026-04-03 15:22:45"
+  },
+  {
+    "index": 80,
+    "paper": "2026_Buchinger_Analytic_Optimal_Control_for_a_Class_of_.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a well-defined research problem, clearly identifying the core challenge and motivation behind the study. It excels in methodology, with a comprehensive identification of algorithms, components, and loss functions, and provides a thorough analysis of datasets, including their characteristics and evaluation metrics. The results section is robust, detailing specific metric values and improvement margins over baselines. However, despite high scores in methodology and impact, the paper's overall assessment is slightly hindered by gaps in justification, particularly concerning the reliance on numerical solutions that may not always converge and the simplistic nature of the quadratic cost functional. To address these weaknesses, the paper could benefit from adaptive numerical methods and alternative cost functionals, as well as more detailed strategies for handling singular inputs. Recommended for researchers in nonlinear control systems seeking innovative approaches to trajectory planning and tracking.",
+    "timestamp": "2026-04-03 15:25:05"
+  },
+  {
+    "index": 81,
+    "paper": "2026_Carrozza_Tensor_invariants_for_multipartite_entan.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, datasets, and results, achieving perfect scores in these areas. It introduces an innovative approach to classifying multipartite entanglement structures, which is a significant contribution to quantum information theory. However, the methodology section lacks detailed algorithmic descriptions and a defined loss function, which could impede reproducibility and comprehensive performance evaluation. Additionally, the datasets used are hypothetical, which may not adequately represent real-world scenarios. To enhance the paper's quality, it is recommended to provide a detailed algorithmic framework, define a loss function, and either use real datasets or offer detailed criteria for dataset generation. This paper is recommended for researchers interested in novel methodologies in quantum information theory but should be used with caution as a reference for practical implementations due to the noted weaknesses.",
+    "timestamp": "2026-04-03 15:28:18"
+  },
+  {
+    "index": 82,
+    "paper": "2026_Chen_A_construction_of_2-arc-transitive_non-s.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, datasets, and results, achieving perfect scores in these areas. It excels in presenting a novel approach to constructing 2-arc-transitive covers using non-abelian characteristically simple groups, which is a notable contribution to the field. However, the paper's overall quality is hindered by a lack of empirical validation, limiting its practical applicability and impact. The focus on a narrow scope of group types and the absence of specific performance metrics for the constructed graphs are additional weaknesses. To enhance the paper's value, it is recommended to incorporate empirical validation, broaden the scope of group types studied, and develop quantitative metrics for graph evaluation. This paper is suitable as a reference for theoretical advancements in graph theory but requires further development for practical applications.",
+    "timestamp": "2026-04-03 15:30:51"
+  },
+  {
+    "index": 83,
+    "paper": "2026_Chen_Detecting_Symmetry-Resolved_Entanglement.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.79,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive analysis of its limitations and potential improvements, demonstrating strong critical analysis skills. The methodology is innovative, introducing a novel Quantum Monte Carlo approach with unique modules that enhance originality. However, the paper falls short in clearly identifying datasets, which weakens the reproducibility of the research. Additionally, the methodology's applicability is limited to specific models, and the lack of explicit error analysis raises concerns about the reliability of the findings. Overall, the paper is recommended for researchers interested in quantum entanglement and Monte Carlo methods, but further work is needed to address its limitations and improve its generalizability.",
+    "timestamp": "2026-04-03 15:33:29"
+  },
+  {
+    "index": 84,
+    "paper": "2026_Chen_Grounded_Token_Initialization_for_New_Vo.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough background, clearly outlining the core challenge and motivation. It excels in dataset identification, offering detailed descriptions of datasets, split ratios, and evaluation metrics. However, the methodology section lacks explicit details on the loss function, which is crucial for replicability and understanding the model's performance. Additionally, while the results section is mostly comprehensive, it omits specific metric values for the Public Vibrent Clothes Rental Dataset, which could hinder a full understanding of the findings. The paper's critical analysis is robust, offering specific limitations and targeted improvements. Overall, the paper is recommended for researchers interested in token initialization methods in pretrained language models, but it would benefit from additional methodological details and broader dataset testing to enhance its generalizability.",
+    "timestamp": "2026-04-03 15:35:57"
+  },
+  {
+    "index": 85,
+    "paper": "2026_Costanzino_Modulate-and-Map_Crossmodal_Feature_Mapp.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.96,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the core challenge and motivation. The methodology is innovative, integrating multiview and multimodal approaches for anomaly detection, which contributes to its originality and impact. However, the paper's clarity is somewhat compromised by a lack of detailed descriptions of the algorithm and loss functions, which could affect reproducibility. Additionally, while the results are compelling, the dataset characteristics and evaluation metrics could be more thoroughly defined to enhance the comprehensiveness of the analysis. Overall, the paper is recommended for researchers interested in advanced anomaly detection techniques, but it would benefit from more detailed methodological descriptions and a broader evaluation framework to serve as a robust reference.",
+    "timestamp": "2026-04-03 15:38:47"
+  },
+  {
+    "index": 86,
+    "paper": "2026_Cuevas-Zepeda_X-ray_Response_of_the_Fully-Depleted_p-C.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the core challenge and motivation. The methodology is robust, detailing the SiSeRO architecture and its components, although it lacks a comprehensive noise analysis which is crucial for understanding performance factors. While the results indicate significant improvements in energy resolution and charge sensitivity, the absence of specific numerical improvement margins over the baseline and limited dataset descriptions hinder a full appreciation of the paper's contributions. The critical analysis is thorough, identifying concrete limitations and suggesting targeted improvements. Overall, the paper is recommended for researchers interested in advancements in CCD technology, particularly those focusing on scientific imaging and particle detection, but would benefit from further validation and comparative analysis with emerging technologies.",
+    "timestamp": "2026-04-03 15:41:29"
+  },
+  {
+    "index": 87,
+    "paper": "2026_Dandachi_go-mHC_Direct_Parameterization_of_Manifo.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a clear motivation for addressing it, demonstrating strong skills in problem extraction and critical analysis. The methodology is well-articulated, with a detailed description of the algorithm and its components, although the lack of comprehensive dataset information and evaluation metrics slightly undermines the robustness of the results. While the paper excels in clarity and presents a novel approach with potential impact, the limited comparison to only two baseline methods restricts the understanding of the algorithm's performance in a broader context. To enhance the paper's robustness and impact, it is recommended to include detailed dataset information, incorporate quantitative evaluation metrics, and expand the comparison to additional baseline methods. Suitable as a reference for researchers interested in dynamic connectivity in neural networks, with improvements needed for broader applicability.",
+    "timestamp": "2026-04-03 15:46:44"
+  },
+  {
+    "index": 88,
+    "paper": "2026_Danopoulos_Taming_the_Exponential_A_Fast_Softmax_Su.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive analysis of its results, demonstrating a clear understanding of the core challenge and motivation behind the study. The introduction of the Head-Calibrated Clipped-Linear Softmax (HCCS) is a notable strength, offering a novel approach to improving efficiency in transformer architectures, particularly for hardware implementations. However, the methodology section is weakened by the absence of a clearly defined loss function, which is crucial for understanding the optimization process. Additionally, the paper's reliance on accuracy as the sole evaluation metric and the limited dataset scope raise concerns about the generalizability and comprehensive assessment of the model's performance. To enhance the paper's impact, it is recommended to specify the loss function, explore dynamic parameter adjustments, and incorporate additional evaluation metrics. Overall, this paper is recommended for researchers interested in hardware-efficient machine learning algorithms, but further work is needed to strengthen its methodological rigor and generalizability.",
+    "timestamp": "2026-04-03 15:49:08"
+  },
+  {
+    "index": 89,
+    "paper": "2026_Devine_GaelEval_Benchmarking_LLM_Performance_fo.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong academic contribution by introducing GaelEval, a novel evaluation framework tailored for Scottish Gaelic, which effectively addresses the limitations of existing multilingual LLM evaluation methods. The methodology is robust, covering various assessment dimensions such as morphosyntactic analysis, semantic coherence, and cultural context, supported by human evaluation. However, the clarity of the methodology section could be enhanced by providing more detailed information on the algorithms and loss functions used, as well as specifying the train/validation/test split ratios. Additionally, the evaluation metrics for cultural understanding require clearer definitions to avoid ambiguity in performance assessment. Overall, the paper is recommended for researchers interested in language model evaluation frameworks, particularly those focusing on underrepresented languages.",
+    "timestamp": "2026-04-03 15:51:53"
+  },
+  {
+    "index": 90,
+    "paper": "2026_Du_Towards_Position-Robust_Talent_Recommend.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a strong identification of the research problem and methodology, clearly outlining the specific challenges and innovative solutions proposed by the L3TR model. The strengths of the paper lie in its originality and impact, particularly through the introduction of a novel listwise approach and innovative components like block attention mechanism and local positional encoding. However, the paper falls short in providing comprehensive details about the datasets, including sizes and split ratios, which are crucial for evaluating the model's generalizability. Additionally, the lack of fully defined evaluation metrics for position and token bias, along with limited baseline comparisons, weakens the assessment of the model's effectiveness. To enhance the paper's quality, it is recommended to include detailed dataset information, clear quantitative metrics for bias evaluation, and a broader range of baseline comparisons. Suitable as a reference for researchers interested in novel approaches to talent recommendation systems, but further details are needed for comprehensive evaluation.",
+    "timestamp": "2026-04-03 15:54:13"
+  },
+  {
+    "index": 91,
+    "paper": "2026_Ekinci_S-packing_chromatic_critical_paths_and_c.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a significant research problem in the domain of χ-critical cycles for packing sequences in S(4), demonstrating a clear understanding of the core challenge and motivation. The methodology is well-structured, detailing the algorithmic approach, though it lacks a specific algorithm definition and a clear loss function, which could impact reproducibility and performance evaluation. While the datasets are named, they are primarily theoretical and not fully described, limiting the generalizability of the findings. The results section is comprehensive but does not explicitly mention baseline methods, which could provide a clearer context for the findings. The critical analysis is robust, offering specific limitations and targeted improvements. Overall, the paper is recommended as a reference for researchers interested in chromatic properties in graph theory, but it would benefit from a more detailed methodological framework and expanded datasets.",
+    "timestamp": "2026-04-03 15:57:56"
+  },
+  {
+    "index": 92,
+    "paper": "2026_Ferko_Topological_Effects_in_Neural_Network_Fi.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper presents a novel approach using Neural Network Field Theory (NN-FT) to tackle complex problems in theoretical physics, specifically focusing on the BKT transition. A key strength of the paper is its innovative methodology, which integrates topological features and parameter space sampling, setting it apart from traditional methods. The results align well with theoretical predictions, showcasing the potential of the NN-FT framework in modeling complex physical systems. However, the paper lacks explicit details on the loss function, which could impede the assessment of model convergence and stability. Additionally, the reliance on Gaussian processes may limit the model's ability to capture non-Gaussian features, and the evaluation metrics are somewhat narrow. It is recommended to introduce a surrogate loss function, implement adaptive sampling techniques, explore non-Gaussian processes, and develop a broader set of evaluation metrics. Suitable as a reference for researchers interested in innovative methodologies in theoretical physics modeling.",
+    "timestamp": "2026-04-03 16:01:23"
+  },
+  {
+    "index": 93,
+    "paper": "2026_Fofadiya_Novel_Memory_Forgetting_Techniques_for_A.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to memory management in memory-augmented systems through the Adaptive Budgeted Forgetting Framework, demonstrating clear strengths in problem identification and critical analysis. The methodology is innovative, incorporating controlled forgetting and relevance scoring, which effectively address existing limitations in the field. However, the paper's weaknesses include a lack of explicit dataset split ratios, which affects reproducibility, and insufficient definition of the temporal decay factor, potentially leading to inconsistencies. Additionally, the variability in evaluation metrics across datasets complicates performance comparisons, and the exploration of memory efficiency loss is limited. To enhance the paper's impact, it is recommended to clearly define dataset split ratios, incorporate a broader range of datasets, establish a systematic approach for the temporal decay factor, and adopt standardized evaluation metrics. Recommended for researchers interested in advancing memory management techniques in memory-augmented systems.",
+    "timestamp": "2026-04-03 16:04:24"
+  },
+  {
+    "index": 94,
+    "paper": "2026_Gadouleau_Trapping_and_commutative_Boolean_network.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.79,
+    "comment": "The paper demonstrates a strong grasp of data set identification and result extraction, with perfect scores in both areas, indicating a thorough presentation of datasets and results. The critical analysis is also robust, offering specific limitations and targeted improvements. However, the paper falls short in methodology identification, lacking specificity in naming algorithms, which weakens the overall methodological clarity. Additionally, while the study is original and methodologically sound, the absence of empirical validation and baseline comparisons limits its practical applicability and clarity. To enhance its impact, it is recommended to include empirical validation with real-world datasets and establish baseline comparisons. This paper is suitable as a reference for theoretical exploration in trapspaces and commutative Boolean networks but requires further empirical work for practical application recommendations.",
+    "timestamp": "2026-04-03 16:08:49"
+  },
+  {
+    "index": 95,
+    "paper": "2026_Gahle_The_IAEA_Fusion_Data_Lake_Project_--_Acc.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify the research problem and provide a thorough critical analysis of the results, highlighting specific limitations and suggesting targeted improvements. The paper excels in integrating diverse datasets and adhering to FAIR principles, which significantly contributes to its originality and potential impact in the field of fusion research. However, the methodology section is somewhat lacking, as it does not provide explicit definitions of loss functions or detailed training strategies, which could lead to ambiguities in interpreting model performance. Additionally, the absence of clearly defined train/validation/test split ratios and a limited set of evaluation metrics may affect the robustness and clarity of the results. To enhance the paper's quality, it is recommended to include detailed explanations of the loss functions, outline a comprehensive training strategy, and expand the evaluation metrics. Overall, this paper is recommended for researchers interested in innovative data integration approaches in fusion research, but it would benefit from methodological refinements for broader applicability.",
+    "timestamp": "2026-04-03 16:11:45"
+  },
+  {
+    "index": 96,
+    "paper": "2026_Guliani_De_Jure_Iterative_LLM_Self-Refinement_fo.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a specific research problem and presents a novel methodology that addresses key limitations in regulatory rule extraction, particularly through its innovative approach that operates without labeled data. The methodology is well-articulated, with a clear explanation of its components and evaluation mechanisms. However, the paper falls short in providing comprehensive dataset descriptions, particularly in terms of train/validation/test splits, which raises concerns about the generalizability of the results. Additionally, the reliance on unsupervised learning and LLMs for quality assessment may introduce biases and subjective evaluations. To enhance the paper's impact, it is recommended to clearly define dataset splits, consider a semi-supervised learning approach, and expand the evaluation framework to include metrics that assess contextual relevance and legal accuracy. Recommended for researchers interested in regulatory rule extraction and unsupervised learning methodologies.",
+    "timestamp": "2026-04-03 16:14:55"
+  },
+  {
+    "index": 97,
+    "paper": "2026_Hanada_Differentially_Private_One-Shot_Federate.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a significant problem in the field of privacy-preserving data analysis, specifically addressing the challenge of differentially private estimation using site-level summaries. It demonstrates strong methodological rigor by clearly outlining the algorithm and its components, although the description of the dataset lacks detail regarding the train/validation/test split, which raises questions about the robustness of the findings. While the results section is comprehensive, it falls short in quantifying the improvement margins over baseline methods, which could enhance the paper's impact. The critical analysis is a notable strength, offering concrete scenarios and targeted improvements, yet the overall score reflects minor inconsistencies between the analysis and the supporting reasons. Recommended for researchers interested in privacy-preserving methods in clinical data analysis, with a suggestion to address the identified weaknesses for broader applicability.",
+    "timestamp": "2026-04-03 16:18:18"
+  },
+  {
+    "index": 98,
+    "paper": "2026_Hasenbichler_A_weak_transport_approach_to_the_Schrödi.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper highlights several strengths and weaknesses. The paper excels in clearly identifying the research problem, methodology, and results, with a strong critical analysis that outlines specific limitations and potential improvements. The Schrödinger–Bass algorithm is noted for its originality and effectiveness, showing significant advancements in controlling drift and volatility. However, the paper falls short in providing detailed descriptions of dataset characteristics and split ratios, which raises questions about the robustness and generalizability of the results. Additionally, the lack of comprehensive baseline comparisons and limited evaluation metrics may impede a full understanding of the algorithm's performance. It is recommended that this paper be used as a reference for those interested in novel algorithmic approaches in optimal transport theory and quantitative finance, with the caveat that further work is needed to address the identified methodological gaps.",
+    "timestamp": "2026-04-03 16:22:43"
+  },
+  {
+    "index": 99,
+    "paper": "2026_He_Beyond_Referring_Expressions_Scenario_Co.pdf",
+    "paper_quality_score": 0.76,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to scenario grounding through the introduction of the ScenGround model, which effectively addresses existing limitations by incorporating out-of-distribution (OOD) evaluation, detailed difficulty annotations, and per-instance reasoning traces. The study excels in clearly identifying the research problem and providing a comprehensive analysis of results, demonstrating significant improvements over baseline methods. However, the methodology's reliance on the accuracy of difficulty annotations and the limited diversity of the OOD evaluation split are notable weaknesses. Additionally, the lack of cross-dataset validation and potential overfitting due to the warm-starting strategy could impact the model's generalizability. To enhance the robustness and applicability of the research, it is recommended to implement a rigorous annotation validation process, expand the OOD dataset, and conduct cross-dataset evaluations. This paper is recommended for researchers interested in advancing scenario grounding methodologies and exploring novel evaluation techniques.",
+    "timestamp": "2026-04-03 16:26:36"
+  },
+  {
+    "index": 100,
+    "paper": "2026_Healey_A_Pragmatist_Understanding_of_Quantum_Me.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies and articulates the specific research problem, providing a clear background and motivation for the study. It excels in detailing the datasets used, including their characteristics and evaluation metrics, and presents comprehensive results with specific metric values and improvement margins. However, the methodology section is notably vague, lacking a specific algorithmic framework and a defined loss function, which hinders replicability and thorough performance evaluation. Despite these weaknesses, the paper offers a robust critical analysis, identifying limitations and suggesting targeted improvements. Recommended for researchers interested in quantum mechanics measurement problems, but further development of a concrete computational model is advised for practical application and validation.",
+    "timestamp": "2026-04-03 16:30:53"
+  },
+  {
+    "index": 101,
+    "paper": "2026_Hermann_The_Intensity_Countoscope_Measuring_part.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in particle dynamics analysis, leveraging a novel approach that combines Fourier Transform Analysis and Statistical Mechanics. It excels in clearly articulating the research problem, methodology, and results, with a comprehensive critical analysis of its limitations and potential improvements. However, the paper's methodology section lacks detailed algorithmic descriptions and a defined loss function, which could impede reproducibility and performance evaluation. Additionally, the reliance on synthetic datasets for validation raises concerns about the applicability of the findings to real-world scenarios. To enhance the paper's robustness and generalizability, it is recommended to include detailed algorithmic steps, define a clear loss function, and validate the approach using diverse experimental datasets. Suitable as a reference for researchers interested in novel methodologies for particle dynamics analysis.",
+    "timestamp": "2026-04-03 16:34:49"
+  },
+  {
+    "index": 102,
+    "paper": "2026_Hiremath_PARD-SSM_Probabilistic_Cyber-Attack_Regi.pdf",
+    "paper_quality_score": 0.82,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of a novel approach to intrusion detection using the PARD-SSM model, effectively identifying the core problem and presenting a well-defined methodology. It excels in detailing the datasets used, including their characteristics and evaluation metrics, which strengthens the study's foundation. However, the results section lacks explicit baseline comparisons for the UNSW-NB15 dataset, which slightly undermines the clarity of the reported improvements. Despite this, the paper offers a thorough critical analysis, identifying specific limitations and suggesting targeted improvements. Given these strengths and weaknesses, the paper is recommended for researchers interested in advanced intrusion detection systems, particularly those focusing on real-time data adaptation and predictive capabilities.",
+    "timestamp": "2026-04-03 16:37:49"
+  },
+  {
+    "index": 103,
+    "paper": "2026_Huang_Generative_World_Renderer.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a specific problem in inverse rendering and presents a novel approach using RenderFormer and diffusion models, demonstrating a clear understanding of the core challenge and motivation. However, while the methodology is promising, it lacks explicit details on the loss functions, which could hinder reproducibility. The reliance on synthetic datasets from video games is a notable weakness, as it may limit the model's applicability to real-world scenarios. The results section is comprehensive but would benefit from more detailed numerical improvement margins to strengthen the findings. Overall, the paper is recommended for researchers interested in inverse rendering and model generalization, but it would benefit from addressing the identified weaknesses to enhance its impact and applicability.",
+    "timestamp": "2026-04-03 16:40:40"
+  },
+  {
+    "index": 104,
+    "paper": "2026_Humnabadkar_Network_Structure_in_UK_Payment_Flows_Ev.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive background, clearly outlining the core challenge and motivation. It excels in detailing the methodology, naming specific algorithms and components, though it falls short in fully describing datasets and evaluation metrics. While the results section is mostly complete, it lacks specific baseline comparisons, which could enhance the understanding of the model's performance. The critical analysis is strong, offering targeted improvements and acknowledging limitations. Overall, the paper presents a novel approach with significant strengths in originality and clarity, but it would benefit from robustness testing and expanded evaluation metrics. Recommended for researchers interested in advanced forecasting methods and inter-industry payment flow analysis.",
+    "timestamp": "2026-04-03 16:43:26"
+  },
+  {
+    "index": 105,
+    "paper": "2026_Iten_Model-Based_Reinforcement_Learning_for_C.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a clear and well-structured exploration of a novel approach to reinforcement learning, specifically addressing the challenges posed by time-varying dynamics. It excels in identifying the research problem and datasets, offering a comprehensive analysis of results with specific metric values and improvement margins. However, the methodology section could benefit from a more detailed discussion of specific loss functions, and the results section might be enhanced by incorporating a broader range of evaluation metrics to better assess practical performance. Additionally, the paper's approach may face challenges in extreme non-stationary environments, suggesting a need for adaptive learning techniques. Recommended for researchers interested in reinforcement learning methodologies and those seeking to address dynamic environmental challenges.",
+    "timestamp": "2026-04-03 16:45:44"
+  },
+  {
+    "index": 106,
+    "paper": "2026_Jat_Retrieval-Augmented_Question_Answering_o.pdf",
+    "paper_quality_score": 0.58,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem in the realm of information retrieval, particularly focusing on scientific claims, and provides a thorough background and motivation for the study. It demonstrates strength in dataset identification, detailing characteristics, split ratios, and evaluation metrics comprehensively. However, the methodology section lacks a clearly defined loss function, which is crucial for optimizing the model's performance. Additionally, while the results section includes most necessary elements, it falls short by not specifying baseline names and improvement margins, which diminishes the perceived effectiveness of the proposed enhancements. The paper's critical analysis is robust, offering specific limitations and targeted improvements. Overall, the paper is recommended for researchers interested in information retrieval methodologies, but further refinement in methodology and results presentation is needed for broader applicability.",
+    "timestamp": "2026-04-03 16:49:22"
+  },
+  {
+    "index": 107,
+    "paper": "2026_Kar_BVFLMSP_Bayesian_Vertical_Federated_Lear.pdf",
+    "paper_quality_score": 0.76,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel approach to survival analysis through Bayesian Vertical Federated Learning, effectively addressing significant limitations in existing methods. It excels in clearly identifying the research problem, methodology, datasets, and results, with a comprehensive critical analysis of its limitations and potential improvements. The integration of multimodal data and privacy-preserving techniques is a notable strength, demonstrating clear improvements over baseline methods. However, the paper's methodology is limited by assumptions of data homogeneity, sensitivity to hyperparameter tuning, and inadequate handling of missing data, which could affect its applicability in diverse clinical settings. To enhance its robustness, the paper could benefit from domain adaptation techniques, automated hyperparameter optimization, and improved interpretability tools. Recommended for researchers interested in advanced survival analysis techniques and privacy-preserving healthcare applications.",
+    "timestamp": "2026-04-03 16:51:43"
+  },
+  {
+    "index": 108,
+    "paper": "2026_Karakas_Best-Arm_Identification_with_Noisy_Actua.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a significant problem in best-arm identification under noisy communication conditions, demonstrating originality and a well-structured methodology. It excels in clearly presenting results with specific metrics and providing a critical analysis of limitations and potential improvements. However, the paper falls short in detailing the methodology, as it lacks a specific algorithm name and defined loss function, which could impede replication efforts. Additionally, the datasets are not thoroughly described, limiting the scope of empirical validation, and the evaluation metrics are somewhat narrow. To enhance the paper's impact, it is recommended to clearly define the algorithm and loss function, provide comprehensive dataset descriptions, and broaden the evaluation metrics. Suitable as a reference for researchers interested in algorithm development under noisy conditions, but further empirical validation is needed for broader applicability.",
+    "timestamp": "2026-04-03 16:54:50"
+  },
+  {
+    "index": 109,
+    "paper": "2026_Khowaja_SEAL_An_Open_Auditable_and_Fair_Data_Gen.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of this paper reveals a solid foundation in addressing a novel research question, though it could benefit from a more detailed background and motivation. The methodology is well-structured, identifying key components and algorithms, but it lacks specificity in terms of loss functions, which could lead to ambiguity in the training process. The paper excels in results extraction and critical analysis, providing comprehensive metric values and insightful limitations with targeted improvements. However, the dataset descriptions are incomplete, particularly regarding split ratios, which could affect reproducibility. Overall, the paper presents a significant advancement in AI for telecommunications through its SEAL framework, but it would benefit from clearer methodological details and broader evaluation metrics. Recommended for researchers interested in synthetic data generation and ethical AI applications.",
+    "timestamp": "2026-04-03 16:56:55"
+  },
+  {
+    "index": 110,
+    "paper": "2026_Kim_Neuro-RIT_Neuron-Guided_Instruction_Tuni.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel approach, Neuro-RIT, which significantly advances neuron-level adaptations in the field. It excels in clearly identifying the research problem, methodology, datasets, and results, with a comprehensive critical analysis of its limitations. However, the results demonstrate only modest improvements over existing baselines, and the evaluation metrics are predominantly focused on accuracy, which may not fully capture the model's performance in more complex scenarios. Additionally, concerns about the generalizability of the methodology across diverse domains are noted. To enhance the research's impact, it is recommended to incorporate a broader range of evaluation metrics and conduct experiments in specialized domains to assess adaptability. This paper is recommended for researchers interested in neuron-level adaptations and as a reference for developing methodologies with a focus on clarity and structured analysis.",
+    "timestamp": "2026-04-03 17:00:38"
+  },
+  {
+    "index": 111,
+    "paper": "2026_Kite_A_research_roadmap_for_assessing_the_fea.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.75,
+    "comment": "The paper presents a compelling exploration of warming Mars, leveraging a multi-criteria decision analysis (MCDA) framework that effectively integrates various scientific disciplines. A notable strength is the clear identification of the research problem and the robust quantitative results, which provide valuable metrics for evaluating different warming methods. However, the paper's methodology is a significant weakness, as it lacks specificity in algorithm identification and the definition of loss functions, which could impede replicability and clarity. Furthermore, the interdisciplinary integration and ambiguous evaluation criteria may lead to inconsistent interpretations of success. To enhance the paper's impact, it is recommended to clearly identify specific algorithms used, articulate detailed loss functions, and establish a structured framework for interdisciplinary collaboration. Additionally, defining evaluation criteria with clear metrics would improve clarity and consistency in measuring success. Recommended for researchers interested in planetary habitability and interdisciplinary approaches to climate modeling.",
+    "timestamp": "2026-04-03 17:07:05"
+  },
+  {
+    "index": 112,
+    "paper": "2026_Kombol_SPAR_Single-Pass_Any-Resolution_ViT_for_.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of a novel approach, SPAR, for Open Vocabulary Segmentation, showcasing strong originality through its innovative single-pass inference and adaptive resolution handling. The methodology is robustly structured, employing a teacher-student framework and unique loss functions, which contribute to its clarity and accessibility. However, the paper's results section lacks specific baseline comparisons for each dataset, which slightly undermines the comprehensiveness of the findings. Additionally, the reliance on precomputed teacher feature maps and a fixed learning rate may limit adaptability and training efficiency, while the results indicate potential overfitting, particularly on the SA-1B dataset. To enhance the impact and generalization of the work, it is recommended to incorporate a broader range of datasets, explore adaptive learning rate strategies, and consider domain adaptation techniques. This paper is suitable as a reference for researchers interested in advancing segmentation methodologies and exploring innovative inference strategies.",
+    "timestamp": "2026-04-03 17:09:45"
+  },
+  {
+    "index": 113,
+    "paper": "2026_Kontogiannis_The_Computational_Complexity_of_Avoiding.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.79,
+    "comment": "This paper presents a novel approach to addressing the complexity of finding approximate second-order stationary points (SOSPs) in constrained optimization, contributing significantly to the theoretical understanding of PLS-completeness. The research is well-grounded in theory and demonstrates notable improvements over established baselines, highlighting its potential impact in the field. However, the paper lacks a specific algorithmic implementation, which limits its practical applicability, and the absence of empirical validation raises concerns about the real-world utility of the findings. Additionally, the generalization of loss functions without concrete examples and the limited exploration of constrained settings create ambiguity. To enhance the work, it is recommended that the authors develop a specific algorithmic framework, provide empirical validation using real datasets, and expand evaluation metrics to include practical performance indicators. This paper is suitable as a reference for theoretical exploration in constrained optimization but requires further development for practical application.",
+    "timestamp": "2026-04-03 17:16:11"
+  },
+  {
+    "index": 114,
+    "paper": "2026_Lawson_Possible_Yes_Ignorant_Perhaps_A_Scorecar.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a comprehensive analysis of its limitations, offering targeted improvements. It introduces a novel verification framework for possibilistic forecasts, which is a significant strength, as it addresses the limitations of traditional probabilistic methods. However, the methodology section has minor gaps, particularly in the details of the loss function, and lacks robustness testing across diverse datasets, which raises concerns about generalizability. The paper's clarity is commendable, but the ambiguity in scoring rules and the absence of a conventional training strategy may hinder reproducibility. To enhance the framework's applicability, it is recommended to conduct extensive validation across multiple datasets, implement regularization techniques, and explore alternative theories. This paper is recommended for researchers interested in advancing forecast verification methods and exploring possibilistic approaches.",
+    "timestamp": "2026-04-03 17:19:29"
+  },
+  {
+    "index": 115,
+    "paper": "2026_Li_Large-scale_Codec_Avatars_The_Unreasonab.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach to avatar creation, effectively addressing the generalization-fidelity trade-off through a unique two-stage training methodology. It demonstrates strong methodological clarity by clearly identifying the research problem, methodology, and results, with a comprehensive critical analysis of limitations and potential improvements. However, the paper's evaluation metrics lack depth in assessing real-time performance and user perception, which are crucial for practical applications. Additionally, concerns about overfitting to high-quality datasets suggest a need for broader dataset diversity. Recommended for researchers interested in avatar creation methodologies, with a suggestion to incorporate more comprehensive evaluation metrics and user studies for future work.",
+    "timestamp": "2026-04-03 17:22:40"
+  },
+  {
+    "index": 116,
+    "paper": "2026_Li_Stop_Wandering_Efficient_Vision-Language.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper provides a clear and well-structured exploration of a novel approach to Vision-Language Navigation (VLN) through the MetaNav framework, effectively identifying the core problem and methodology. It excels in critical analysis, offering specific limitations and targeted improvements. However, the paper falls short in providing comprehensive dataset descriptions and exact baseline metric values, which affects reproducibility and the robustness of the results. The fixed replanning interval and reliance on a single language model also limit adaptability. Future work should address these issues by enhancing dataset transparency and incorporating adaptive mechanisms. Recommended for researchers interested in advancing VLN methodologies and exploring metacognitive strategies in navigation tasks.",
+    "timestamp": "2026-04-03 17:25:39"
+  },
+  {
+    "index": 117,
+    "paper": "2026_Li_UniDriveVLA_Unifying_Understanding_Perce.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong identification of the research problem, clearly outlining the specific challenges and motivations behind the study. It excels in detailing the datasets used, including their characteristics and evaluation metrics, and provides a thorough analysis of the results, highlighting specific improvements and limitations. However, the methodology section is somewhat lacking in detail, particularly concerning the loss functions and training strategy, which could obscure the understanding of the model's performance. Additionally, the evaluation metrics may not fully capture the model's effectiveness in real-world applications, potentially limiting its practical impact. Recommended for researchers interested in autonomous driving systems, with a suggestion to enhance the methodology details and evaluation metrics for broader applicability.",
+    "timestamp": "2026-04-03 17:29:06"
+  },
+  {
+    "index": 118,
+    "paper": "2026_Li_Unifying_Group-Relative_and_Self-Distill.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper highlights several strengths and weaknesses. The paper excels in clearly identifying the research problem and methodology, with a strong focus on the originality and impact of the proposed Sample-Routed Policy Optimization (SRPO) method. The results are well-documented, showcasing significant improvements in key performance metrics, which underscores the method's potential impact on the field of reinforcement learning. However, the paper falls short in providing detailed descriptions of datasets and evaluation metrics, which could affect the reproducibility and clarity of the research. Additionally, there is a lack of exploration into the potential drawbacks and hyperparameter sensitivity of the sample routing mechanism. To enhance the paper's utility, it is recommended for researchers interested in reinforcement learning advancements, with a suggestion for future work to address the noted weaknesses for broader applicability.",
+    "timestamp": "2026-04-03 17:32:29"
+  },
+  {
+    "index": 119,
+    "paper": "2026_Liu_No_Single_Best_Model_for_Diversity_Learn.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, providing a well-defined background, core challenge, and motivation. It excels in extracting results, offering comprehensive details on metrics, baselines, and improvements. However, the methodology section lacks specificity in terms of loss functions, and the dataset descriptions are incomplete, particularly regarding split ratios. The critical analysis is robust, identifying specific limitations and suggesting targeted improvements. Overall, the paper is recommended for researchers interested in enhancing model diversity and performance in open-ended queries, though it would benefit from methodological refinements and expanded datasets.",
+    "timestamp": "2026-04-03 17:36:44"
+  },
+  {
+    "index": 120,
+    "paper": "2026_Longbrake_Random_Turán_Problems_for_Graphs_with_a_.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper presents a novel approach to the bipartite random Turán problem, demonstrating strong originality by addressing previously unexplored classes of bipartite graphs and contributing significantly to graph theory. The research clearly identifies the specific problem, background, and core challenges, and provides a comprehensive analysis of limitations with targeted improvements. However, the methodology lacks empirical validation and a clear loss function, which may limit its practical applicability. Additionally, the focus on asymptotic behavior might overlook important characteristics of finite graphs. To enhance the paper's impact, it is recommended to incorporate empirical validation, define a clear loss function, and extend the analysis to include non-random graph models. Recommended for researchers interested in theoretical advancements in graph theory, but further empirical work is needed for practical applications.",
+    "timestamp": "2026-04-03 17:40:01"
+  },
+  {
+    "index": 121,
+    "paper": "2026_Lu_Adams_Law_Textual_Frequency_Law_on_Large.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to frequency estimation in language models through Textual Frequency Distillation (TFD), effectively addressing the challenge of predicting rare words. It excels in clearly identifying the research problem and providing a comprehensive analysis of results, including specific metric values and improvement margins. However, the methodology section lacks a clearly defined loss function, which could lead to ambiguity in training and performance assessment. Additionally, the dataset descriptions are incomplete, lacking specific size and split ratio details, which hinders reproducibility. To enhance the paper's impact, it is recommended to introduce a well-defined loss function, provide comprehensive dataset details, and explore diverse data augmentation techniques. Recommended for researchers interested in language model improvements and frequency estimation challenges.",
+    "timestamp": "2026-04-03 17:44:00"
+  },
+  {
+    "index": 122,
+    "paper": "2026_Lu_SKILL0_In-Context_Agentic_Reinforcement_.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a significant research problem, with a clear articulation of the core challenge and motivation. The paper excels in detailing the datasets used, including their characteristics and evaluation metrics, and provides a comprehensive analysis of results with specific metric values and improvement margins. However, the methodology section is somewhat lacking, as it does not explicitly mention specific loss functions or provide detailed information on dataset sizes and hyperparameter tuning, which are crucial for assessing the robustness of the findings. Additionally, the inconsistency in evaluation metrics across datasets limits the ability to make comprehensive comparisons. Overall, the paper is recommended for those interested in the integration of skills into reinforcement learning frameworks, but it would benefit from enhanced methodological details to improve its rigor and generalizability.",
+    "timestamp": "2026-04-03 17:48:04"
+  },
+  {
+    "index": 123,
+    "paper": "2026_Lu_Towards_High-Brightness_Perfect_Photon_B.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel approach to photon blockade, effectively addressing the challenge of achieving high purity and brightness in single-photon sources. It excels in clearly identifying the research problem, methodology, datasets, and results, with a comprehensive critical analysis of its limitations. However, the methodology section lacks a clearly defined loss function and detailed training strategy, which could impede reproducibility and optimization. Additionally, the reliance on specific experimental conditions may restrict the practical applicability of the findings, and there is a potential risk of overfitting to the datasets used. To improve the paper, it is recommended to define a clear loss function, provide a detailed training strategy, explore robustness under varying conditions, and incorporate cross-validation techniques. Suitable as a reference for researchers interested in advancing quantum technologies, particularly in the development of single-photon sources.",
+    "timestamp": "2026-04-03 17:51:15"
+  },
+  {
+    "index": 124,
+    "paper": "2026_Luo_Computing_the_Exact_Pareto_Front_in_Aver.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies and addresses a specific problem in the domain of nonlinear scalarized MDPs, showcasing a novel approach that leverages convex combinations of deterministic policies. This originality is a notable strength, as it provides a fresh perspective on overcoming limitations in existing methodologies. However, the paper's reliance on linear assumptions and hypothetical datasets limits its practical applicability, and the focus on a single evaluation metric (Recall@20) restricts the comprehensiveness of its performance assessment. To improve the paper, it is recommended to incorporate nonlinear modeling techniques, validate the approach with real-world datasets, and employ a broader range of evaluation metrics. Suitable as a reference for researchers exploring novel methodologies in MDPs, but further validation is needed for practical applications.",
+    "timestamp": "2026-04-03 17:54:46"
+  },
+  {
+    "index": 125,
+    "paper": "2026_Luo_Space-Efficient_Quantum_Algorithm_for_El.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.96,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific research problem, with a clear articulation of the methodology, datasets, and results. The paper excels in originality, particularly in optimizing the Extended Euclidean Algorithm for quantum circuits, which is a notable contribution to the field. However, the results section could be strengthened by including explicit comparisons with baseline methods to better contextualize the reported improvements. Additionally, the methodology would benefit from considering real-world quantum conditions, such as noise and error correction, to enhance its practical applicability. Recommended for researchers interested in quantum computing optimizations, but should be used with caution as a reference for practical implementations due to the noted limitations.",
+    "timestamp": "2026-04-03 17:59:17"
+  },
+  {
+    "index": 126,
+    "paper": "2026_Ma_AdamFlow_Adam-based_Wasserstein_Gradient.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of a novel approach to surface registration using the AdamFlow algorithm, which effectively generalizes the Adam optimizer for Wasserstein gradient flows. It excels in clearly identifying the research problem, methodology, and results, with a strong critical analysis of its limitations and potential improvements. However, the paper's weaknesses include a lack of robustness to outliers, reliance on fixed hyperparameters, and limited evaluation metrics, which may affect the generalizability and computational efficiency of the findings. Additionally, the homogeneity of the datasets used raises concerns about the broader applicability of the results. To address these issues, the paper should incorporate outlier detection, systematic hyperparameter tuning, and a wider range of evaluation metrics, as well as test the algorithm on more diverse datasets. Recommended for researchers interested in advanced optimization techniques and their applications in surface registration.",
+    "timestamp": "2026-04-03 18:03:36"
+  },
+  {
+    "index": 127,
+    "paper": "2026_Manda_Crossovers_from_nonlinear_wave-packet_ac.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and articulates the specific research problem, providing a clear background and motivation for the study. It excels in detailing the datasets used, including their characteristics and evaluation metrics, and offers a comprehensive analysis of the results, highlighting specific metric values and improvement margins. However, the methodology section is somewhat lacking, as it does not explicitly mention loss functions, which are crucial in machine learning contexts, and the empirical validation of the proposed approach is insufficient. The results, while clearly presented, show limited improvement over baseline methods, suggesting potential issues with robustness. Overall, the paper is recommended for those interested in the theoretical aspects of wave-packet dynamics in nonreciprocal systems but should be supplemented with further empirical studies for practical applications.",
+    "timestamp": "2026-04-03 18:07:19"
+  },
+  {
+    "index": 128,
+    "paper": "2026_Mayank_LEO_Graph_Attention_Network_based_Hybrid.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and articulates the research problem, providing a clear background and motivation for the study. It excels in detailing the methodology, naming specific algorithms and components, and thoroughly presenting results with precise metrics and improvement margins. However, the paper falls short in providing comprehensive descriptions of the datasets, particularly the train/validation/test split ratios, which raises questions about the generalizability of the findings. Additionally, the evaluation metrics could be expanded to offer a more complete picture of the model's performance. Overall, the paper is recommended for researchers interested in multi-modal sensor fusion and autonomous vehicle technology, but it would benefit from addressing the noted methodological gaps to enhance its reliability and impact.",
+    "timestamp": "2026-04-03 18:20:16"
+  },
+  {
+    "index": 129,
+    "paper": "2026_Monteiro_When_to_ASK_Uncertainty-Gated_Language_A.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper demonstrates a strong ability to clearly identify the research problem, datasets, and results, with a comprehensive analysis of limitations and potential improvements. However, it falls short in explicitly detailing the methodology, particularly in the absence of a specific loss function and reliance on a fixed uncertainty threshold, which may limit the effectiveness of the proposed approach. The results section, while thorough in naming metrics and baselines, lacks detailed evidence to substantiate claims of improvement. Despite these weaknesses, the paper introduces a novel approach with the ASK methodology, which enhances adaptability and efficiency in out-of-distribution scenarios through selective querying based on uncertainty. Recommended for researchers interested in integrating language models with reinforcement learning, but further refinement is needed for it to serve as a robust reference for practical implementation.",
+    "timestamp": "2026-04-03 18:23:46"
+  },
+  {
+    "index": 130,
+    "paper": "2026_Motamed_VOID_Video_Object_and_Interaction_Deleti.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach, VOID, which effectively integrates causal reasoning and dynamic interaction modeling, marking a significant advancement over existing methods. The methodology is well-structured, and the innovative use of quadmask conditioning enhances object removal tasks. The writing is clear and makes complex concepts accessible, which is a notable strength. However, the limited diversity and size of the datasets used may restrict the model's generalizability, and the evaluation metrics might not fully capture video quality nuances, potentially leading to misleading performance conclusions. To improve the VOID model's robustness, it is recommended to diversify the datasets and develop more sophisticated evaluation metrics. Suitable as a reference for researchers interested in advancing video object removal techniques.",
+    "timestamp": "2026-04-03 18:29:08"
+  },
+  {
+    "index": 131,
+    "paper": "2026_Oraki_SCALE_Semantic-_and_Confidence-Aware_Con.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper presents a novel approach to zero-shot action recognition through the SCALE framework, demonstrating a clear identification of the research problem and a well-structured methodology. The use of advanced components such as Conditional Variational Autoencoders and energy-based discrimination is a notable strength, contributing to the robustness and efficiency of the model. However, the results indicate only modest improvements over existing methods, suggesting potential limitations in generalization and performance. Additionally, concerns about hyperparameter sensitivity and small validation sets, as well as the lack of attention to class imbalance, highlight areas for improvement. To enhance the research's impact, it is recommended that the authors expand the datasets, implement automated hyperparameter tuning, and address class imbalance issues. This paper is suitable as a reference for researchers interested in zero-shot learning and action recognition methodologies.",
+    "timestamp": "2026-04-03 18:34:39"
+  },
+  {
+    "index": 132,
+    "paper": "2026_Pain_Robust_Correlation-Induced_Localization_.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.96,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify and articulate the research problem, methodology, datasets, and results, as evidenced by perfect scores in these areas. The paper effectively addresses a significant gap in understanding Anderson localization through a novel approach, utilizing Monte Carlo simulations to explore complex quantum phenomena. However, the paper's overall quality is hindered by a lack of detailed algorithmic descriptions and a structured training strategy, which affects reproducibility and clarity. Additionally, the limited exploration of the parameter space and absence of experimental validation or consideration of noise and external factors are notable weaknesses. To enhance the paper's impact and robustness, it is recommended to provide more comprehensive methodological details and consider experimental validation. Suitable as a reference for studies on Anderson localization and quantum phenomena, but improvements are needed for broader applicability.",
+    "timestamp": "2026-04-03 18:38:23"
+  },
+  {
+    "index": 133,
+    "paper": "2026_Pan_HyVGGT-VO_Tightly_Coupled_Hybrid_Dense_V.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.83,
+    "comment": "The academic assessment of the paper reveals a strong identification of the research problem, with a clear articulation of the specific challenges and motivations. The originality of the proposed HyVGGT-VO framework is commendable, as it effectively integrates sparse visual odometry with dense mapping capabilities, addressing key limitations of existing methods. However, the methodology section lacks detailed specifications of loss functions and evaluation metrics, which could impede reproducibility and clarity. Additionally, the results section contains inaccuracies regarding improvement margins over the KITTI dataset, and the dataset characteristics are not fully explored, raising concerns about the model's generalizability. To enhance the paper, it is recommended to provide explicit definitions of loss functions and evaluation metrics, adopt a more iterative approach for real-time adaptability, and test the model on a broader range of datasets. Overall, the paper is suitable as a reference for researchers interested in advancing visual odometry and mapping techniques, but further refinements are needed for broader applicability.",
+    "timestamp": "2026-04-03 18:43:31"
+  },
+  {
+    "index": 134,
+    "paper": "2026_Patil_RAGShield_Provenance-Verified_Defense-in.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper provides a comprehensive exploration of a novel approach, RAGShield, which effectively addresses the issue of knowledge base poisoning attacks in RAG systems. It excels in clearly identifying the research problem and providing a critical analysis of its limitations, offering targeted improvements. However, the methodology section lacks explicit details on loss functions, which could hinder the reproducibility and optimization of the proposed solution. Additionally, the absence of validation on real-world datasets raises concerns about the generalizability of the findings. To enhance the paper's impact, it is recommended to incorporate real-world datasets, clearly define the loss functions, and broaden the evaluation framework to include diverse adversarial scenarios. Overall, this paper is recommended for researchers interested in advancing security measures in RAG systems, particularly those focusing on mitigating knowledge base poisoning attacks.",
+    "timestamp": "2026-04-03 18:46:27"
+  },
+  {
+    "index": 135,
+    "paper": "2026_Pondaven_ActionParty_Multi-Subject_Action_Binding.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough critical analysis, highlighting its strengths in addressing limitations of existing diffusion models through the novel ActionParty model. However, there are notable weaknesses in the methodology, particularly the lack of detailed information on dataset size, complexity, and the specifics of the loss function and evaluation metrics. These gaps may affect the robustness and clarity of the results. To improve the paper's contribution, it is recommended to expand the dataset, clearly define the loss function, and specify comprehensive evaluation metrics. Overall, the paper is recommended for researchers interested in multi-agent systems and diffusion models, but further refinement is needed for it to serve as a reliable reference in practical applications.",
+    "timestamp": "2026-04-03 18:50:01"
+  },
+  {
+    "index": 136,
+    "paper": "2026_Raja_Lightweight_Spatiotemporal_Highway_Lane_.pdf",
+    "paper_quality_score": 0.85,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong contribution to the field of lane detection by introducing a novel approach that combines a 3D-ResNet encoder with a PINet decoder. This integration effectively addresses existing limitations by enhancing the model's ability to capture spatiotemporal features and improve computational efficiency, as evidenced by significant improvements in accuracy, precision, and F1-score over baseline methods. However, the methodology may suffer from robustness issues due to limited dataset diversity, which could lead to overfitting, and the reliance on specific loss functions might complicate the training process. Additionally, the evaluation metrics used may not fully capture the model's performance in real-world scenarios. To address these weaknesses, the paper suggests incorporating data augmentation, transfer learning, and adaptive techniques to improve robustness and evaluation comprehensiveness. Recommended for researchers and practitioners seeking innovative methodologies in lane detection, with a focus on improving computational efficiency and accuracy.",
+    "timestamp": "2026-04-03 18:53:09"
+  },
+  {
+    "index": 137,
+    "paper": "2026_Ranganathan_Multi-Agent_Video_Recommenders_Evolution.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper provides a comprehensive exploration of a novel approach to video recommendation systems through the use of multi-agent reinforcement learning, marking a significant improvement over traditional single-agent frameworks. It excels in clearly identifying the research problem and delivering a thorough critical analysis, highlighting specific limitations and suggesting targeted improvements. However, the methodology section falls short by not explicitly defining the loss functions, which could lead to ambiguities in agent training. Additionally, the partial descriptions of datasets and the complexity introduced by decentralized training are notable weaknesses that could impact the system's performance. Overall, the paper is recommended for researchers interested in advancing multi-agent systems in recommendation technologies, but it would benefit from further refinement in methodology and evaluation metrics to enhance its applicability and impact.",
+    "timestamp": "2026-04-03 18:55:28"
+  },
+  {
+    "index": 138,
+    "paper": "2026_Ruthardt_Steerable_Visual_Representations.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a strong identification of the research problem and provides a comprehensive analysis of results, demonstrating a clear understanding of the core challenges and limitations. The originality of the SteerViT model is notable, particularly in its innovative integration of text conditioning into visual representation learning, which shows significant performance improvements across benchmarks. However, the methodology section lacks explicit details on loss functions and dataset split ratios, which could impact the reproducibility and validity of the findings. Additionally, the limited dataset diversity may affect the model's generalization. To enhance the paper's quality, it is recommended to clearly define the loss functions, provide detailed dataset information, and consider expanding the dataset for better generalization. Recommended for researchers interested in innovative approaches to visual representation learning with text conditioning.",
+    "timestamp": "2026-04-03 18:57:45"
+  },
+  {
+    "index": 139,
+    "paper": "2026_Röthl_Loop-level_surrogate_modeling_of_dopant-.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "This paper presents a well-defined research question that addresses a significant gap in understanding dopant distributions in ferroelectric materials. The methodology is innovative, employing a conditional autoencoder to predict hysteresis responses, which marks a notable advancement over traditional approaches. However, the results demonstrate limited improvement over baseline methods, suggesting that the model may not be fully optimized. Additionally, the dataset descriptions are incomplete, lacking specific details that could affect the robustness and generalizability of the findings. To enhance the research quality, it is recommended to provide more comprehensive dataset information, improve model robustness, and validate findings against experimental data. Suitable as a reference for researchers interested in innovative methodologies for material property prediction.",
+    "timestamp": "2026-04-03 18:59:50"
+  },
+  {
+    "index": 140,
+    "paper": "2026_Saidi_CV-18_NER_Augmented_Common_Voice_for_Nam.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.79,
+    "comment": "The academic assessment of this paper reveals a strong foundation in addressing a significant gap in Named Entity Recognition for Arabic, particularly through the introduction of the CV-18 NER dataset. The research demonstrates originality and potential impact by employing a modified Whisper architecture for end-to-end processing, which is a notable strength. However, the paper's methodology section lacks specific details on loss functions and evaluation metrics, which are essential for a comprehensive understanding of the model's performance. Additionally, the results section falls short in providing context or comparisons against baselines, limiting the ability to gauge the significance of the reported improvements. To improve the paper's quality, it is recommended to include detailed descriptions of the loss functions and a broader range of evaluation metrics, as well as to contextualize the results with explicit baseline comparisons. Recommended for researchers interested in advancing Arabic NER methodologies, but further refinement is needed for it to serve as a robust reference.",
+    "timestamp": "2026-04-03 19:02:11"
+  },
+  {
+    "index": 141,
+    "paper": "2026_Seo_Mining_Instance-Centric_Vision-Language_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a comprehensive exploration of HOI detection through the innovative InCoM-Net framework, demonstrating a strong ability to clearly identify research problems, methodologies, datasets, and results. The strengths of the paper lie in its novel approach to integrating multi-contextual features and the clarity with which complex concepts are communicated. However, the results indicate only modest improvements over existing baselines, suggesting limitations in the model's effectiveness. Additionally, concerns about overfitting, computational inefficiencies, and the inadequacy of evaluation metrics for real-time applications are noted. To address these issues, the paper could benefit from incorporating regularization techniques, expanding training datasets, optimizing context aggregation, and including metrics that better reflect real-time performance. Recommended for researchers interested in advancing HOI detection methodologies and exploring innovative training strategies.",
+    "timestamp": "2026-04-03 19:04:31"
+  },
+  {
+    "index": 142,
+    "paper": "2026_Shekkizhar_Beyond_the_Assistant_Turn_User_Turn_Gene.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals several strengths and weaknesses. The research excels in clearly identifying the research problem and methodology, with a strong focus on improving interaction awareness in conversational AI using the Qwen 3.5 model. The paper effectively presents its results, showcasing significant improvements over baseline methods, and provides a thorough critical analysis of its limitations and potential improvements. However, the paper falls short in providing detailed descriptions of dataset characteristics and train/validation/test split ratios, which could undermine the robustness of its evaluation. Additionally, the reliance on follow-up rates as the primary evaluation metric may not fully capture the quality of conversational interactions. To enhance the paper's credibility and impact, it is recommended to include comprehensive dataset details and broaden the evaluation metrics to cover various aspects of conversational quality. Overall, this paper is recommended for researchers interested in advancing conversational AI, particularly in interaction awareness, but should be used with caution as a reference for methodological rigor.",
+    "timestamp": "2026-04-03 19:08:29"
+  },
+  {
+    "index": 143,
+    "paper": "2026_Shen_A_Simple_Baseline_for_Streaming_Video_Un.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies and articulates the specific research problem, providing a clear background and motivation, which is a significant strength. The methodology is innovative, particularly in its approach to memory management in streaming video understanding, but it lacks depth in certain areas, such as long-term context management and detailed dataset descriptions. While the results section is comprehensive, offering specific metric values and improvement margins, the evaluation metrics are somewhat limited in scope. The critical analysis is robust, identifying concrete limitations and suggesting targeted improvements. Overall, the paper is recommended for researchers interested in video understanding methodologies, but it would benefit from enhancements in methodology depth and evaluation breadth to serve as a more comprehensive reference.",
+    "timestamp": "2026-04-03 19:11:38"
+  },
+  {
+    "index": 144,
+    "paper": "2026_Singha_Magneto-Active_Environments_in_Pulsar_Bi.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a significant research problem, particularly in the study of pulsar binaries within magneto-active environments. The paper excels in clearly defining the problem, methodology, and results, with a comprehensive analysis of limitations and potential improvements. However, there are notable weaknesses in the methodology section, particularly regarding the lack of detailed descriptions of training strategies, loss functions, and dataset characteristics, which could affect the reproducibility of the study. Additionally, the results section could benefit from a broader range of evaluation metrics to provide a more thorough assessment of model performance. Overall, the paper is recommended for researchers interested in the application of machine learning to astrophysical data analysis, but it would benefit from enhancements in methodological transparency and result comprehensiveness to serve as a more robust reference.",
+    "timestamp": "2026-04-03 19:15:35"
+  },
+  {
+    "index": 145,
+    "paper": "2026_Taback_Generative_AI_Spotlights_the_Human_Core_.pdf",
+    "paper_quality_score": 0.55,
+    "skill_rubric_total": 0.83,
+    "comment": "The paper effectively identifies the research problem, providing a clear background and motivation, and excels in detailing the datasets used, including their characteristics and evaluation metrics. The results are well-articulated, with specific metrics and improvement margins clearly presented. However, the methodology section is notably vague, lacking specific details on algorithms and loss functions, which hinders the replicability and depth of the analysis. While the critical analysis is strong, offering concrete scenarios for improvement, the paper would benefit from more explicit connections between findings and evidence. Overall, the paper is recommended for those interested in the impact of GAI on data science education, but it would be more suitable as a reference if the methodology were more clearly defined.",
+    "timestamp": "2026-04-03 19:20:05"
+  },
+  {
+    "index": 146,
+    "paper": "2026_Tan_Modular_Energy_Steering_for_Safe_Text-to.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in enhancing safety for text-to-image models, demonstrating a clear understanding of the core challenge and motivation. The methodology is robust, utilizing established models like CLIP and VLM, and is well-articulated with specific algorithms and components. However, the paper falls short in providing comprehensive details about the datasets, including their sizes and split ratios, which could affect the generalizability of the results. Additionally, the evaluation metrics are somewhat narrow, potentially missing broader performance aspects. Despite these weaknesses, the paper's critical analysis is thorough, offering concrete scenarios and targeted improvements. Recommended for researchers interested in AI safety and those looking to build upon the integration of pretrained models for content moderation.",
+    "timestamp": "2026-04-03 19:23:49"
+  },
+  {
+    "index": 147,
+    "paper": "2026_Utley_ReVAR_A_Data-Driven_Algorithm_for_Genera.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, datasets, and results, achieving perfect scores in these areas. It effectively presents a novel approach using the ReVAR algorithm to generate synthetic aero-optic data, addressing key limitations in existing methods. However, the paper's overall quality is slightly diminished by a lack of detailed descriptions of dataset characteristics and evaluation metrics, which affects reproducibility and the assessment of the algorithm's performance. Additionally, concerns about overfitting and assumptions regarding temporal dependencies suggest potential limitations in the model's robustness. To improve the paper, it is recommended that the authors provide more comprehensive details on datasets and evaluation metrics, and explore techniques to mitigate overfitting. This paper is recommended for researchers interested in synthetic data generation for aerospace applications, but should be used with caution as a reference for methodological details.",
+    "timestamp": "2026-04-03 19:27:29"
+  },
+  {
+    "index": 148,
+    "paper": "2026_Veljković_Crystalite_A_Lightweight_Transformer_for.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of crystal structure prediction, introducing the innovative Crystalite model with unique features such as Subatomic Tokenization and the Geometry Enhancement Module. It excels in clearly identifying the research problem, datasets, and results, offering a thorough critical analysis of its limitations and potential improvements. However, the methodology section is somewhat lacking, as it does not explicitly detail the loss functions and training strategies, which are essential for replicating and understanding the model's optimization process. Additionally, the evaluation metrics could be expanded to better assess the model's performance, and the assumption of homogeneity in crystal structures may restrict its applicability. Recommended for researchers interested in novel approaches to crystal structure prediction, but further methodological details are needed for those looking to replicate or build upon this work.",
+    "timestamp": "2026-04-03 19:30:00"
+  },
+  {
+    "index": 149,
+    "paper": "2026_Wang_Simulations_of_internal_kink_modes_and_s.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper effectively identifies and addresses a significant research gap by exploring the n=1 mode in SPARC using the M3D-C1 simulation code. It excels in clearly defining the research problem, methodology, datasets, and results, providing a comprehensive analysis of plasma stability and dynamics. However, the study's reliance on the Spitzer resistivity model and a simplified mesh approach may limit the accuracy of its simulations. Additionally, the focus on low-n modes and the absence of real-time data integration could restrict the practical applicability of the findings. To enhance the study's impact, it is recommended to incorporate alternative resistivity models, adaptive mesh refinement techniques, and expand the analysis to include higher-order modes. This paper is suitable as a reference for researchers interested in plasma stability and simulation methodologies.",
+    "timestamp": "2026-04-03 19:32:47"
+  },
+  {
+    "index": 150,
+    "paper": "2026_Wu_Optimizing_RAG_Rerankers_with_LLM_Feedba.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.96,
+    "comment": "The paper provides a thorough exploration of a novel approach to document selection in retrieval-augmented generation systems, with a clear identification of the research problem and a comprehensive description of the methodology, including the RRPO algorithm. The strengths of the paper lie in its innovative integration of reinforcement learning with direct feedback from an LLM Reader, as well as its high clarity in presenting complex ideas. However, the methodology's reliance on deterministic transition dynamics and a frozen LLM Reader limits adaptability, and the evaluation metrics may not fully capture performance nuances in multi-hop question answering tasks. Additionally, the limited dataset diversity raises concerns about the generalizability of the findings. To improve the study, the authors should consider incorporating stochastic elements and exploration strategies in the methodology, as well as expanding the evaluation to include a broader range of datasets and more comprehensive metrics. Recommended for researchers interested in advancing document selection techniques in retrieval-augmented generation systems.",
+    "timestamp": "2026-04-03 19:35:30"
+  },
+  {
+    "index": 151,
+    "paper": "2026_Wullrich_Deep_Neural_Network_Based_Roadwork_Detec.pdf",
+    "paper_quality_score": 0.62,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies a specific research problem and provides a thorough background, clearly outlining the core challenges and motivations. It excels in detailing the methodologies used, specifically naming algorithms and their components, which demonstrates a strong understanding of the technical aspects. However, the paper falls short in providing comprehensive details about the datasets, such as split ratios and evaluation metrics, which are crucial for assessing the model's generalizability. Additionally, while the results indicate improvements, the lack of specified baseline comparisons limits the ability to fully contextualize these findings. Overall, the paper is recommended for those interested in the development of advanced algorithms for roadwork detection, but it would benefit from more detailed dataset descriptions and baseline comparisons to enhance its utility as a reference.",
+    "timestamp": "2026-04-03 19:48:29"
+  },
+  {
+    "index": 152,
+    "paper": "2026_Yamagishi_Blinded_Radiologist_and_LLM-Based_Evalua.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in evaluating LLM-generated translations within the medical field, demonstrating a strong understanding of the core challenge and motivation. The methodology is well-detailed, clearly outlining the algorithm and its components, although it suffers from a lack of dataset diversity and unclear data split ratios, which could affect the generalizability of the findings. The results are comprehensively presented, with specific metrics and improvement margins, but the reliance on qualitative evaluation metrics may introduce subjectivity. The critical analysis is robust, offering targeted improvements and acknowledging limitations. Overall, the paper is recommended for those interested in the intersection of language models and medical education, but further work is needed to enhance dataset diversity and evaluation rigor for broader applicability.",
+    "timestamp": "2026-04-03 19:51:27"
+  },
+  {
+    "index": 153,
+    "paper": "2026_Yamauchi_Quantum-Enhanced_Processing_with_Tensor-.pdf",
+    "paper_quality_score": 0.76,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies and addresses a specific problem in privacy-aware federated learning by introducing a novel hybrid framework that combines tensor-network representation learning with MPC and quantum processing. It excels in clearly defining the research problem, datasets, and results, providing detailed characteristics and metrics. However, the methodology section is somewhat lacking, as it does not specify the loss function, which could impede reproducibility and optimization efforts. Additionally, the reliance on specific tensor-network architectures may limit the generalizability of the findings, and the evaluation is constrained to a narrow set of datasets. To improve the paper's impact and applicability, future work should focus on defining a concrete loss function, exploring adaptive architecture selection, and testing the framework on a wider variety of datasets. Recommended for researchers interested in innovative approaches to federated learning and quantum-enhanced machine learning.",
+    "timestamp": "2026-04-03 19:54:21"
+  },
+  {
+    "index": 154,
+    "paper": "2026_Yan_AlloyVAE_A_generative_model_for_complex_.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a strong academic contribution through the AlloyVAE framework, which innovatively integrates physical constraints into the VAE architecture, enhancing its relevance in material science. The research problem, methodology, and datasets are clearly identified and well-articulated, demonstrating a thorough understanding of the domain. However, the paper's results section lacks specificity regarding the improvement margin for the Eigenstrain Dataset, and there are concerns about overfitting, limited evaluation metrics, and dataset bias. To address these weaknesses, the authors should consider implementing regularization techniques, expanding datasets, and incorporating additional evaluation metrics. Overall, the paper is recommended for researchers interested in advanced material science modeling techniques and can serve as a reference for developing robust machine learning frameworks in this field.",
+    "timestamp": "2026-04-03 20:19:01"
+  },
+  {
+    "index": 155,
+    "paper": "2026_Yang_Batched_Contextual_Reinforcement_A_Task-.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper presents a novel approach, BCR, which effectively addresses the limitations of existing methods for length control in reinforcement learning, showing significant improvements in token efficiency and accuracy in mathematical reasoning tasks. The methodology is clearly defined, and the results are promising across multiple datasets, demonstrating the paper's strength in problem extraction, methodology identification, and result extraction. However, the paper's weaknesses include a lack of dataset diversity and unspecified train/validation/test splits, which raise concerns about the generalizability and reliability of the results. Additionally, the evaluation metrics do not capture qualitative aspects of model performance, and the implicit length control mechanism may not adapt well to varying problem complexities. To enhance the robustness of the findings, it is recommended to incorporate a broader range of datasets, clearly define data splits, explore dynamic length control mechanisms, and introduce qualitative evaluation metrics. Recommended for researchers interested in reinforcement learning and length control methodologies.",
+    "timestamp": "2026-04-03 20:24:15"
+  },
+  {
+    "index": 156,
+    "paper": "2026_Ye_Omni123_Exploring_3D_Native_Foundation_M.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to 3D synthesis through the Omni123 model, effectively integrating 2D and 3D generation processes. It excels in clearly identifying the research problem and providing a comprehensive analysis of results, including specific metric values and improvement margins. However, the methodology section lacks explicit details on loss functions and evaluation metrics, which hinders clarity and reproducibility. Additionally, the paper assumes standard dataset split ratios without full specification, potentially affecting the robustness of the results. To enhance the paper's impact, future work should focus on providing detailed descriptions of loss functions and evaluation metrics, as well as exploring data augmentation techniques and a broader range of datasets. Recommended for researchers interested in advancing 3D synthesis methodologies and applications.",
+    "timestamp": "2026-04-03 20:27:52"
+  },
+  {
+    "index": 157,
+    "paper": "2026_Zhang_Random-Subspace_Sequential_Quadratic_Pro.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper effectively identifies a specific problem in constrained optimization within the zeroth-order regime, presenting a novel approach that combines random subspace sampling with Sequential Quadratic Programming (SQP) updates. The methodology is clearly articulated, and the results demonstrate significant improvements over traditional methods, highlighting the potential impact of the proposed algorithm. However, the reliance on random subspace sampling may lead to inconsistent performance, and the two-point directional evaluations could introduce errors in gradient approximations. Additionally, the evaluation metrics are somewhat limited, focusing primarily on KKT conditions without considering practical performance aspects. To enhance the robustness and applicability of the algorithm, it is recommended to implement structured sampling strategies and explore alternative gradient estimation techniques, as well as to expand the evaluation framework to include metrics assessing computational efficiency and robustness. Recommended for researchers interested in novel optimization techniques and as a reference for further studies in zeroth-order optimization methods.",
+    "timestamp": "2026-04-03 20:29:36"
+  },
+  {
+    "index": 158,
+    "paper": "2026_Zhang_Transformer-Accelerated_Interpolated_Dat.pdf",
+    "paper_quality_score": 0.67,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper effectively identifies and articulates the research problem, providing a clear background and motivation for the study. It introduces the TA-IRA methodology, which is innovative in its integration of a Transformer-based architecture with a multi-resolution strategy, addressing key limitations of existing models. However, the paper falls short in detailing the methodology, particularly regarding loss functions and training strategies, which could impact the reproducibility and generalizability of the results. Additionally, the evaluation is limited by the use of a narrow set of datasets, raising questions about the model's robustness across diverse applications. To improve the paper's impact and reliability, it is recommended to include detailed methodological descriptions and expand the dataset range for evaluation. Suitable as a reference for researchers interested in novel approaches to reachability analysis, but further methodological clarity is needed for practical implementation.",
+    "timestamp": "2026-04-03 20:33:21"
+  },
+  {
+    "index": 159,
+    "paper": "2026_Zhang_UAV-Track_VLA_Embodied_Aerial_Tracking_v.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.88,
+    "comment": "The paper presents a novel approach to UAV tracking by integrating vision, language, and action, effectively addressing significant limitations in existing methods. It excels in clearly identifying the research problem and providing a comprehensive analysis of results, including specific metric values and improvement margins. However, the methodology section lacks explicit details on loss functions, which could lead to ambiguity in the training process. Additionally, the dataset description is incomplete, missing specific split ratios and evaluation metrics, which raises concerns about the model's generalizability and reproducibility. To enhance the paper's impact, it is recommended to clearly define the loss functions, provide detailed dataset descriptions, and expand the evaluation metrics. Recommended for researchers focusing on UAV tracking and those interested in integrating multimodal approaches in dynamic environments.",
+    "timestamp": "2026-04-03 20:35:28"
+  },
+  {
+    "index": 160,
+    "paper": "2026_Zhou_TRU_Targeted_Reverse_Update_for_Efficien.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong foundation in identifying and addressing a specific problem within multimodal recommendation systems, with a clear articulation of the core challenge and motivation. The methodology is robust, detailing specific algorithms and components, although it could benefit from addressing cold start scenarios and potential overfitting to popular items. While the results section is comprehensive, providing detailed metrics and improvement margins, the evaluation could be enhanced by incorporating metrics that assess user satisfaction and long-term engagement. The paper's clarity is commendable, making complex ideas accessible, but there is a slight disconnect between the scores and the impact dimension. Overall, the paper is recommended for researchers interested in advancing recommendation systems, particularly those focusing on unlearning methods, but should be supplemented with additional strategies for handling diversity and user engagement.",
+    "timestamp": "2026-04-03 20:38:23"
+  },
+  {
+    "index": 161,
+    "paper": "2026_Zhou_Universal_Hypernetworks_for_Arbitrary_Mo.pdf",
+    "paper_quality_score": 0.72,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper demonstrates a strong ability to clearly identify and articulate the research problem, methodology, and datasets, showcasing a comprehensive understanding of the core components and challenges in the field. The introduction of the Universal Hypernetwork (UHN) is a notable strength, addressing key limitations in adaptability and scalability of existing methods. However, the results section lacks detailed improvement margins for several datasets, which could provide a clearer picture of the model's performance gains. Additionally, the absence of validation sets and the use of a single-layer Transformer encoder may limit the model's generalization and expressiveness. To enhance the study, it is recommended to incorporate validation sets, explore multi-layer Transformer encoders, and utilize a broader range of evaluation metrics. Overall, this paper is recommended for researchers interested in hypernetwork advancements and can serve as a reference for developing scalable and adaptable models.",
+    "timestamp": "2026-04-03 20:42:09"
+  },
+  {
+    "index": 162,
+    "paper": "2026_Zhu_F3DGS_Federated_3D_Gaussian_Splatting_fo.pdf",
+    "paper_quality_score": 0.75,
+    "skill_rubric_total": 0.92,
+    "comment": "The paper provides a comprehensive exploration of a novel approach to federated 3D reconstruction using 3D Gaussian Splatting, effectively addressing key limitations in existing collaborative SLAM methods. It excels in clearly identifying the research problem, methodology, and results, with a strong critical analysis of its limitations and potential improvements. However, the paper's reliance on a single dataset for evaluation raises concerns about the generalizability of its findings, and its dependency on sparse textures may limit applicability in complex environments. To enhance its impact, future research should focus on testing across diverse datasets and incorporating adaptive geometry updates. Recommended for researchers interested in advancing federated learning and 3D reconstruction methodologies.",
+    "timestamp": "2026-04-03 20:45:25"
+  },
+  {
+    "index": 163,
+    "paper": "2026_Zhu_Smoothing_the_Landscape_Causal_Structure.pdf",
+    "paper_quality_score": 0.65,
+    "skill_rubric_total": 0.92,
+    "comment": "The academic assessment of this paper reveals a strong ability to clearly identify research problems and methodologies, with perfect scores in these areas. The paper excels in extracting results and providing critical analysis, offering detailed metric values and insightful limitations with targeted improvements. However, the dataset identification is slightly lacking, as it does not fully describe the train/validation/test splits, which could affect the reproducibility of the study. Additionally, while the originality and potential impact of the proposed DDCD models are commendable, the results section could benefit from clearer presentation of improvement margins and practical implications. The reliance on synthetic datasets also raises concerns about the generalizability of the findings. Recommended for researchers interested in novel approaches to causal structure learning, but further validation with real-world data is advised for broader applicability.",
+    "timestamp": "2026-04-03 20:48:57"
+  }
+]

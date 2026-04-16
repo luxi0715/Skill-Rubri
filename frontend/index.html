@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>论文发现</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; }
+    .card-grid {
+      columns: 2;
+      column-gap: 12px;
+    }
+    .paper-card {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      display: block;
+    }
+    @media (max-width: 640px) { .card-grid { columns: 1; } }
+    .fade-in { animation: fadeUp 0.35s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .modal-bg { backdrop-filter: blur(4px); }
+    .domain-tab.active { background:#FF2442; color:white; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background:#e0e0e0; border-radius:4px; }
+    .cover-gradient { min-height: 120px; }
+    .line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .line-clamp-3 { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .section-content h3 { font-weight:600; margin:0.6em 0 0.3em; font-size:0.9rem; }
+    .section-content h4 { font-weight:600; margin:0.5em 0 0.2em; font-size:0.85rem; }
+    .section-content p  { margin:0.3em 0; }
+    .section-content ul,.section-content ol { padding-left:1.2em; margin:0.3em 0; }
+    .section-content li { margin:0.15em 0; }
+    .section-content strong { font-weight:600; }
+    .section-content code { background:#f3f4f6; padding:0.1em 0.3em; border-radius:3px; font-size:0.8em; }
+  </style>
+</head>
+<body class="bg-[#f5f5f5] min-h-screen">
+
+<!-- ── 顶部导航 ── -->
+<header class="bg-white sticky top-0 z-30 border-b border-gray-100">
+  <div class="max-w-2xl mx-auto px-4 py-3">
+    <div class="flex items-center gap-3">
+      <div class="text-[#FF2442] font-black text-lg tracking-tight">📚 论文发现</div>
+      <div class="flex-1 flex gap-2">
+        <input id="query-input" type="text" placeholder="搜索论文…"
+          class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-[#FF2442]/30"
+          onkeydown="if(event.key==='Enter') doSearch()" />
+        <button onclick="doSearch()"
+          class="bg-[#FF2442] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#e0203a] transition-colors">
+          搜索
+        </button>
+      </div>
+      <button id="user-btn" onclick="handleUserBtn()"
+        class="text-xs border border-gray-200 rounded-full px-3 py-2 bg-white text-gray-500 whitespace-nowrap hover:border-[#FF2442] hover:text-[#FF2442] transition-colors">
+        登录
+      </button>
+      <select id="mode-select"
+        class="text-xs border border-gray-200 rounded-full px-3 py-2 bg-white text-gray-500 outline-none">
+        <option value="hybrid">混合</option>
+        <option value="vector">语义</option>
+        <option value="bm25">关键词</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 排序 Tab -->
+  <div class="flex gap-1 px-4 pt-1 pb-2 max-w-2xl mx-auto">
+    <button class="sort-tab active text-xs px-3 py-1 rounded-full bg-[#FF2442] text-white font-medium transition-all"
+      onclick="setSort('hot')" data-sort="hot">🔥 热门</button>
+    <button class="sort-tab text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500 font-medium transition-all"
+      onclick="setSort('new')" data-sort="new">🆕 最新</button>
+    <button class="sort-tab text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500 font-medium transition-all"
+      onclick="setSort('quality')" data-sort="quality">⭐ 质量</button>
+  </div>
+
+  <!-- 领域筛选标签 -->
+  <div id="domain-tabs" class="flex gap-2 px-4 pb-3 overflow-x-auto max-w-2xl mx-auto">
+    <button class="domain-tab active text-xs px-3 py-1.5 rounded-full border border-[#FF2442] text-[#FF2442] whitespace-nowrap transition-all"
+      onclick="filterDomain('')" data-domain="">全部</button>
+  </div>
+</header>
+
+<!-- ── 主内容 ── -->
+<main class="max-w-2xl mx-auto px-4 py-4">
+  <div id="status-bar" class="text-xs text-gray-400 mb-3 text-center">加载中…</div>
+  <div id="card-grid" class="card-grid"></div>
+  <div id="empty-tip" class="hidden text-center py-16 text-gray-400 text-sm">没有找到相关论文</div>
+  <div id="load-more-tip" class="text-center py-6 text-xs text-gray-400" style="visibility:hidden">加载更多…</div>
+  <div id="no-more-tip" class="hidden text-center py-6 text-xs text-gray-300">— 已加载全部 —</div>
+  <div id="scroll-sentinel" style="height:1px"></div>
+</main>
+
+<!-- ── 登录/注册弹窗 ── -->
+<div id="auth-modal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black/50" onclick="closeAuth()"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-2xl p-6 shadow-2xl">
+    <div class="flex gap-4 mb-5">
+      <button id="tab-login" onclick="switchTab('login')"
+        class="flex-1 text-sm font-semibold pb-2 border-b-2 border-[#FF2442] text-[#FF2442]">登录</button>
+      <button id="tab-register" onclick="switchTab('register')"
+        class="flex-1 text-sm font-semibold pb-2 border-b-2 border-transparent text-gray-400">注册</button>
+    </div>
+    <div class="space-y-3">
+      <div id="register-nickname-wrap" class="hidden">
+        <input id="auth-nickname" placeholder="昵称（2~20字）" maxlength="20"
+          class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2442]/30" />
+      </div>
+      <input id="auth-email" type="email" placeholder="邮箱"
+        class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2442]/30" />
+      <input id="auth-password" type="password" placeholder="密码（至少6位）"
+        class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2442]/30"
+        onkeydown="if(event.key==='Enter') submitAuth()" />
+      <div id="auth-error" class="text-xs text-red-400 hidden"></div>
+      <button onclick="submitAuth()"
+        class="w-full bg-[#FF2442] text-white py-2 rounded-full text-sm font-semibold hover:bg-[#e0203a] transition-colors">
+        确认
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 详情弹窗 ── -->
+<div id="modal" class="fixed inset-0 z-50 hidden">
+  <div class="modal-bg absolute inset-0 bg-black/40" onclick="closeModal()"></div>
+  <div class="absolute right-0 top-0 h-full w-full max-w-lg bg-white shadow-2xl overflow-y-auto" id="modal-panel">
+    <div id="modal-content" class="pb-20"></div>
+  </div>
+</div>
+
+<script>
+const API = "";
+let allPapers    = [];
+let currentDomain = "";
+let currentSort   = "hot";
+let currentPage   = 1;
+let isLoading     = false;
+let hasMore       = true;
+let isSearchMode  = false;
+
+// ── 用户认证 ──────────────────────────────────────────────
+let _authTab = "login";
+
+function getToken()    { return localStorage.getItem("token"); }
+function getNickname() { return localStorage.getItem("nickname_auth"); }
+function isLoggedIn()  { return !!getToken(); }
+
+function updateUserBtn() {
+  const btn = document.getElementById("user-btn");
+  if (!btn) return;
+  btn.textContent = isLoggedIn() ? (getNickname() || "我") : "登录";
+}
+
+function handleUserBtn() {
+  if (isLoggedIn()) {
+    if (confirm(`当前用户：${getNickname()}\n\n点击确定退出登录`)) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("nickname_auth");
+      updateUserBtn();
+    }
+  } else {
+    openAuth();
+  }
+}
+
+function openAuth(tab = "login") {
+  switchTab(tab);
+  document.getElementById("auth-modal").classList.remove("hidden");
+  document.getElementById("auth-email").value    = "";
+  document.getElementById("auth-password").value = "";
+  document.getElementById("auth-error").classList.add("hidden");
+}
+
+function closeAuth() {
+  document.getElementById("auth-modal").classList.add("hidden");
+}
+
+function switchTab(tab) {
+  _authTab = tab;
+  const isLogin = tab === "login";
+  document.getElementById("tab-login").classList.toggle("border-[#FF2442]", isLogin);
+  document.getElementById("tab-login").classList.toggle("text-[#FF2442]", isLogin);
+  document.getElementById("tab-login").classList.toggle("border-transparent", !isLogin);
+  document.getElementById("tab-login").classList.toggle("text-gray-400", !isLogin);
+  document.getElementById("tab-register").classList.toggle("border-[#FF2442]", !isLogin);
+  document.getElementById("tab-register").classList.toggle("text-[#FF2442]", !isLogin);
+  document.getElementById("tab-register").classList.toggle("border-transparent", isLogin);
+  document.getElementById("tab-register").classList.toggle("text-gray-400", isLogin);
+  document.getElementById("register-nickname-wrap").classList.toggle("hidden", isLogin);
+}
+
+async function submitAuth() {
+  const email    = document.getElementById("auth-email").value.trim();
+  const password = document.getElementById("auth-password").value;
+  const errEl    = document.getElementById("auth-error");
+  errEl.classList.add("hidden");
+
+  if (!email || !password) { errEl.textContent = "请填写邮箱和密码"; errEl.classList.remove("hidden"); return; }
+
+  const url  = _authTab === "login" ? "/auth/login" : "/auth/register";
+  const body = _authTab === "login"
+    ? { email, password }
+    : { email, password, nickname: document.getElementById("auth-nickname").value.trim() || email.split("@")[0] };
+
+  try {
+    const res  = await fetch(`${API}${url}`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.detail || "操作失败"; errEl.classList.remove("hidden"); return; }
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("nickname_auth", data.nickname);
+    updateUserBtn();
+    closeAuth();
+  } catch {
+    errEl.textContent = "网络错误，请重试";
+    errEl.classList.remove("hidden");
+  }
+}
+
+// ── 颜色/emoji 映射 ──────────────────────────────────────
+const DOMAIN_STYLES = [
+  { keys: ["recommend"],          grad: "from-rose-400 to-pink-500",     emoji: "🎯" },
+  { keys: ["contrastive"],        grad: "from-blue-400 to-indigo-500",   emoji: "🔵" },
+  { keys: ["graph"],              grad: "from-purple-400 to-violet-500", emoji: "🕸" },
+  { keys: ["reinforcement","rl"], grad: "from-orange-400 to-amber-500",  emoji: "🎮" },
+  { keys: ["transformer","llm","language","nlp"], grad: "from-teal-400 to-cyan-500", emoji: "💬" },
+  { keys: ["fluid","physics","computational"], grad: "from-slate-400 to-gray-500", emoji: "🌊" },
+  { keys: ["vision","image"],     grad: "from-lime-400 to-green-500",    emoji: "👁" },
+  { keys: ["knowledge","graph"],  grad: "from-yellow-400 to-orange-400", emoji: "🧠" },
+];
+const DEFAULT_STYLE = { grad: "from-gray-400 to-slate-500", emoji: "📄" };
+
+function getDomainStyle(domain) {
+  if (!domain) return DEFAULT_STYLE;
+  const d = domain.toLowerCase();
+  for (const s of DOMAIN_STYLES) {
+    if (s.keys.some(k => d.includes(k))) return s;
+  }
+  return DEFAULT_STYLE;
+}
+
+// ── 论文名格式化（去掉年份和第一作者）──────────────────
+function formatTitle(paper) {
+  const name = paper.replace(".pdf", "");
+  const parts = name.split("_");
+  if (parts.length > 2 && /^\d{4}$/.test(parts[0])) {
+    return parts.slice(2).join(" ");
+  }
+  return name.replace(/_/g, " ");
+}
+
+function getYear(paper) {
+  const m = paper.match(/^(\d{4})_/);
+  return m ? m[1] : "";
+}
+
+// ── 排序切换 ─────────────────────────────────────────────
+function setSort(sort) {
+  currentSort = sort;
+  document.querySelectorAll(".sort-tab").forEach(btn => {
+    const active = btn.dataset.sort === sort;
+    btn.classList.toggle("bg-[#FF2442]", active);
+    btn.classList.toggle("text-white",   active);
+    btn.classList.toggle("bg-gray-100",  !active);
+    btn.classList.toggle("text-gray-500",!active);
+  });
+  resetFeed();
+}
+
+// ── 重置信息流（切换排序/领域时）────────────────────────
+function resetFeed() {
+  if (isSearchMode) return;
+  currentPage = 1;
+  hasMore     = true;
+  allPapers   = [];
+  document.getElementById("card-grid").innerHTML  = "";
+  document.getElementById("no-more-tip").classList.add("hidden");
+  document.getElementById("status-bar").textContent = "加载中…";
+  loadPage();
+}
+
+// ── 加载一页 ─────────────────────────────────────────────
+async function loadPage() {
+  if (isLoading || !hasMore) return;
+  isLoading = true;
+  document.getElementById("load-more-tip").style.visibility = "visible";
+
+  try {
+    const params = new URLSearchParams({
+      sort: currentSort, page: currentPage, size: 10,
+      domain: currentDomain,
+    });
+    const res  = await fetch(`${API}/papers?${params}`);
+    const data = await res.json();
+
+    if (currentPage === 1) {
+      allPapers = data.papers;
+      buildDomainTabs(data.total);
+    } else {
+      allPapers = allPapers.concat(data.papers);
+    }
+
+    appendCards(data.papers, (currentPage - 1) * 10);
+    hasMore = data.has_more;
+    currentPage++;
+
+    document.getElementById("status-bar").textContent =
+      `共 ${data.total} 篇论文`;
+    document.getElementById("load-more-tip").style.visibility = "hidden";
+    if (!hasMore) {
+      document.getElementById("no-more-tip").classList.remove("hidden");
+    }
+  } catch {
+    document.getElementById("status-bar").innerHTML =
+      `<span class="text-red-400">⚠ 无法连接 API，请先启动 api_server.py</span>`;
+  }
+  isLoading = false;
+}
+
+// ── 首页入口 ─────────────────────────────────────────────
+function loadHome() {
+  isSearchMode = false;
+  resetFeed();
+}
+
+function buildDomainTabs(total) {
+  const container = document.getElementById("domain-tabs");
+  // 只在第一页时重建 tabs，避免重复
+  if (currentPage > 2) return;
+  container.innerHTML = `<button class="domain-tab ${currentDomain===''?'active':''} text-xs px-3 py-1.5 rounded-full border ${currentDomain===''?'border-[#FF2442] text-[#FF2442]':'border-gray-200 text-gray-500'} whitespace-nowrap transition-all"
+    onclick="filterDomain('')" data-domain="">全部</button>`;
+  const domains = [...new Set(allPapers.map(p => p.domain).filter(Boolean))].sort();
+  domains.forEach(d => {
+    const btn = document.createElement("button");
+    const active = d === currentDomain;
+    btn.className = `domain-tab text-xs px-3 py-1.5 rounded-full border whitespace-nowrap transition-all ${active ? 'border-[#FF2442] text-[#FF2442] active' : 'border-gray-200 text-gray-500'}`;
+    btn.dataset.domain = d;
+    btn.textContent = d;
+    btn.onclick = () => filterDomain(d);
+    container.appendChild(btn);
+  });
+}
+
+function filterDomain(domain) {
+  currentDomain = domain;
+  document.querySelectorAll(".domain-tab").forEach(btn => {
+    const active = btn.dataset.domain === domain;
+    btn.classList.toggle("active", active);
+    btn.classList.toggle("border-[#FF2442]", active);
+    btn.classList.toggle("text-[#FF2442]",   active);
+    btn.classList.toggle("border-gray-200",  !active);
+    btn.classList.toggle("text-gray-500",    !active);
+  });
+  resetFeed();
+}
+
+// ── 渲染卡片网格（搜索结果用，替换全部）────────────────
+function renderGrid(papers) {
+  const grid  = document.getElementById("card-grid");
+  const empty = document.getElementById("empty-tip");
+  document.getElementById("no-more-tip").classList.add("hidden");
+  if (!papers.length) { grid.innerHTML = ""; empty.classList.remove("hidden"); return; }
+  empty.classList.add("hidden");
+  grid.innerHTML = papers.map((p, i) => renderCard(p, i)).join("");
+}
+
+// ── 追加卡片（信息流分页用，追加到末尾）────────────────
+function appendCards(papers, offset) {
+  const grid  = document.getElementById("card-grid");
+  const empty = document.getElementById("empty-tip");
+  if (!papers.length && offset === 0) { empty.classList.remove("hidden"); return; }
+  empty.classList.add("hidden");
+  grid.insertAdjacentHTML("beforeend", papers.map((p, i) => renderCard(p, offset + i)).join(""));
+}
+
+function renderCard(p, i) {
+  const style   = getDomainStyle(p.domain);
+  const title   = p.title_cn || formatTitle(p.paper);
+  const year    = getYear(p.paper);
+  const quality = ((p.paper_quality_score || 0) * 100).toFixed(0);
+  const rubric  = ((p.skill_rubric_total  || 0) * 100).toFixed(0);
+  const comment = p.comment || "";
+  const short   = comment.length > 80 ? comment.slice(0, 80) + "…" : comment;
+  const enc     = encodeURIComponent(p.paper);
+
+  return `
+  <div class="paper-card fade-in cursor-pointer" style="animation-delay:${i*30}ms"
+    onclick="openModal('${enc}')">
+    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+
+      <!-- 封面 -->
+      <div class="cover-gradient bg-gradient-to-br ${style.grad} flex flex-col justify-between p-4">
+        <div class="text-3xl">${style.emoji}</div>
+        <div class="mt-4">
+          ${p.domain ? `<span class="text-white/80 text-xs bg-white/20 px-2 py-0.5 rounded-full">${p.domain}</span>` : ""}
+        </div>
+      </div>
+
+      <!-- 内容 -->
+      <div class="p-3">
+        <div class="text-xs font-semibold text-gray-800 line-clamp-2 leading-snug mb-2">${title}</div>
+        ${short ? `<p class="text-xs text-gray-400 line-clamp-3 leading-relaxed mb-3">${short}</p>` : ""}
+
+        <!-- 底部分数 + 点赞 -->
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1.5">
+            ${year ? `<span class="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">${year}</span>` : ""}
+            ${p.venue && p.venue !== 'unknown' ? `<span class="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">${p.venue}</span>` : ""}
+          </div>
+          <div class="flex items-center gap-2 text-[10px] font-bold">
+            <span class="text-pink-500">质量 ${quality}%</span>
+            <button onclick="event.stopPropagation();likeCard('${enc}',this)"
+              class="flex items-center gap-0.5 text-gray-400 hover:text-red-400 transition-colors">
+              ♥ <span class="like-count">${p.likes||0}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── 搜索 ─────────────────────────────────────────────────
+async function doSearch() {
+  const q    = document.getElementById("query-input").value.trim();
+  const mode = document.getElementById("mode-select").value;
+  if (!q) { loadHome(); return; }
+
+  isSearchMode = true;
+  hasMore      = false;
+  document.getElementById("status-bar").textContent = "搜索中…";
+  document.getElementById("card-grid").innerHTML    = "";
+  document.getElementById("no-more-tip").classList.add("hidden");
+
+  try {
+    const res  = await fetch(`${API}/search?q=${encodeURIComponent(q)}&mode=${mode}&top_k=10`);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`服务器错误 ${res.status}: ${text.slice(0, 100)}`);
+    }
+    const data = await res.json();
+    const papers = (data.results || []).map(r => {
+      const found = allPapers.find(p => p.paper === r.paper) || {};
+      return { ...found, ...r, paper_quality_score: r.quality_score, skill_rubric_total: r.rubric };
+    });
+    renderGrid(papers);
+    document.getElementById("status-bar").textContent =
+      `"${q}" · ${mode}模式 · ${papers.length} 篇`;
+  } catch (e) {
+    console.error("搜索失败:", e);
+    document.getElementById("status-bar").innerHTML =
+      `<span class="text-red-400">搜索失败：${e.message}</span>`;
+  }
+}
+
+// ── 详情弹窗 ─────────────────────────────────────────────
+async function openModal(encodedPaper) {
+  const paper = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const modal  = document.getElementById("modal");
+  const content = document.getElementById("modal-content");
+  modal.classList.remove("hidden");
+  content.innerHTML = `<div class="flex items-center justify-center h-40 text-gray-400 text-sm">加载中…</div>`;
+
+  try {
+    const res  = await fetch(`${API}/paper/${encodeURIComponent(paper)}`);
+    const data = await res.json();
+    const meta = allPapers.find(p => p.paper === data.paper) || {};
+    content.innerHTML = renderModal(data, meta);
+    // 恢复昵称（旧匿名模式兼容，现在登录后不再需要）
+    const nickEl = document.getElementById("cm-nickname");
+    if (nickEl) { const saved = localStorage.getItem("nickname"); if (saved) nickEl.value = saved; }
+    // 异步加载图片和评论
+    const enc = encodeURIComponent(data.paper || "");
+    loadImages(enc);
+    loadRecommend(enc);
+    loadComments(enc);
+    // 记录浏览行为
+    fetch(`${API}/view/${encodeURIComponent(data.paper || "")}`, {
+      method: "POST",
+      headers: getToken() ? { "Authorization": `Bearer ${getToken()}` } : {},
+    }).catch(() => {});
+  } catch {
+    content.innerHTML = `<div class="p-6 text-red-400 text-sm">加载失败</div>`;
+  }
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+function renderModal(d, meta) {
+  const style   = getDomainStyle(meta.domain);
+  const title   = d.title_cn || formatTitle(d.paper || "");
+  const year    = getYear(d.paper || "");
+  const quality = ((d.paper_quality_score || 0) * 100).toFixed(0);
+  const rubric  = ((d.skill_rubric_total  || 0) * 100).toFixed(0);
+
+  const skillNames = {
+    skill1:"研究问题", skill2:"方法论", skill3:"数据集",
+    skill4:"实验结果", skill5:"批判分析", skill6:"综合"
+  };
+  const skillColors = {
+    skill1:"bg-pink-400", skill2:"bg-purple-400", skill3:"bg-yellow-400",
+    skill4:"bg-orange-400", skill5:"bg-red-400", skill6:"bg-green-400"
+  };
+  const skills  = d.skill_scores  || {};
+  const reasons = d.skill_reasons || {};
+
+  const skillHtml = Object.entries(skillNames).map(([key, name]) => {
+    const score = (skills[key] ?? 0);
+    return `
+    <div class="mb-3">
+      <div class="flex justify-between text-xs text-gray-500 mb-1">
+        <span>${name}</span><span class="font-semibold">${(score*100).toFixed(0)}%</span>
+      </div>
+      <div class="bg-gray-100 rounded-full h-1.5">
+        <div class="${skillColors[key]} h-1.5 rounded-full transition-all" style="width:${score*100}%"></div>
+      </div>
+      ${reasons[key] ? `<p class="text-[11px] text-gray-400 mt-1 leading-relaxed">${reasons[key]}</p>` : ""}
+    </div>`;
+  }).join("");
+
+  let sectionIdx = 0;
+  const section = (icon, title, content) => {
+    if (!content) return "";
+    const id = `sec-${Date.now()}-${sectionIdx++}`;
+    return `
+    <div class="mb-2 border border-gray-100 rounded-xl overflow-hidden">
+      <button onclick="toggleSection('${id}')"
+        class="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors text-left">
+        <div class="flex items-center gap-2">
+          <span>${icon}</span>
+          <span class="text-sm font-semibold text-gray-700">${title}</span>
+        </div>
+        <span id="${id}-arrow" class="text-gray-400 text-xs transition-transform">▼</span>
+      </button>
+      <div id="${id}" class="hidden px-4 py-3 border-t border-gray-100">
+        <div class="text-sm text-gray-600 leading-relaxed section-content">${marked.parse(content)}</div>
+      </div>
+    </div>`;
+  };
+
+  const paperKey = d.paper || "";
+  const arxivUrl = d.arxiv_id
+    ? `https://arxiv.org/abs/${d.arxiv_id}`
+    : `https://arxiv.org/search/?query=${encodeURIComponent(title)}&searchtype=all`;
+
+  return `
+  <!-- 封面 -->
+  <div class="bg-gradient-to-br ${style.grad} px-6 pt-10 pb-6 relative">
+    <button onclick="closeModal()"
+      class="absolute top-4 right-4 text-white/70 hover:text-white text-xl">✕</button>
+    <div class="text-4xl mb-3">${style.emoji}</div>
+    <h2 class="text-white font-bold text-base leading-snug mb-2">${title}</h2>
+    <div class="flex flex-wrap gap-2 text-xs text-white/80 mb-3">
+      ${year ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${year}</span>` : ""}
+      ${meta.venue && meta.venue !== 'unknown' ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${meta.venue}</span>` : ""}
+      ${meta.domain ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${meta.domain}</span>` : ""}
+      ${meta.open_source && meta.open_source !== 'unknown' ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">开源: ${meta.open_source}</span>` : ""}
+    </div>
+    <div class="flex gap-2">
+      <a href="${arxivUrl}" target="_blank"
+        class="text-xs bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full transition-colors">
+        🔗 查看原文
+      </a>
+      <button onclick="likeModal('${encodeURIComponent(paperKey)}', this)"
+        class="text-xs bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full transition-colors flex items-center gap-1">
+        ♥ <span id="modal-likes">${d.likes||0}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 分数概览 -->
+  <div class="grid grid-cols-2 gap-4 px-6 py-5 bg-gray-50 border-b border-gray-100">
+    <div class="text-center">
+      <div class="text-2xl font-black text-pink-500">${quality}<span class="text-sm font-normal">%</span></div>
+      <div class="text-xs text-gray-400 mt-0.5">论文质量分</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-black text-indigo-500">${rubric}<span class="text-sm font-normal">%</span></div>
+      <div class="text-xs text-gray-400 mt-0.5">Rubric 总分</div>
+    </div>
+  </div>
+
+  <!-- 内容区 -->
+  <div class="px-6 py-5">
+
+    <!-- 综合评语 -->
+    ${d.comment ? `
+    <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-4">
+      <div class="text-xs font-semibold text-amber-700 mb-1.5">💬 综合评语</div>
+      <p class="text-sm text-amber-800 leading-relaxed">${d.comment}</p>
+    </div>` : ""}
+
+    <!-- 内容分节 -->
+    ${section("❓", "研究问题", d.research_question)}
+    ${section("⚙️", "核心方法", d.methodology)}
+    ${section("📊", "数据集", d.datasets)}
+    ${section("📈", "实验结果", d.results)}
+    ${section("⚠️", "局限性", d.critique)}
+
+    <!-- 图片区（异步加载） -->
+    <div id="img-section-${encodeURIComponent(paperKey)}" class="mb-2"></div>
+
+    <!-- Skill 评分 -->
+    <div class="border-t border-gray-100 pt-5 mb-2">
+      <div class="text-sm font-semibold text-gray-700 mb-4">📋 Skill Rubric 详细评分</div>
+      ${skillHtml}
+    </div>
+
+    <!-- 相似论文推荐（异步加载） -->
+    <div id="rec-section-${encodeURIComponent(paperKey)}" class="mb-2"></div>
+
+    <!-- 评论区 -->
+    <div class="border-t border-gray-100 pt-5" id="comment-section">
+      <div class="text-sm font-semibold text-gray-700 mb-3">💬 评论</div>
+
+      <!-- 发表评论 -->
+      <div class="bg-gray-50 rounded-xl p-3 mb-4" id="comment-input-area">
+        ${isLoggedIn()
+          ? `<div class="text-xs text-gray-400 mb-2">以 <span class="font-semibold text-gray-600">${getNickname()}</span> 身份发布</div>
+             <textarea id="cm-content" placeholder="写下你的想法…" maxlength="500" rows="3"
+               class="w-full mb-2 px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2442]/30 resize-none"></textarea>
+             <button onclick="submitComment('${encodeURIComponent(paperKey)}')"
+               class="bg-[#FF2442] text-white text-xs px-4 py-2 rounded-full hover:bg-[#e0203a] transition-colors">发布</button>`
+          : `<button onclick="openAuth('login')"
+               class="w-full text-sm text-gray-400 py-3 text-center hover:text-[#FF2442] transition-colors">
+               🔒 登录后发表评论
+             </button>`
+        }
+      </div>
+
+      <!-- 评论列表 -->
+      <div id="comment-list-${encodeURIComponent(paperKey)}">
+        <div class="text-xs text-gray-400 text-center py-3">加载评论中…</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── 折叠模块 ──────────────────────────────────────────────
+function toggleSection(id) {
+  const el    = document.getElementById(id);
+  const arrow = document.getElementById(id + "-arrow");
+  const open  = el.classList.toggle("hidden");
+  arrow.style.transform = open ? "" : "rotate(180deg)";
+}
+
+// ── 点赞（卡片）─────────────────────────────────────────
+async function likeCard(encodedPaper, btn) {
+  const paper = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const res   = await fetch(`${API}/like/${encodeURIComponent(paper)}`, { method: "POST" });
+  const data  = await res.json();
+  btn.querySelector(".like-count").textContent = data.likes;
+  btn.classList.add("text-red-400");
+}
+
+// ── 点赞（详情页）───────────────────────────────────────
+async function likeModal(encodedPaper, btn) {
+  const paper = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const res   = await fetch(`${API}/like/${encodeURIComponent(paper)}`, { method: "POST" });
+  const data  = await res.json();
+  document.getElementById("modal-likes").textContent = data.likes;
+  btn.classList.add("bg-white/40");
+}
+
+// ── 加载图片（弹窗打开后调用）───────────────────────────
+async function loadImages(encodedPaper) {
+  const paper   = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const el      = document.getElementById(`img-section-${encodedPaper}`);
+  if (!el) return;
+  try {
+    const res  = await fetch(`${API}/images/${encodeURIComponent(paper)}`);
+    const data = await res.json();
+    if (!data.images || !data.images.length) return;
+    const imgHtml = data.images.map(img => `
+      <div class="flex-shrink-0 w-48">
+        <img src="${API}${img.url}" class="w-48 h-32 object-cover rounded-lg mb-1" loading="lazy" />
+        <p class="text-[11px] text-gray-500 leading-snug">${img.caption || ""}</p>
+      </div>`).join("");
+    el.innerHTML = `
+      <div class="mb-2 border border-gray-100 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-gray-50 text-sm font-semibold text-gray-700">🖼 论文图表</div>
+        <div class="px-4 pt-3 pb-1">
+          ${data.summary ? `<p class="text-xs text-gray-500 mb-3 leading-relaxed">${data.summary}</p>` : ""}
+          <div class="flex gap-3 overflow-x-auto pb-3">${imgHtml}</div>
+        </div>
+      </div>`;
+  } catch { /* 无图片时静默 */ }
+}
+
+// ── 相似论文推荐 ─────────────────────────────────────────
+async function loadRecommend(encodedPaper) {
+  const paper = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const el    = document.getElementById(`rec-section-${encodedPaper}`);
+  if (!el) return;
+  try {
+    const res  = await fetch(`${API}/recommend/${encodeURIComponent(paper)}?top_k=4`);
+    const data = await res.json();
+    if (!data.recommendations || !data.recommendations.length) return;
+    const cards = data.recommendations.map(r => {
+      const style = getDomainStyle(r.domain);
+      const title = r.title_cn || formatTitle(r.paper);
+      const score = ((r.paper_quality_score || 0) * 100).toFixed(0);
+      const enc   = encodeURIComponent(r.paper);
+      return `
+      <div onclick="openModal('${enc}')"
+        class="flex-shrink-0 w-36 cursor-pointer hover:opacity-80 transition-opacity">
+        <div class="bg-gradient-to-br ${style.grad} rounded-xl h-20 flex items-end p-2 mb-1">
+          <span class="text-white/90 text-[10px] font-semibold line-clamp-2 leading-tight">${title}</span>
+        </div>
+        <div class="flex justify-between text-[10px] text-gray-400 px-0.5">
+          <span>${r.year || ""}</span>
+          <span class="text-pink-400 font-bold">${score}%</span>
+        </div>
+      </div>`;
+    }).join("");
+    el.innerHTML = `
+    <div class="border-t border-gray-100 pt-5 mb-2">
+      <div class="text-sm font-semibold text-gray-700 mb-3">🔗 相似论文</div>
+      <div class="flex gap-3 overflow-x-auto pb-2">${cards}</div>
+    </div>`;
+  } catch { /* 静默失败 */ }
+}
+
+// ── 加载评论 ────────────────────────────────────────────
+async function loadComments(encodedPaper) {
+  const paper = decodeURIComponent(encodedPaper).replace(".pdf", "");
+  const el    = document.getElementById(`comment-list-${encodedPaper}`);
+  if (!el) return;
+  try {
+    const res  = await fetch(`${API}/comments/${encodeURIComponent(paper)}`);
+    const data = await res.json();
+    if (!data.comments.length) {
+      el.innerHTML = `<div class="text-xs text-gray-400 text-center py-3">还没有评论，来第一个吧</div>`;
+      return;
+    }
+    el.innerHTML = data.comments.map(c => `
+      <div class="border-b border-gray-50 py-3 last:border-0">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-semibold text-gray-700">${c.nickname}</span>
+          <span class="text-[10px] text-gray-400">${c.created_at}</span>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed mb-1">${c.content}</p>
+        <button onclick="likeCommentBtn(${c.id}, this)"
+          class="text-[10px] text-gray-400 hover:text-red-400 transition-colors">
+          ♥ <span>${c.likes}</span>
+        </button>
+      </div>`).join("");
+  } catch {
+    el.innerHTML = `<div class="text-xs text-red-400 text-center py-3">加载失败</div>`;
+  }
+}
+
+// ── 提交评论 ────────────────────────────────────────────
+async function submitComment(encodedPaper) {
+  if (!isLoggedIn()) { openAuth("login"); return; }
+  const paper   = decodeURIComponent(encodedPaper);
+  const content = document.getElementById("cm-content").value.trim();
+  if (!content) { alert("请填写评论内容"); return; }
+  try {
+    const res = await fetch(`${API}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ paper, nickname: getNickname(), content }),
+    });
+    if (!res.ok) { alert("提交失败，请重试"); return; }
+    document.getElementById("cm-content").value = "";
+    loadComments(encodedPaper);
+  } catch { alert("提交失败，请重试"); }
+}
+
+// ── 评论点赞 ────────────────────────────────────────────
+async function likeCommentBtn(id, btn) {
+  const res  = await fetch(`${API}/comment/${id}/like`, { method: "POST" });
+  const data = await res.json();
+  btn.querySelector("span").textContent = data.likes;
+  btn.classList.add("text-red-400");
+}
+
+// ── 无限滚动 ──────────────────────────────────────────────
+const _scrollObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting && !isSearchMode) {
+    loadPage();
+  }
+}, { rootMargin: "200px" });
+_scrollObserver.observe(document.getElementById("scroll-sentinel"));
+
+// ── 初始化 ────────────────────────────────────────────────
+updateUserBtn();
+loadHome();
+</script>
+</body>
+</html>
